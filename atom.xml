@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-06-25T03:03:02.787Z</updated>
+  <updated>2024-07-07T02:10:26.102Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于科研绘图</title>
+    <link href="https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/"/>
+    <id>https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/</id>
+    <published>2024-07-07T01:46:25.000Z</published>
+    <updated>2024-07-07T02:10:26.102Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;理论知识&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#理论知识&quot;&gt;&lt;/a&gt; 理论知识&lt;/h2&gt;
+&lt;h3 id=&quot;1-图像分类&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-图像分类&quot;&gt;&lt;/a&gt; 1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="技巧" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>ssh免密码登录</title>
@@ -463,29 +487,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;ov5640摄像头实践&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#ov5640摄像头实践&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="https://songdongjing.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NFS挂载</title>
-    <link href="https://songdongjing.github.io/2024/05/06/nfs-gua-zai/"/>
-    <id>https://songdongjing.github.io/2024/05/06/nfs-gua-zai/</id>
-    <published>2024-05-06T11:54:19.000Z</published>
-    <updated>2024-06-11T05:13:47.578Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;嵌入式开发工作流&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#嵌入式开发工作流&quot;&gt;&lt;/a&gt;</summary>
         
       
     

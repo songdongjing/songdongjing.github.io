@@ -4,13 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="深入理解linux系统, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 
-linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。内核、shell和文件系统一起形成了基本的操作系统结构，使得用户可以运行程序、管理文件并使用系统。
-
-下面对每个部分进行讲解。
- 1.linux内核
-内核时操作系统">
+    <meta name="keywords" content="关于科研绘图, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 理论知识
+ 1 图像分类
+图像格式主要分为两类：光栅图像文件和矢量图像文件。
+ 1.1 光栅图像文件(位图)
+最常见地有JPEG,GIF和PNG三种。
+其文件类型为静态图像，调整图像大小会导致模糊失真。互联网绝大多数图像都是采用光栅图像格">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +22,7 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>深入理解linux系统 | 血肉苦痛，机械飞升</title>
+    <title>关于科研绘图 | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -440,12 +440,12 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">深入理解linux系统</h1>
+                    <h1 class="description center-align post-title">关于科研绘图</h1>
                 </div>
             </div>
         </div>
@@ -469,8 +469,8 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                <span class="chip bg-color">嵌入式</span>
+                            <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                                <span class="chip bg-color">技巧</span>
                             </a>
                         
                     </div>
@@ -485,21 +485,21 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-04-24
+                    2024-07-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-07-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    716
+                    805
                 </div>
                 
 
@@ -526,38 +526,56 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
-<p>linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。内核、shell和文件系统一起形成了基本的操作系统结构，使得用户可以运行程序、管理文件并使用系统。</p>
-<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/linux-system-1-300x298.png" alt="Linux系统结构"></p>
-<p>下面对每个部分进行讲解。</p>
-<h1 id="1linux内核"><a class="markdownIt-Anchor" href="#1linux内核"></a> 1.linux内核</h1>
-<p>内核时操作系统的核心，负责管理系统的进程、内存、设备驱动程序、文件和网络系统，决定着系统的性能和稳定性。</p>
-<p>Linux 内核由如下几部分组成：内存管理、进程管理、设备驱动程序、文件系统和网络管理等。如图：</p>
-<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/linux-system-2.jpg" alt="Linux内核结构"></p>
-<h2 id="11系统调用接口"><a class="markdownIt-Anchor" href="#11系统调用接口"></a> 1.1系统调用接口</h2>
-<p>系统调用接口提供从用户空间到内核的函数调用。</p>
-<h2 id="12内存管理"><a class="markdownIt-Anchor" href="#12内存管理"></a> 1.2内存管理</h2>
-<p>linux采用虚拟内存的内存管理方式，将内存划分为容易处理的“内存页”。</p>
-<h2 id="13进程管理"><a class="markdownIt-Anchor" href="#13进程管理"></a> 1.3进程管理</h2>
-<p>进程是某特定应用程序的一个运行实体。linux通过在时间间隔（<strong>时间片</strong>）内轮流运行这些进程来实现<strong>多任务</strong>，被称作<strong>进程调度</strong>。其主要是控制进程对cpu的访问，linux采用了基于优先级的进程调度算法。</p>
-<p>多任务机制需要<strong>进程间通信</strong>进行辅助，常见的有<strong>信号，管道，共享内存，信号量和套接字</strong>。</p>
-<p>系统调用API：①创建新进程：fork,exec,POSIX函数②停止进程：kill,exit③通信和同步：signal,POSIX机制</p>
-<h2 id="14文件系统"><a class="markdownIt-Anchor" href="#14文件系统"></a> 1.4文件系统</h2>
-<p>linux系统将独立的文件系统组合成一个层次化的树形结构，将新的文件系统通过<strong>挂载</strong>操作，挂载到某个目录上。从而让不同的文件系统组合成一个整体。</p>
-<p>linux最普遍使用的文件系统时Ext2，但是也支持其他不同类型的文件系统，并且将其组织成一个统一的虚拟文件系统</p>
-<h3 id="141虚拟文件系统vfs"><a class="markdownIt-Anchor" href="#141虚拟文件系统vfs"></a> 1.4.1虚拟文件系统VFS</h3>
-<p>VFS为所有设备提供了统一的接口。其可以分为逻辑文件系统和设备驱动程序。逻辑文件系统指linux支持的文件系统，设备驱动程序指硬件控制器所编写的设备驱动程序模块。</p>
+                <h2 id="理论知识"><a class="markdownIt-Anchor" href="#理论知识"></a> 理论知识</h2>
+<h3 id="1-图像分类"><a class="markdownIt-Anchor" href="#1-图像分类"></a> 1 图像分类</h3>
+<p>图像格式主要分为两类：光栅图像文件和矢量图像文件。</p>
+<h4 id="11-光栅图像文件位图"><a class="markdownIt-Anchor" href="#11-光栅图像文件位图"></a> 1.1 光栅图像文件(位图)</h4>
+<p>最常见地有JPEG,GIF和PNG三种。<br>
+其文件类型为静态图像，调整图像大小会导致模糊失真。互联网绝大多数图像都是采用光栅图像格式</p>
 <ul>
-<li>VFS上面是open,close,read和write等通用系统调用API</li>
-<li>VFS下面是文件系统抽象</li>
-<li>文件系统下面是缓存区缓存，通过将数据保留一段时间从而优化对物理设备的访问</li>
-<li>缓存区之下是设备驱动程序，实现了特定物理设备的接口</li>
+<li>JPEG：有损压缩，适合照片，不适合线条图。</li>
+<li>GIF：有损压缩，适合简单图形，不适合线条图。</li>
+<li>PNG：无损压缩，适合线条图，不适合照片。</li>
 </ul>
-<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/linux-system-3-300x245.jpeg" alt="文件系统结构"></p>
-<h2 id="15设备驱动程序"><a class="markdownIt-Anchor" href="#15设备驱动程序"></a> 1.5设备驱动程序</h2>
-<p>设备驱动程序运行在高特权级的处理器环境中，从而可以直接对硬件进行操作。</p>
-<h2 id="16网络接口"><a class="markdownIt-Anchor" href="#16网络接口"></a> 1.6网络接口</h2>
-<p>网络接口分为网络协议和网络驱动程序。</p>
+<h4 id="12矢量图像文件"><a class="markdownIt-Anchor" href="#12矢量图像文件"></a> 1.2矢量图像文件</h4>
+<p>最常见地有SVG,EPS,AI和PDF。<br>
+矢量图像使用笛卡尔平面上的直线和曲线系统(即通过数学公式计算获得的)，所以所方式可以无线扩大原始图像分辨率。</p>
+<h4 id="13各图像格式应用领域"><a class="markdownIt-Anchor" href="#13各图像格式应用领域"></a> 1.3各图像格式应用领域</h4>
+<ul>
+<li>JPEG（或JPG） – 最为常见的图像格式</li>
+<li>PNG – Web广泛使用的图像格式</li>
+<li>GIF – 动画图像格式</li>
+<li>WebP – JPEG&amp;PNG最佳替代图像格式</li>
+<li>TIFF – 扫描仪最佳拍档图像格式</li>
+<li>BMP – 过气的图像格式</li>
+<li>HEIF – 手机照片常见图像格式</li>
+<li>SVG – 可缩放矢量图形格式</li>
+<li>EPS – 插画/排版设计矢量图像格式</li>
+<li>PDF – 电子书常用文档格式</li>
+<li>PSD – Photoshop文档格式</li>
+<li>AI – Adob​​e Illustrator文档格式</li>
+<li>XCF – GIMP图像编辑工具专属格式</li>
+<li>INDD – Adob​​e InDesign文档格式</li>
+<li>Raw – 数码相机图像存储文件格式</li>
+</ul>
+<h3 id="2科研绘图"><a class="markdownIt-Anchor" href="#2科研绘图"></a> 2.科研绘图</h3>
+<p>科研论文中地图片通常要求使用矢量图，更严格地会要求使用EPS格式。</p>
+<ul>
+<li>SVG（Scalable Vector Graphics）是一种基于 XML 描述的矢量图格式，与 EPS 类似，也是矢量图像格式，支持无损缩放。</li>
+<li>PDF（Portable Document Format）是一种用于文档交换的格式，也可以包含矢量图和位图图像。它常被用于跨平台文档显示和打印。</li>
+<li>EPS是一种矢量图格式，以文本形式存储图像数据，能够无损地放大或缩小，并保持图像的清晰度。常用于要求高分辨率和矢量性质的印刷品、出版物或图形设计。</li>
+</ul>
+<h2 id="图片制作工作流"><a class="markdownIt-Anchor" href="#图片制作工作流"></a> 图片制作工作流</h2>
+<p>我论文编写主要采用vscode编辑器使用latex进行编写，vscode中集成有drawio插件，通过drawio画图转pdf，然后再使用Adobe Illustrator进行编辑，最后导出为eps格式。以下是具体步骤:</p>
+<ul>
+<li>vscode中新建文件picture.drawio</li>
+<li>打开本地drawio软件打开该文件进行画图(vscode中也可以画，但是功能不全导出时有问题，后面会具体描述出了什么问题)</li>
+<li>使用Adobe Illustrator或者Adobe Acrobat pro打开pdf生成eps文件(Adobe Acrobat pro可以将pdf导出为内嵌式PostScript格式)</li>
+<li>在vscode中使用\includegraphics{picture.eps}插入图片</li>
+</ul>
+<h2 id="中间出现地一些未解决的问题"><a class="markdownIt-Anchor" href="#中间出现地一些未解决的问题"></a> 中间出现地一些未解决的问题</h2>
+<p>我最初是直接用vscode的drawio插件进行画图，但是导出为svg格式，然后再用工具转为pdf或者eps格式，但是发现转svg格式是正常的，svg转pdf或者eps总会出现公式无法显示，或者文字未显示全的情况，<br>
+后来只能放弃该操作。</p>
 
                 
             </div>
@@ -584,7 +602,7 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/04/24/shen-ru-li-jie-linux-xi-tong/">https://songdongjing.github.io/2024/04/24/shen-ru-li-jie-linux-xi-tong/</a>
+                    <a href="https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/">https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -622,8 +640,8 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                    <span class="chip bg-color">嵌入式</span>
+                                <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                                    <span class="chip bg-color">技巧</span>
                                 </a>
                             
                         </div>
@@ -702,17 +720,18 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/04/25/qian-ru-shi-ying-yong-kai-fa-li-lun-he-shi-jian/">
+                <a href="/2024/07/07/guan-yu-ke-yan-hui-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="嵌入式应用开发理论和实践">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="关于科研绘图">
                         
-                        <span class="card-title">嵌入式应用开发理论和实践</span>
+                        <span class="card-title">关于科研绘图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -722,9 +741,9 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -733,11 +752,12 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                        <span class="chip bg-color">技巧</span>
                     </a>
                     
                 </div>
@@ -751,13 +771,13 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/04/22/qian-ru-shi-ying-yong-bian-cheng-li-lun-he-shi-jian/">
+                <a href="/2024/06/24/ssh-mian-mi-ma-deng-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="嵌入式应用编程理论和实践">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="ssh免密码登录">
                         
-                        <span class="card-title">嵌入式应用编程理论和实践</span>
+                        <span class="card-title">ssh免密码登录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -768,7 +788,7 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-24
                             </span>
                         <span class="publish-author">
                             
@@ -781,8 +801,8 @@ linux系统一般有4个主要部分：内核、shell、文件系统和应用程
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                        <span class="chip bg-color">技巧</span>
                     </a>
                     
                 </div>
