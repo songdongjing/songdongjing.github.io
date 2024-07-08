@@ -4,9 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="NFS挂载, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 嵌入式开发工作流
-对于嵌入式开发而言一般需要接触3个系统，windows写文件或者写程序，虚拟机中开ubuntu系统交叉编译程序生成执行文件，开发版中将设备驱动文件加载或者运行编译好的可执行程序。所以这三大系统必然存在一个文件交换的过程。">
+    <meta name="keywords" content="空战几何学, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 动机
+关于飞行器之间的角度定义问题，在各个文献中简直是漏洞百出，角度的定义和其他文献甚至和百度百科都不一样。这里统一进行记录各个角度的定义，并给出相应的出处。
+ 角度定义
+ 飞行器自身姿态角度
+
+攻角/迎角(Attack Angle)α\">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>NFS挂载 | 血肉苦痛，机械飞升</title>
+    <title>空战几何学 | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -436,12 +440,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">NFS挂载</h1>
+                    <h1 class="description center-align post-title">空战几何学</h1>
                 </div>
             </div>
         </div>
@@ -465,8 +469,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                <span class="chip bg-color">嵌入式</span>
+                            <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
+                                <span class="chip bg-color">毕业进展</span>
                             </a>
                         
                     </div>
@@ -481,21 +485,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-05-06
+                    2024-07-08
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-07-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    484
+                    423
                 </div>
                 
 
@@ -522,38 +526,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="嵌入式开发工作流"><a class="markdownIt-Anchor" href="#嵌入式开发工作流"></a> 嵌入式开发工作流</h1>
-<p>对于嵌入式开发而言一般需要接触3个系统，windows写文件或者写程序，虚拟机中开ubuntu系统交叉编译程序生成执行文件，开发版中将设备驱动文件加载或者运行编译好的可执行程序。所以这三大系统必然存在一个文件交换的过程。</p>
-<h2 id="windows-ubuntu"><a class="markdownIt-Anchor" href="#windows-ubuntu"></a> windows-ubuntu</h2>
-<p>通过filezilla通过网络连接，采用FTP协议传输文件；用SSH服务进行远程控制。</p>
-<h2 id="windows-开发板"><a class="markdownIt-Anchor" href="#windows-开发板"></a> windows-开发板</h2>
-<p>通过MobaXterm用串口连接终端，或者用网络（见下一节）</p>
-<h2 id="ubuntu-开发板"><a class="markdownIt-Anchor" href="#ubuntu-开发板"></a> ubuntu-开发板</h2>
-<p>通常通过网络连接将ubuntu目录挂载到开发板上。这个过程较为麻烦，有以下流程：</p>
-<h3 id="安装网络服务"><a class="markdownIt-Anchor" href="#安装网络服务"></a> 安装网络服务</h3>
-<h4 id="ubuntu系统中"><a class="markdownIt-Anchor" href="#ubuntu系统中"></a> ubuntu系统中</h4>
-<p>NFS是一种网络服务，开发板可以通过网线连接ubuntu来使用NFS服务，也可以通过OTG线连接。</p>
-<p>首先安装NFS服务。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nfs-kernel-server<span class="token comment">#安装NFS服务</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>修改配置文件，允许开发板访问该目录</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/home/nfs *<span class="token punctuation">(</span>rw,nohide,insecure,no_subtree_check,async,no_root_squash<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>重启NFS服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> /etc/init.d/nfs-kernel-server restart<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="开发板中"><a class="markdownIt-Anchor" href="#开发板中"></a> 开发板中</h4>
-<p>由于我选择采用OTG线进行连接，所以需要安装驱动模拟USB网卡。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">modprobe g_ether<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>安装返回的语句中表示模拟出网卡USB0（或者是别的），然后设置其IP地址</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> usb0 <span class="token number">10.10</span>.70.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="在ubuntu中进行挂载"><a class="markdownIt-Anchor" href="#在ubuntu中进行挂载"></a> 在ubuntu中进行挂载</h4>
-<p>查找网卡设备</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> <span class="token parameter variable">-a</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>可以看到网卡设备为ens33(一般不一样)。然后设置其IP地址，并测试网络连接</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">ifconfig</span> ens35u1 <span class="token number">10.10</span>.70.2
-<span class="token function">ping</span> <span class="token parameter variable">-I</span> usb0 <span class="token number">10.10</span>.70.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>然后就可以挂载了</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mount</span> <span class="token parameter variable">-t</span> nfs <span class="token parameter variable">-o</span> nolock <span class="token number">10.10</span>.70.2:/home/sdj/linux/nfs /mnt
-<span class="token function">df</span> <span class="token parameter variable">-h</span> <span class="token comment">#查看挂载的情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>挂载完后就可以在ubuntu系统中将文件复制到/nfs文件中，开发板就可以在/mnt中找到该文件。</p>
+                <h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2>
+<p>关于飞行器之间的角度定义问题，在各个文献中简直是漏洞百出，角度的定义和其他文献甚至和百度百科都不一样。这里统一进行记录各个角度的定义，并给出相应的出处。</p>
+<h2 id="角度定义"><a class="markdownIt-Anchor" href="#角度定义"></a> 角度定义</h2>
+<h3 id="飞行器自身姿态角度"><a class="markdownIt-Anchor" href="#飞行器自身姿态角度"></a> 飞行器自身姿态角度</h3>
+<ul>
+<li>攻角/迎角(Attack Angle)<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>：飞机速度方向线在飞机对称平面内的投影与机翼弦线之间的夹角。 来源：百度百科</li>
+<li>飞行器侧滑角(Sideslip Angle)<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>：飞机速度方向线与其在飞机对称平面内的投影的夹角。 来源：百度百科<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-11-52-10.svg" alt="空战几何学-2024-07-08-11-52-10"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-11-38-22.png" alt="空战几何学-2024-07-08-11-38-22"></li>
+</ul>
+<h3 id="飞行器之间角度"><a class="markdownIt-Anchor" href="#飞行器之间角度"></a> 飞行器之间角度</h3>
+<ul>
+<li>夹角(Angle Off,AO)/航向夹角(Heading Crossing Angle,HCA)：两飞机之间飞行速度矢量之间的夹角 来源：art of kill<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-11-59-26.svg" alt="空战几何学-2024-07-08-11-59-26"></li>
+<li>方位角(Aspect Angle,AA): 敌方飞机机头方向与攻击机位置之间的夹角 来源：art of kill<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-17-12-37.svg" alt="空战几何学-2024-07-08-17-12-37"><br>
+但是还有一种描述如下，AO_ego,TA_ego，来源：各种文献，这里还没搞懂。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-17-52-33.svg" alt="空战几何学-2024-07-08-17-52-33"></li>
+</ul>
+<h3 id="整理各文献中角度定义"><a class="markdownIt-Anchor" href="#整理各文献中角度定义"></a> 整理各文献中角度定义</h3>
+<h4 id="1art-of-kill"><a class="markdownIt-Anchor" href="#1art-of-kill"></a> 1.art of kill</h4>
+<p><a target="_blank" rel="noopener" href="https://www.docin.com/p-239670663.html">art of kill</a><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-17-57-04.png" alt="空战几何学-2024-07-08-17-57-04"></p>
+<h4 id="2基于lstmppo算法的多机空战智能决策及目标分配"><a class="markdownIt-Anchor" href="#2基于lstmppo算法的多机空战智能决策及目标分配"></a> 2.基于LSTMPPO算法的多机空战智能决策及目标分配</h4>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-17-59-27.png" alt="空战几何学-2024-07-08-17-59-27"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-18-00-30.png" alt="空战几何学-2024-07-08-18-00-30"><br>
+在这篇文献中，HCA代表1中的夹角，图中AA的定义代表1中的方位角。</p>
+<h4 id="3uav-maneuver-decision-making-via-deep-reinforcement-learning-for-short-range-air-combat"><a class="markdownIt-Anchor" href="#3uav-maneuver-decision-making-via-deep-reinforcement-learning-for-short-range-air-combat"></a> 3.UAV maneuver decision-making via deep reinforcement learning for short-range air combat</h4>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-18-07-16.png" alt="空战几何学-2024-07-08-18-07-16"><br>
+这篇文章中把我方速度方向与机身连线的角定义为攻击角<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\phi_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">ϕ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，把敌方速度方向与机身连线的角度定义为逃脱角<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">\phi_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">ϕ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>(顺便一提，我代码中就是用的这两个角<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\phi_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">ϕ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msub><mi>O</mi><mrow><mi>e</mi><mi>g</mi><mi>o</mi></mrow></msub></mrow><annotation encoding="application/x-tex">AO_{ego}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">o</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">\phi_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">ϕ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><msub><mi>A</mi><mrow><mi>e</mi><mi>g</mi><mi>o</mi></mrow></msub></mrow><annotation encoding="application/x-tex">TA_{ego}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">o</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示)<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-18-07-47.png" alt="空战几何学-2024-07-08-18-07-47"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%A9%BA%E6%88%98%E5%87%A0%E4%BD%95%E5%AD%A6-2024-07-08-18-08-01.png" alt="空战几何学-2024-07-08-18-08-01"></p>
 
                 
             </div>
@@ -580,7 +584,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/05/06/nfs-gua-zai/">https://songdongjing.github.io/2024/05/06/nfs-gua-zai/</a>
+                    <a href="https://songdongjing.github.io/2024/07/08/kong-zhan-ji-he-xue/">https://songdongjing.github.io/2024/07/08/kong-zhan-ji-he-xue/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -618,8 +622,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                    <span class="chip bg-color">嵌入式</span>
+                                <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
+                                    <span class="chip bg-color">毕业进展</span>
                                 </a>
                             
                         </div>
@@ -698,17 +702,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/05/06/qian-ru-shi-she-xiang-tou-cai-ji/">
+                <a href="/2024/07/08/kong-zhan-ji-he-xue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="嵌入式摄像头采集">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="空战几何学">
                         
-                        <span class="card-title">嵌入式摄像头采集</span>
+                        <span class="card-title">空战几何学</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,9 +723,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -729,11 +734,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
+                        <span class="chip bg-color">毕业进展</span>
                     </a>
                     
                 </div>
@@ -747,13 +753,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/04/30/qian-ru-shi-uboot-yi-zhi-he-ji-ben-pei-zhi/">
+                <a href="/2024/07/07/guan-yu-ke-yan-hui-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="嵌入式uboot移植和基本配置">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="关于科研绘图">
                         
-                        <span class="card-title">嵌入式uboot移植和基本配置</span>
+                        <span class="card-title">关于科研绘图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -764,7 +770,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-07
                             </span>
                         <span class="publish-author">
                             
@@ -777,8 +783,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/%E6%8A%80%E5%B7%A7/">
+                        <span class="chip bg-color">技巧</span>
                     </a>
                     
                 </div>
