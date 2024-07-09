@@ -492,14 +492,14 @@ chkconfig --level 2345 sshd on #SS">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-07-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    275
+                    284
                 </div>
                 
 
@@ -554,7 +554,9 @@ chkconfig --level 2345 sshd on #SS">
 <p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/image-20240429115805507.png" alt="image-20240429115805507"></p>
 <h2 id="服务器conda多用户配置"><a class="markdownIt-Anchor" href="#服务器conda多用户配置"></a> 服务器conda多用户配置</h2>
 <h3 id="服务端首先建立一个新用户"><a class="markdownIt-Anchor" href="#服务端首先建立一个新用户"></a> 服务端首先建立一个新用户</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> adduser aaa <span class="token comment">#创建一个用户名为aaa的新用户,创建的用户在home目录下</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> adduser aaa <span class="token comment">#创建一个用户名为aaa的新用户,创建的用户在home目录下</span>
+
+<span class="token function">sudo</span> <span class="token function">usermod</span> <span class="token parameter variable">-aG</span> <span class="token function">sudo</span> <span class="token punctuation">[</span>username<span class="token punctuation">]</span> <span class="token comment">#给root权限</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h3 id="conda多用户配置"><a class="markdownIt-Anchor" href="#conda多用户配置"></a> conda多用户配置</h3>
 <p>在安装了anaconda的用户下，打开.bashrc文件找到anaconda initialize部分(通常有两个部分)，复制第一段到新用户的.bashrc文件下面。</p>
 
