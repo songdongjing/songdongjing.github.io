@@ -4,14 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="latex深入拓展, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 1.原因
-在用latex写作用参考文献时出现了错误，所以深入分析了一下latex的文件内容，顺便写一下latex相关的知识总结
- 2.latex运行过程
-我的latex工程文件如下图所示
-
-其中红圈中的为重点文件。
- 2.1 main.t">
+    <meta name="keywords" content="python外部库深入探究-jsbsim库为例, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 动机
+由于jsbsim中的某些函数总是打印出一些烦人的文本，同时为了方便改写多进程代码，需要去了解该外部库的底层原理。
+ 创建一个自己的库
+学习别人的库最好的方式先打造一个自己的库，看看需要用到什么东西。
+pip install是在PyP">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>latex深入拓展 | 血肉苦痛，机械飞升</title>
+    <title>python外部库深入探究-jsbsim库为例 | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -441,12 +439,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">latex深入拓展</h1>
+                    <h1 class="description center-align post-title">python外部库深入探究-jsbsim库为例</h1>
                 </div>
             </div>
         </div>
@@ -470,8 +468,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/latex/">
-                                <span class="chip bg-color">latex</span>
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
                             </a>
                         
                     </div>
@@ -486,28 +484,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-06-06
+                    2024-07-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-07-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    885
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    7 分
                 </div>
                 
 
@@ -527,152 +525,279 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1原因"><a class="markdownIt-Anchor" href="#1原因"></a> 1.原因</h2>
-<p>在用latex写作用参考文献时出现了错误，所以深入分析了一下latex的文件内容，顺便写一下latex相关的知识总结</p>
-<h2 id="2latex运行过程"><a class="markdownIt-Anchor" href="#2latex运行过程"></a> 2.latex运行过程</h2>
-<p>我的latex工程文件如下图所示</p>
-<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/image-20240606173530199.png" alt="image-20240606173530199"></p>
-<p>其中红圈中的为重点文件。</p>
-<h3 id="21-maintex"><a class="markdownIt-Anchor" href="#21-maintex"></a> 2.1 main.tex</h3>
-<p>main.tex是我编写内容的主要文件其中的结构如下:</p>
-<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>master<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">thesis-uestc</span><span class="token punctuation">}</span>
-<span class="token function selector">\title</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function selector">\author</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function selector">\advisor</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function selector">\school</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function selector">\major</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function selector">\studentnumber</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-
-<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
-	<span class="token function selector">\makecover</span>
-	<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">chineseabstract</span><span class="token punctuation">}</span>
-	<span class="token function selector">\chinesekeyword</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-	<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">chineseabstract</span><span class="token punctuation">}</span>
-	
-	<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">englishabstract</span><span class="token punctuation">}</span>
-	<span class="token function selector">\englishkeyword</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-	<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">englishabstract</span><span class="token punctuation">}</span>
-	
-	<span class="token function selector">\thesistableofcontents</span>
-	
-	<span class="token function selector">\chapter</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-		<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-            <span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-                <span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-                    <span class="token function selector">\subsubsection</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-                  
-   <span class="token function selector">\thesisbibliography</span><span class="token punctuation">{</span>reference<span class="token punctuation">}</span>
-   <span class="token function selector">\thesisaccomplish</span><span class="token punctuation">{</span>publications<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到本文档的文档格式非常规，而是自行定义了一个叫<strong>thesis-uestc</strong>的名字，其表示我们使用了自定义的模板，模板的内容存放在<strong>thesis-uestc.cls</strong>文档中。</p>
-<p>文档下方用**\thesisbibliography**，<strong>\thesisaccomplish</strong>取代了常规的**\bibliography**</p>
-<h3 id="22thesis-uestccls"><a class="markdownIt-Anchor" href="#22thesis-uestccls"></a> 2.2thesis-uestc.cls</h3>
-<p>该文件内容过多，足足有1100多行，其部分内容如下如下：</p>
-<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\NeedsTeXFormat</span><span class="token punctuation">{</span>LaTeX2e<span class="token punctuation">}</span> <span class="token comment">%指定需要的 LaTeX 格式</span>
-<span class="token function selector">\ProvidesClass</span><span class="token punctuation">{</span>thesis-uestc<span class="token punctuation">}</span>   <span class="token comment">%定义该文档类的名称。</span>
-
-<span class="token function selector">\LoadClass</span><span class="token punctuation">[</span>12pt, openany, twoside<span class="token punctuation">]</span><span class="token punctuation">{</span>book<span class="token punctuation">}</span>  <span class="token comment">%加载基础类，定义文档的基本设置</span>
-
-<span class="token function selector">\RequireXeTeX</span>   <span class="token comment">%指定文档必须使用XeTeX引擎进行编译</span>
- <span class="token comment">%加载必要的宏包</span>
-<span class="token function selector">\RequirePackage</span><span class="token punctuation">{</span>ifxetex<span class="token punctuation">}</span>
-
-<span class="token comment">%设置长度参数 （\lengthname要设置的长度参数名。length赋给该参数的长度值）</span>
-<span class="token function selector">\setlength</span><span class="token punctuation">{</span><span class="token function selector">\heavyrulewidth</span><span class="token punctuation">}</span><span class="token punctuation">{</span>0.9pt<span class="token punctuation">}</span>
- <span class="token comment">%自定类选项</span>
-<span class="token function selector">\DeclareMathAlphabet</span><span class="token punctuation">{</span><span class="token function selector">\mathbf</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@enc<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@mathrm<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\bfdefault</span><span class="token punctuation">}</span><span class="token punctuation">{</span>it<span class="token punctuation">}</span>
-<span class="token function selector">\DeclareMathAlphabet</span><span class="token punctuation">{</span><span class="token function selector">\mathbd</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@enc<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@mathrm<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\bfdefault</span><span class="token punctuation">}</span><span class="token punctuation">{</span>n<span class="token punctuation">}</span>
-
-<span class="token function selector">\setCJKmainfont</span><span class="token punctuation">[</span>AutoFakeBold=true<span class="token punctuation">]</span><span class="token punctuation">{</span>SimSun<span class="token punctuation">}</span> <span class="token comment">%设置文档的主要中文字体</span>
-
-<span class="token comment">%声明新的数学字体字母表</span>
-<span class="token function selector">\DeclareMathAlphabet</span><span class="token punctuation">{</span><span class="token function selector">\mathbf</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@enc<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\eu</span>@mathrm<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\bfdefault</span><span class="token punctuation">}</span><span class="token punctuation">{</span>it<span class="token punctuation">}</span>
-
-<span class="token function selector">\newcommand</span><span class="token punctuation">{</span><span class="token function selector">\bm</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\mathbf</span><span class="token punctuation">}</span>  <span class="token comment">%创建自己的自定义命令（\name：新命令的名称；definition：新命令的定义内容。）</span>
-
-<span class="token function selector">\graphicspath</span><span class="token punctuation">{</span><span class="token punctuation">{</span>./pic/<span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token comment">%指定图像文件的搜索路径</span>
-<span class="token function selector">\captionsetup</span><span class="token punctuation">[</span>subfigure<span class="token punctuation">]</span><span class="token punctuation">{</span>font=small, belowskip=6pt, width=36pt<span class="token punctuation">}</span><span class="token comment">%设置浮动对象（如图表）的标题格式和样式。</span>
-<span class="token function selector">\renewcommand</span><span class="token punctuation">{</span><span class="token function selector">\thesubfigure</span><span class="token punctuation">}</span><span class="token punctuation">{</span>(<span class="token function selector">\alph</span><span class="token punctuation">{</span>subfigure<span class="token punctuation">}</span>)<span class="token punctuation">}</span> <span class="token comment">%重新定义已存在命令的命令。</span>
-<span class="token function selector">\urlstyle</span><span class="token punctuation">{</span>rm<span class="token punctuation">}</span> <span class="token comment">%设置 URL 在文本中的显示样式。</span>
-<span class="token function selector">\raggedbottom</span>  <span class="token comment">%设置页面的底部对齐方式。</span>
-<span class="token function selector">\pagestyle</span><span class="token punctuation">{</span>fancy<span class="token punctuation">}</span> <span class="token comment">%设置页面样式的命令</span>
-<span class="token function selector">\linespread</span><span class="token punctuation">{</span>1.391<span class="token punctuation">}</span>  <span class="token comment">%设置行距</span>
-<span class="token function selector">\titlespacing</span><span class="token punctuation">{</span><span class="token function selector">\chapter</span><span class="token punctuation">}</span><span class="token punctuation">{</span>0pt<span class="token punctuation">}</span><span class="token punctuation">{</span>0pt<span class="token punctuation">}</span><span class="token punctuation">{</span>18pt<span class="token punctuation">}</span> <span class="token comment">%调整标题（包括章节标题、图表标题等）与其上下文之间的间距</span>
-<span class="token function selector">\AtBeginEnvironment</span><span class="token punctuation">{</span>figure<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token comment">% 在特定环境开始时执行给定的命令</span>
-  <span class="token function selector">\def</span><span class="token function selector">\@</span>floatboxreset<span class="token punctuation">{</span><span class="token function selector">\centering</span><span class="token punctuation">}</span><span class="token comment">%</span>
-<span class="token punctuation">}</span>
-<span class="token function selector">\setcounter</span><span class="token punctuation">{</span>secnumdepth<span class="token punctuation">}</span><span class="token punctuation">{</span>3<span class="token punctuation">}</span> <span class="token comment">%设置计数器</span>
-<span class="token function selector">\ding</span><span class="token punctuation">{</span>173<span class="token punctuation">}</span><span class="token function selector">\or</span><span class="token function selector">\ding</span><span class="token punctuation">{</span>174<span class="token punctuation">}</span><span class="token function selector">\or</span><span class="token function selector">\ding</span><span class="token punctuation">{</span>175<span class="token punctuation">}</span><span class="token function selector">\or</span><span class="token function selector">\ding</span><span class="token punctuation">{</span>176<span class="token punctuation">}</span><span class="token function selector">\or</span><span class="token function selector">\ding</span><span class="token punctuation">{</span>177<span class="token punctuation">}</span><span class="token function selector">\or</span>  <span class="token comment">%插入特定的字符</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>该文件主要定义了文档的整体布局和格式。</p>
-<h3 id="3-thesis-uestcbst"><a class="markdownIt-Anchor" href="#3-thesis-uestcbst"></a> 3 thesis-uestc.bst</h3>
-<p>该文件是BibTeX 样式文件，用于定义参考文献的格式和排版方式。其主要内容如下：</p>
-<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token comment">%定义了各种参考文献类型的格式</span>
-ENTRY
-<span class="token punctuation">{</span>
-  author
-  title
-  publisher
-  journal
-  address
-  year
-  date
-  pages
-  translator
-  booktitle
-  institution
-  country
-  url
-  volume
-  number
-  type
-  id
-  note
-  language
-  eprint
-<span class="token punctuation">}</span>
-<span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token punctuation">{</span>label<span class="token punctuation">}</span>
-<span class="token comment">%包括一些用于格式化文献条目的函数，比如格式化作者名字、标题等的函数。</span>
-FUNCTION <span class="token punctuation">{</span>not<span class="token punctuation">}</span>
-<span class="token punctuation">{</span>   <span class="token punctuation">{</span> #0 <span class="token punctuation">}</span>
-    <span class="token punctuation">{</span> #1 <span class="token punctuation">}</span>
-  if$
-<span class="token punctuation">}</span>
-<span class="token comment">%定义了一些字符串变量，用于在文献条目中引用固定的文本，比如月份的英文缩写、页码的前缀等。</span>
-STRINGS <span class="token punctuation">{</span> s t<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>下面可以通过硕士论文引用来介绍功能：</p>
-<p>首先在reference.bib文件中</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">@masterthesis{shangyabo,
-  author={尚亚博},
-  title={ 基于蚁群算法协同空战决策研究 },
-  school={东北大学},
-  year={2009},
-  type={硕士论文},
-  month={6},
-  pages = {48-64},
-  institution = {知网},
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其格式由theis-uestc.bst中定义</p>
-<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">FUNCTION <span class="token punctuation">{</span>masterthesis<span class="token punctuation">}</span>
-<span class="token punctuation">{</span>
-    thesis
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>说明他的格式和thesis一样</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">FUNCTION {thesis}
+                <h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2>
+<p>由于jsbsim中的某些函数总是打印出一些烦人的文本，同时为了方便改写多进程代码，需要去了解该外部库的底层原理。</p>
+<h2 id="创建一个自己的库"><a class="markdownIt-Anchor" href="#创建一个自己的库"></a> 创建一个自己的库</h2>
+<p>学习别人的库最好的方式先打造一个自己的库，看看需要用到什么东西。<br>
+<code>pip install</code>是在PyPI仓库中下载软件包，所以创建自己的库需要发布到这个仓库中。<br>
+首先创建一个项目，项目的目录结构如下</p>
+<pre class="line-numbers language-none"><code class="language-none">├── yourtool_name              目录
+│   └── db                 目录
+│       ├── __init__.py
+│       └── your_code.py     工具类
+├── requirements.txt     依赖库
+├── setup.py             安装脚本
+├── README.md          说明文档
+├── upload_pypi.sh       上传到官方PyPI仓库脚本
+├── upload_pypi_test.sh 上传到官方测试PyPI仓库脚本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在<code>your_code</code>编写你的<code>pyhton</code>代码尽量采用PEP规范。比如下面定义了一个类。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">your_class</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>然后为了import方便，在<code>__init__.py</code>中将对外部暴露的报名规范</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span>db<span class="token punctuation">.</span>your_code <span class="token keyword">import</span> your_class<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>测试结果没问题后，编写发布库<code>setup.py</code>文件。(其中用到了setuptools后面介绍)</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> setuptools
+<span class="token keyword">import</span> re
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> bs4 <span class="token keyword">import</span> BeautifulSoup
+ 
+package_name <span class="token operator">=</span> <span class="token string">"yourtool_name"</span>
+ 
+ 
+<span class="token keyword">def</span> <span class="token function">curr_version</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 方法1：通过文件临时存储版本号</span>
+    <span class="token comment"># with open('VERSION') as f:</span>
+    <span class="token comment">#     version_str = f.read()</span>
+ 
+    <span class="token comment"># 方法2：从官网获取版本号</span>
+    url <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"https://pypi.org/project/</span><span class="token interpolation"><span class="token punctuation">{</span>package_name<span class="token punctuation">}</span></span><span class="token string">/"</span></span>
+    response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>response<span class="token punctuation">.</span>content<span class="token punctuation">,</span> <span class="token string">"html.parser"</span><span class="token punctuation">)</span>
+    latest_version <span class="token operator">=</span> soup<span class="token punctuation">.</span>select_one<span class="token punctuation">(</span><span class="token string">".release__version"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token builtin">str</span><span class="token punctuation">(</span>latest_version<span class="token punctuation">)</span>
+ 
+ 
+<span class="token keyword">def</span> <span class="token function">get_version</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 从版本号字符串中提取三个数字并将它们转换为整数类型</span>
+    <span class="token keyword">match</span> <span class="token operator">=</span> re<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">r"(\d+)\.(\d+)\.(\d+)"</span><span class="token punctuation">,</span> curr_version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    major <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token keyword">match</span><span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    minor <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token keyword">match</span><span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    patch <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token keyword">match</span><span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ 
+    <span class="token comment"># 对三个数字进行加一操作</span>
+    patch <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> patch <span class="token operator">&gt;</span> <span class="token number">9</span><span class="token punctuation">:</span>
+        patch <span class="token operator">=</span> <span class="token number">0</span>
+        minor <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> minor <span class="token operator">&gt;</span> <span class="token number">9</span><span class="token punctuation">:</span>
+            minor <span class="token operator">=</span> <span class="token number">0</span>
+            major <span class="token operator">+=</span> <span class="token number">1</span>
+    new_version_str <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">{</span>major<span class="token punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token punctuation">{</span>minor<span class="token punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token punctuation">{</span>patch<span class="token punctuation">}</span></span><span class="token string">"</span></span>
+    <span class="token keyword">return</span> new_version_str
+ 
+ 
+<span class="token keyword">def</span> <span class="token function">upload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"README.md"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> fh<span class="token punctuation">:</span>
+        long_description <span class="token operator">=</span> fh<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'requirements.txt'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+        required <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>splitlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ 
+    setuptools<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>
+        name<span class="token operator">=</span>package_name<span class="token punctuation">,</span>
+        version<span class="token operator">=</span>get_version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        author<span class="token operator">=</span><span class="token string">"Author's name"</span><span class="token punctuation">,</span>  <span class="token comment"># 作者名称</span>
+        author_email<span class="token operator">=</span><span class="token string">"xxxxxxx@163.com"</span><span class="token punctuation">,</span> <span class="token comment"># 作者邮箱</span>
+        description<span class="token operator">=</span><span class="token string">"Python helper tools"</span><span class="token punctuation">,</span> <span class="token comment"># 库描述</span>
+        long_description<span class="token operator">=</span>long_description<span class="token punctuation">,</span>
+        long_description_content_type<span class="token operator">=</span><span class="token string">"text/markdown"</span><span class="token punctuation">,</span>
+        url<span class="token operator">=</span><span class="token string">"https://pypi.org/project/yourtools/"</span><span class="token punctuation">,</span> <span class="token comment"># 库的官方地址</span>
+        packages<span class="token operator">=</span>setuptools<span class="token punctuation">.</span>find_packages<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">#包含的所有py文件</span>
+        data_files<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"requirements.txt"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment"># yourtools库依赖的其他库</span>
+        classifiers<span class="token operator">=</span><span class="token punctuation">[</span>
+            <span class="token string">"Programming Language :: Python :: 3"</span><span class="token punctuation">,</span>
+            <span class="token string">"License :: OSI Approved :: MIT License"</span><span class="token punctuation">,</span>
+            <span class="token string">"Operating System :: OS Independent"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        python_requires<span class="token operator">=</span><span class="token string">'&gt;=3.6'</span><span class="token punctuation">,</span>
+        install_requires<span class="token operator">=</span>required<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+ 
+ 
+<span class="token keyword">def</span> <span class="token function">write_now_version</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Current VERSION:"</span><span class="token punctuation">,</span> get_version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"VERSION"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> version_f<span class="token punctuation">:</span>
+        version_f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>get_version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ 
+ 
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        upload<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Upload success , Current VERSION:"</span><span class="token punctuation">,</span> curr_version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"Upload package error"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+ 
+ 
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>正式发布之前，建议先把库发布到PyPI的测试环境：<code>https://test.pypi.org</code>，编写发布测试脚本<code>upload_pypi_test.sh</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/zsh</span>
+ 
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> ./build   
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> ./dist
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> ./yourtools.egg-info
+ 
+python3 setup.py sdist bdist_wheel <span class="token comment">#打包</span>
+ 
+python3 <span class="token parameter variable">-m</span> twine upload --repository-url https://test.pypi.org/legacy/ dist/* <span class="token comment">#发布</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在测试环境中的库可以通过下面命令进行测试:<code>pip install -i https://test.pypi.org/simple/yourtools</code><br>
+测试没问题后，编写发布脚本<code>upload_pypi.sh</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/bin/bash</span>
+ 
+<span class="token comment"># Upload project to pypi</span>
+ 
+rm <span class="token operator">-</span>rf <span class="token punctuation">.</span><span class="token operator">/</span>build
+rm <span class="token operator">-</span>rf <span class="token punctuation">.</span><span class="token operator">/</span>dist
+rm <span class="token operator">-</span>rf <span class="token punctuation">.</span><span class="token operator">/</span>yourtools<span class="token punctuation">.</span>egg<span class="token operator">-</span>info
+ 
+python3 setup<span class="token punctuation">.</span>py sdist bdist_wheel <span class="token comment">#打包成wheel库</span>
+ 
+python3 <span class="token operator">-</span>m twine upload dist<span class="token operator">/</span><span class="token operator">*</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="setuptools"><a class="markdownIt-Anchor" href="#setuptools"></a> setuptools</h3>
+<p>在前面的步骤可以看到很重要的步骤就是用setuptools将所有文件打包，这里介绍一些打包步骤。</p>
+<ul>
+<li>安装:<code>sudo apt-get install python-setuptools</code></li>
+<li>使用:在文件中编写一个setup.py</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> setuptools <span class="token keyword">import</span> setup<span class="token punctuation">,</span> find_packages
+setup<span class="token punctuation">(</span>
+    name <span class="token operator">=</span> <span class="token string">"demo"</span><span class="token punctuation">,</span>
+    version <span class="token operator">=</span> <span class="token string">"0.1"</span><span class="token punctuation">,</span>
+    packages <span class="token operator">=</span> find_packages<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>待补充…</strong></p>
+<h2 id="jsb目录结构"><a class="markdownIt-Anchor" href="#jsb目录结构"></a> jsb目录结构</h2>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/python%E5%A4%96%E9%83%A8%E5%BA%93%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%A9%B6-jsbsim%E5%BA%93%E4%B8%BA%E4%BE%8B-2024-07-10-15-53-57.png" alt="python外部库深入探究-jsbsim库为例-2024-07-10-15-53-57"><br>
+比较重要文件树如下<br>
+其中:</p>
+<ul>
+<li>jsbsim.py为jsbsim库的入口文件,通过这个文件可以调用jsbsim库中的所有功能。</li>
+<li>__init__.py:由 Cython 编程语言 “编写” 而成的 Python 扩展模块头文件。.pxd 文件类似于 C 语言的 .h 头文件，.pxd 文件中有 Cython 模块要包含的 Cython 声明 (或代码段)。</li>
+<li>_jsbsim.pxd:jsbsim库的Cython文件，通过这个文件可以将jsbsim库中的C++代码转换为Python代码。</li>
+<li>_jsbsim.c:jsbsim库的C文件，通过这个文件可以将jsbsim库中的C++代码转换为C代码。</li>
+</ul>
+<h4 id="initpy"><a class="markdownIt-Anchor" href="#initpy"></a> <strong>init</strong>.py</h4>
+<p>首先看文件__init__.py<br>
+其内容如下:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span>_jsbsim <span class="token keyword">import</span> <span class="token punctuation">(</span>
+    __version__<span class="token punctuation">,</span>
+    BaseError<span class="token punctuation">,</span>
+    FGAerodynamics<span class="token punctuation">,</span>
+    FGAircraft<span class="token punctuation">,</span>
+    FGAtmosphere<span class="token punctuation">,</span>
+    FGAuxiliary<span class="token punctuation">,</span>
+    FGEngine<span class="token punctuation">,</span>
+    FGFDMExec<span class="token punctuation">,</span>
+    FGGroundReactions<span class="token punctuation">,</span>
+    FGJSBBase<span class="token punctuation">,</span>
+    FGLGear<span class="token punctuation">,</span>
+    FGLinearization<span class="token punctuation">,</span>
+    FGMassBalance<span class="token punctuation">,</span>
+    FGPropagate<span class="token punctuation">,</span>
+    FGPropertyManager<span class="token punctuation">,</span>
+    FGPropertyNode<span class="token punctuation">,</span>
+    FGPropulsion<span class="token punctuation">,</span>
+    GeographicError<span class="token punctuation">,</span>
+    TrimFailureError<span class="token punctuation">,</span>
+    ePressure<span class="token punctuation">,</span>
+    eTemperature<span class="token punctuation">,</span>
+    get_default_root_dir<span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>__init__.py文件中导入了jsbsim库中的所有模块，因此可以直接使用这些模块中的函数。</p>
+<h4 id="_jsbsimpxd"><a class="markdownIt-Anchor" href="#_jsbsimpxd"></a> _jsbsim.pxd</h4>
+<p>采用<code>cpython</code>编写，主要是引入C++代码中的各个类和函数</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#从C++标准库中导入常见类型</span>
+<span class="token keyword">from</span> libcpp cimport <span class="token builtin">bool</span>   
+<span class="token keyword">from</span> libcpp<span class="token punctuation">.</span>string cimport string
+<span class="token keyword">from</span> libcpp<span class="token punctuation">.</span>memory cimport shared_ptr
+<span class="token keyword">from</span> libcpp<span class="token punctuation">.</span>vector cimport vector
+<span class="token keyword">from</span> cpython<span class="token punctuation">.</span>ref cimport PyObject
+<span class="token comment">#从ExceptionManagement.h文件中导入base_error对象指针或函数</span>
+cdef extern <span class="token keyword">from</span> <span class="token string">"ExceptionManagement.h"</span><span class="token punctuation">:</span>
+    cdef PyObject<span class="token operator">*</span> base_error
+    cdef PyObject<span class="token operator">*</span> trimfailure_error
+    cdef PyObject<span class="token operator">*</span> geographic_error
+    cdef void convertJSBSimToPyExc<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">#从initialization/FGInitialCondition.h文件中将JSBSim::FGInitialCondition命名为c_FGInitialCondition</span>
+cdef extern <span class="token keyword">from</span> <span class="token string">"initialization/FGInitialCondition.h"</span> namespace <span class="token string">"JSBSim"</span><span class="token punctuation">:</span>
+    cdef cppclass c_FGInitialCondition <span class="token string">"JSBSim::FGInitialCondition"</span><span class="token punctuation">:</span>
+        c_FGInitialCondition<span class="token punctuation">(</span>c_FGInitialCondition<span class="token operator">*</span> ic<span class="token punctuation">)</span>
+        <span class="token builtin">bool</span> Load<span class="token punctuation">(</span>const c_SGPath<span class="token operator">&amp;</span> rstfile<span class="token punctuation">,</span> <span class="token builtin">bool</span> useAircraftPath<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="_jsbsimcp32-win_amd64pyd"><a class="markdownIt-Anchor" href="#_jsbsimcp32-win_amd64pyd"></a> _jsbsim.cp32-win_amd64.pyd</h4>
+<p>该文件为python的动态加载文件，通过python的工具将C代码编译成二进制形式，从而提升python程序性能。所以前面的<code>_jsbsim.pxd</code>导入的类和函数都来源于这里。</p>
+<h2 id="github源码"><a class="markdownIt-Anchor" href="#github源码"></a> github源码</h2>
+<p>由于采用了动态加载文件的形式无法看到其内部源码，所以去其官网查看其具体的代码。<br>
+去PyPI中下载其源代码。其文件目录为<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/python%E5%A4%96%E9%83%A8%E5%BA%93%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%A9%B6-jsbsim%E5%BA%93%E4%B8%BA%E4%BE%8B-2024-07-10-17-17-56.png" alt="python外部库深入探究-jsbsim库为例-2024-07-10-17-17-56"><br>
+在<code>src</code>目录中能够找到相应的C++目录<br>
+通过全局搜索找到了烦人文本出现的代码段</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">bool FGEngine::Load(FGFDMExec *exec, Element *engine_element)
 {
-    bibitem.begin
-    format.authors write$ add.period
-    format.title "[D]" * write$ add.period
-    address missing$
-    'skip$
-    {
-        format.address write$ ": " write$
-    } if$
-    format.institution write$ add.comma
-    format.year write$ add.comma
-    format.pages write$
-    "." write$
-    newline$
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  Element* parent_element = engine_element-&gt;GetParent();
+  Element* local_element;
+  FGColumnVector3 location, orientation;
+
+  auto PropertyManager = exec-&gt;GetPropertyManager();
+
+  Name = engine_element-&gt;GetAttributeValue("name");
+
+  // Call ModelFunctions loader
+  FGModelFunctions::Load(engine_element, exec, to_string((int)EngineNumber));
+
+  // If engine location and/or orientation is supplied issue a warning since they
+  // are ignored. What counts is the location and orientation of the thruster.
+  local_element = parent_element-&gt;FindElement("location");
+  if (local_element)
+    cerr &lt;&lt; local_element-&gt;ReadFrom()
+         &lt;&lt; "Engine location ignored, only thruster location is used." &lt;&lt; endl;
+
+  local_element = parent_element-&gt;FindElement("orient");
+  if (local_element)
+    cerr &lt;&lt; local_element-&gt;ReadFrom()
+         &lt;&lt; "Engine orientation ignored, only thruster orientation is used." &lt;&lt; endl;
+
+  // Load thruster
+  local_element = parent_element-&gt;FindElement("thruster");
+  if (local_element) {
+    try {
+      LoadThruster(exec, local_element);
+    } catch (std::string&amp; str) {
+      throw("Error loading engine " + Name + ". " + str);
+    }
+  } else {
+    cerr &lt;&lt; "No thruster definition supplied with engine definition." &lt;&lt; endl;
+  }
+
+  ResetToIC(); // initialize dynamic terms
+
+  // Load feed tank[s] references
+  local_element = parent_element-&gt;FindElement("feed");
+  while (local_element) {
+    int tankID = (int)local_element-&gt;GetDataAsNumber();
+    SourceTanks.push_back(tankID);
+    local_element = parent_element-&gt;FindNextElement("feed");
+  }
+
+  string property_name, base_property_name;
+  base_property_name = CreateIndexedPropertyName("propulsion/engine", EngineNumber);
+
+  property_name = base_property_name + "/set-running";
+  PropertyManager-&gt;Tie( property_name.c_str(), this, &amp;FGEngine::GetRunning, &amp;FGEngine::SetRunning );
+  property_name = base_property_name + "/thrust-lbs";
+  PropertyManager-&gt;Tie( property_name.c_str(), Thruster, &amp;FGThruster::GetThrust);
+  property_name = base_property_name + "/fuel-flow-rate-pps";
+  PropertyManager-&gt;Tie( property_name.c_str(), this, &amp;FGEngine::GetFuelFlowRate);
+  property_name = base_property_name + "/fuel-flow-rate-gph";
+  PropertyManager-&gt;Tie( property_name.c_str(), this, &amp;FGEngine::GetFuelFlowRateGPH);
+  property_name = base_property_name + "/fuel-used-lbs";
+  PropertyManager-&gt;Tie( property_name.c_str(), this, &amp;FGEngine::GetFuelUsedLbs);
+
+  PostLoad(engine_element, exec, to_string((int)EngineNumber));
+
+  Debug(0);
+
+  return true;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -699,7 +824,7 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/06/06/latex-shen-ru-tuo-zhan/">https://songdongjing.github.io/2024/06/06/latex-shen-ru-tuo-zhan/</a>
+                    <a href="https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/">https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -737,8 +862,8 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/latex/">
-                                    <span class="chip bg-color">latex</span>
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
                                 </a>
                             
                         </div>
@@ -817,17 +942,18 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/06/10/leetcode-shua-ti-ji-lu-1/">
+                <a href="/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="leetcode刷题记录(1)手写STL库">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="python外部库深入探究-jsbsim库为例">
                         
-                        <span class="card-title">leetcode刷题记录(1)手写STL库</span>
+                        <span class="card-title">python外部库深入探究-jsbsim库为例</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -837,9 +963,9 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -848,11 +974,12 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
                     </a>
                     
                 </div>
@@ -866,13 +993,13 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/06/03/zhi-neng-kong-zhan-fang-fa-si-lu/">
+                <a href="/2024/07/08/kong-zhan-ji-he-xue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="智能空战方法思路">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="空战几何学">
                         
-                        <span class="card-title">智能空战方法思路</span>
+                        <span class="card-title">空战几何学</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -883,7 +1010,7 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-08
                             </span>
                         <span class="publish-author">
                             
@@ -896,8 +1023,8 @@ STRINGS <span class="token punctuation">{</span> s t<span class="token punctuati
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">强化学习</span>
+                    <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
+                        <span class="chip bg-color">毕业进展</span>
                     </a>
                     
                 </div>

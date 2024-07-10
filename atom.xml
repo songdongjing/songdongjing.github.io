@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-08T10:23:24.820Z</updated>
+  <updated>2024-07-10T09:22:16.576Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python外部库深入探究-jsbsim库为例</title>
+    <link href="https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/"/>
+    <id>https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/</id>
+    <published>2024-07-10T07:51:27.000Z</published>
+    <updated>2024-07-10T09:22:16.576Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;由于jsbsim中的某些函数总是打印出一些烦人的文本，同时为了方便改写多进程代码，需要去了解该外部库的底层原理。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="https://songdongjing.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>空战几何学</title>
@@ -471,29 +496,6 @@
     
     
     <category term="硬件知识" scheme="https://songdongjing.github.io/tags/%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>右键菜单加入VSCode打开文件和文件夹</title>
-    <link href="https://songdongjing.github.io/2024/05/15/you-jian-cai-dan-jia-ru-vscode-da-kai-wen-jian-he-wen-jian-jia/"/>
-    <id>https://songdongjing.github.io/2024/05/15/you-jian-cai-dan-jia-ru-vscode-da-kai-wen-jian-he-wen-jian-jia/</id>
-    <published>2024-05-15T09:52:37.000Z</published>
-    <updated>2024-06-11T05:13:47.581Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;右键菜单加入用vscode打开文件和文件夹&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#右键菜单加入用vscode打开文件和文件夹&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="技巧" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
