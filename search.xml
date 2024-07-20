@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>wsl</title>
+      <link href="/2024/07/20/wsl/"/>
+      <url>/2024/07/20/wsl/</url>
+      
+        <content type="html"><![CDATA[<h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2><p>由于vscode突然连接不上wsl了，尝试了很多办法都无法解决，于是决定重装wsl，记录一下重装过程。</p><h2 id="wsl安装步骤"><a class="markdownIt-Anchor" href="#wsl安装步骤"></a> wsl安装步骤</h2><h3 id="windows系统配置"><a class="markdownIt-Anchor" href="#windows系统配置"></a> windows系统配置</h3><p>这里自行百度</p><h3 id="wsl2安装"><a class="markdownIt-Anchor" href="#wsl2安装"></a> wsl2安装</h3><ol><li>打开powershell，输入以下命令，并重启电脑</li></ol><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wsl <span class="token parameter variable">--install</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ol start="2"><li>更改 WSL 所在路径<br>安装完 WSL 后，默认是在 C 盘下的，一般来说系统盘的容量通常来说是有限的，需要更改安装目录。</li></ol><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wsl <span class="token parameter variable">--export</span> Ubuntu d:<span class="token punctuation">\</span>image_ubuntu.tar <span class="token comment">#导出当前的 Linux 系统镜像:</span>wsl <span class="token parameter variable">--unregister</span> Ubuntu <span class="token comment">#移除之前注册的 WSL 通过命令wsl -l -v查看</span>wsl <span class="token parameter variable">--import</span> Ubuntu d:<span class="token punctuation">\</span>WSL-Ubuntu-22.04 d:<span class="token punctuation">\</span>image_ubuntu22.04.tar  <span class="token comment">#前面是后续要放的位置，后面安装包的路径</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h3 id="vscode连接wsl"><a class="markdownIt-Anchor" href="#vscode连接wsl"></a> vscode连接wsl</h3><p>vscode安装wsl插件，直接进行连接。<br>但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>端到端自动驾驶系统探究</title>
+      <link href="/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/"/>
+      <url>/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/</url>
+      
+        <content type="html"><![CDATA[<h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2><p>近几年自动驾驶行业发展迅速，各种无人驾驶技术开始落地，最近萝卜快跑已经隐隐有取代出租车的趋势。但是针对其使用的技术究竟是常规的建图规划决策控制那一套，还是用的是最新的端到端自动驾驶系统还有待探究。还有比较好奇端到端自动驾驶究竟有没有用到强化学习技术。这篇文章从2023年cvpr的best paper出发，来了解自动驾驶行业目前的主流技术。</p><h2 id="论文阅读"><a class="markdownIt-Anchor" href="#论文阅读"></a> 论文阅读</h2><p>论文地址：<a href="https://arxiv.org/abs/2212.10156">Planning-oriented Autonomous Driving</a></p><h3 id="1引言"><a class="markdownIt-Anchor" href="#1引言"></a> 1.引言</h3><p>下图是应用深度学习的自动驾驶框架类型，如下图(a)所示，工业届主要采用这种，不同的任务单独训练不同的模型去解决。很显然这个跟传统算法类似，存在误差累积等问题；图(b)是采用多任务学习范式去解决这个问题，也就是采用一个共享的特征提取器然后用多个头去适应多个任务。这种方法在很多领域都很流行，但是会不可避免导致负迁移(negative transfer)，也就是先前的学习的内容会影响新任务的学习；所以使用端到端自动驾驶很有必要，图(c.1)中描述了一种最朴素的方案(vanilla solution)，只用一个网络直接从感知的数据输出轨迹，但是这样可解释性太差了，不安全。图(c.2)提供了一种直觉性地解决方案，比如先感知再预测，然后规划安全机动这类分模块的方法；图(c.3)引入了UniAD,一个统一的自动驾驶算法框架，用5个基本任务来实现该系统。<br><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%B3%BB%E7%BB%9F%E6%8E%A2%E7%A9%B6-2024-07-12-15-28-08.png" alt="应用深度学习的自动驾驶框架-2024-07-12-15-28-08"></p><h3 id="2方法"><a class="markdownIt-Anchor" href="#2方法"></a> 2.方法</h3><p>论文采用方法的流程(Pipeline),从图可知，该系统分为4个部分<br><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E7%AB%AF%E5%88%B0%E7%AB%AF%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%B3%BB%E7%BB%9F%E6%8E%A2%E7%A9%B6-2024-07-12-15-50-53.png" alt="系统架构-2024-07-12-15-50-53"></p><h4 id="21-backbone"><a class="markdownIt-Anchor" href="#21-backbone"></a> 2.1 backbone</h4><p>首先是数据输入的主干网络，这部分论文中并没有详细说，但是可以看到这个网络只接受视觉信息，通过<code>卷积神经网络</code>提取<code>透视图特征(perspective-view features)</code>，然后用<code>BEVFormer</code>中的<code>BEV编码器</code>转换为BEV特征。BEV特征在感知层很出名，但是这篇文章主要是针对决策规划，所以并没有详细介绍。</p><h4 id="22-perception"><a class="markdownIt-Anchor" href="#22-perception"></a> 2.2 perception</h4><p>感知层用<code>TrackFormer</code>中的<code>轨迹查询模块(track queries)</code>会从BEV特征中来检测和跟踪智能体。<code>MapFormer</code>采用<code>图查询</code>作为地图元素的语义抽象，并执行全景分割。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python外部库深入探究-jsbsim库为例</title>
       <link href="/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/"/>
       <url>/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/</url>

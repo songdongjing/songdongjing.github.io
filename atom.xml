@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-10T09:22:16.576Z</updated>
+  <updated>2024-07-20T15:24:47.103Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wsl</title>
+    <link href="https://songdongjing.github.io/2024/07/20/wsl/"/>
+    <id>https://songdongjing.github.io/2024/07/20/wsl/</id>
+    <published>2024-07-20T15:13:27.000Z</published>
+    <updated>2024-07-20T15:24:47.103Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;由于vscode突然连接不上wsl了，尝试了很多办法都无法解决，于是决定重装wsl，记录一下重装过程。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>端到端自动驾驶系统探究</title>
+    <link href="https://songdongjing.github.io/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/"/>
+    <id>https://songdongjing.github.io/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/</id>
+    <published>2024-07-12T07:17:57.000Z</published>
+    <updated>2024-07-12T11:15:15.746Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
+    
+  </entry>
   
   <entry>
     <title>python外部库深入探究-jsbsim库为例</title>
@@ -450,52 +498,6 @@
     
     
     <category term="嵌入式" scheme="https://songdongjing.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>windows上建立交叉编译</title>
-    <link href="https://songdongjing.github.io/2024/05/16/windows-shang-jian-li-jiao-cha-bian-yi/"/>
-    <id>https://songdongjing.github.io/2024/05/16/windows-shang-jian-li-jiao-cha-bian-yi/</id>
-    <published>2024-05-16T08:57:50.000Z</published>
-    <updated>2024-06-11T05:13:47.581Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;交叉编译的目的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#交叉编译的目的&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="https://songdongjing.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网线分类</title>
-    <link href="https://songdongjing.github.io/2024/05/16/wang-xian-fen-lei/"/>
-    <id>https://songdongjing.github.io/2024/05/16/wang-xian-fen-lei/</id>
-    <published>2024-05-16T07:13:30.000Z</published>
-    <updated>2024-06-11T05:13:47.585Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;原因&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#原因&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="硬件知识" scheme="https://songdongjing.github.io/tags/%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
