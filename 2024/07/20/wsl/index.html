@@ -502,7 +502,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    418
+                    487
                 </div>
                 
 
@@ -576,7 +576,16 @@ wsl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <h3 id="vscode连接wsl"><a class="markdownIt-Anchor" href="#vscode连接wsl"></a> vscode连接wsl</h3>
 <p>vscode安装wsl插件，直接进行连接。<br>
 但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</p>
+<h3 id="使用wsl部署文本转语音算法"><a class="markdownIt-Anchor" href="#使用wsl部署文本转语音算法"></a> 使用wsl部署文本转语音算法</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">conda create <span class="token parameter variable">-n</span> fish-speech <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.10</span>
+conda activate fish-speech
+<span class="token comment"># 安装 pytorch</span>
+conda <span class="token function">install</span> pytorch torchvision torchaudio pytorch-cuda<span class="token operator">=</span><span class="token number">11.8</span> <span class="token parameter variable">-c</span> pytorch <span class="token parameter variable">-c</span> nvidia
 
+<span class="token function">git</span> clone https://github.com/fishaudio/fish-speech.git <span class="token comment">#拉取代码</span>
+<span class="token builtin class-name">cd</span> fish-speech
+pip3 <span class="token function">install</span> <span class="token parameter variable">-e</span> <span class="token builtin class-name">.</span> <span class="token comment">#安装</span>
+<span class="token function">apt</span> <span class="token function">install</span> libsox-dev <span class="token comment">#安装依赖</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -998,7 +1007,7 @@ wsl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">31k</span>
+                        class="white-color">31.1k</span>
             
             
             
