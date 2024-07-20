@@ -555,7 +555,14 @@ wsl --set-default <span class="token operator">&lt;</span>Distribution Name<span
 <li>修改默认账号<br>
 如果移动完毕后默认账号是<code>root</code>，我们可以修改默认账号为我们自己的账号。</li>
 </ol>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/wsl.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/wsl.conf
+<span class="token comment"># 添加下列内容</span>
+<span class="token punctuation">[</span>user<span class="token punctuation">]</span>
+<span class="token assign-left variable">default</span><span class="token operator">=</span>我们之前设置的账号名
+
+<span class="token builtin class-name">exit</span>
+wsl <span class="token parameter variable">--shutdown</span>
+wsl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ol start="5">
 <li>使用本机(宿主机)的代理</li>
 </ol>
@@ -564,17 +571,11 @@ wsl --set-default <span class="token operator">&lt;</span>Distribution Name<span
 <li>将代理客户端模式改为http直连</li>
 <li>查看代理客户端里的http监听端口</li>
 <li>在<code>wsl</code>中输入<code>export https_proxy=http://ip:端口</code></li>
-<li>测试<code>curl https://www.google.com</code><br>
-#添加下列内容<br>
-[user]<br>
-default=我们之前设置的账号名</li>
+<li>测试<code>curl https://www.google.com</code></li>
 </ul>
-<p>exit<br>
-wsl --shutdown<br>
-wsl</p>
-<pre class="highlight"><code class="">### vscode连接wsl
-vscode安装wsl插件，直接进行连接。
-但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</code></pre>
+<h3 id="vscode连接wsl"><a class="markdownIt-Anchor" href="#vscode连接wsl"></a> vscode连接wsl</h3>
+<p>vscode安装wsl插件，直接进行连接。<br>
+但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</p>
 
                 
             </div>
