@@ -502,7 +502,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    244
+                    279
                 </div>
                 
 
@@ -546,6 +546,11 @@
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wsl <span class="token parameter variable">--export</span> Ubuntu d:<span class="token punctuation">\</span>image_ubuntu.tar <span class="token comment">#导出当前的 Linux 系统镜像:</span>
 wsl <span class="token parameter variable">--unregister</span> Ubuntu <span class="token comment">#移除之前注册的 WSL 通过命令wsl -l -v查看</span>
 wsl <span class="token parameter variable">--import</span> Ubuntu d:<span class="token punctuation">\</span>WSL-Ubuntu-22.04 d:<span class="token punctuation">\</span>image_ubuntu22.04.tar  <span class="token comment">#前面是后续要放的位置，后面安装包的路径</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>设置默认发行版</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wsl <span class="token parameter variable">--list</span> <span class="token parameter variable">--verbose</span>  <span class="token comment">#列出已安装的 Linux 发行版</span>
+wsl --set-default <span class="token operator">&lt;</span>Distribution Name<span class="token operator">&gt;</span>  <span class="token comment">#设置默认 Linux 发行版</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="vscode连接wsl"><a class="markdownIt-Anchor" href="#vscode连接wsl"></a> vscode连接wsl</h3>
 <p>vscode安装wsl插件，直接进行连接。<br>
 但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</p>
@@ -971,7 +976,7 @@ wsl <span class="token parameter variable">--import</span> Ubuntu d:<span class=
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">30.8k</span>
+                        class="white-color">30.9k</span>
             
             
             
