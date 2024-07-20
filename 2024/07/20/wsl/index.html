@@ -495,14 +495,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-20
+                    2024-07-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    279
+                    342
                 </div>
                 
 
@@ -551,6 +551,19 @@ wsl <span class="token parameter variable">--import</span> Ubuntu d:<span class=
 </ol>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wsl <span class="token parameter variable">--list</span> <span class="token parameter variable">--verbose</span>  <span class="token comment">#列出已安装的 Linux 发行版</span>
 wsl --set-default <span class="token operator">&lt;</span>Distribution Name<span class="token operator">&gt;</span>  <span class="token comment">#设置默认 Linux 发行版</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>修改默认账号<br>
+如果移动完毕后默认账号是<code>root</code>，我们可以修改默认账号为我们自己的账号。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/wsl.conf
+
+<span class="token comment">#添加下列内容</span>
+<span class="token punctuation">[</span>user<span class="token punctuation">]</span>
+<span class="token assign-left variable">default</span><span class="token operator">=</span>我们之前设置的账号名
+
+<span class="token builtin class-name">exit</span>
+wsl <span class="token parameter variable">--shutdown</span>
+wsl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="vscode连接wsl"><a class="markdownIt-Anchor" href="#vscode连接wsl"></a> vscode连接wsl</h3>
 <p>vscode安装wsl插件，直接进行连接。<br>
 但是出现错误，后来查看日志，发现需要安装某个库才行（出现错误最好先读一下日志，一般会提供解决方法）</p>
