@@ -502,14 +502,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    487
+                    541
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -585,7 +585,12 @@ conda <span class="token function">install</span> pytorch torchvision torchaudio
 <span class="token function">git</span> clone https://github.com/fishaudio/fish-speech.git <span class="token comment">#拉取代码</span>
 <span class="token builtin class-name">cd</span> fish-speech
 pip3 <span class="token function">install</span> <span class="token parameter variable">-e</span> <span class="token builtin class-name">.</span> <span class="token comment">#安装</span>
-<span class="token function">apt</span> <span class="token function">install</span> libsox-dev <span class="token comment">#安装依赖</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">apt</span> <span class="token function">install</span> libsox-dev <span class="token comment">#安装依赖</span>
+huggingface-cli download fishaudio/fish-speech-1.2 --local-dir checkpoints/fish-speech-1.2 <span class="token comment">#下载模型</span>
+python <span class="token parameter variable">-m</span> tools.webui <span class="token punctuation">\</span>
+    --llama-checkpoint-path <span class="token string">"checkpoints/fish-speech-1.2"</span> <span class="token punctuation">\</span>
+    --decoder-checkpoint-path <span class="token string">"checkpoints/fish-speech-1.2/firefly-gan-vq-fsq-4x1024-42hz-generator.pth"</span> <span class="token punctuation">\</span>
+    --decoder-config-name firefly_gan_vq<span class="token comment">#启动WebUI</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
