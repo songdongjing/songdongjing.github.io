@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-20T16:54:06.136Z</updated>
+  <updated>2024-07-21T14:03:21.242Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入理解transformer</title>
+    <link href="https://songdongjing.github.io/2024/07/21/shen-ru-li-jie-transformer/"/>
+    <id>https://songdongjing.github.io/2024/07/21/shen-ru-li-jie-transformer/</id>
+    <published>2024-07-21T07:36:10.000Z</published>
+    <updated>2024-07-21T14:03:21.242Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1动机&quot;&gt;&lt;/a&gt; 1.动机&lt;/h2&gt;
+&lt;h2 id=&quot;2transformer算法讲解&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
+    
+  </entry>
   
   <entry>
     <title>wsl</title>
@@ -473,31 +497,6 @@
     
     
     <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>opencvC++库移植</title>
-    <link href="https://songdongjing.github.io/2024/05/18/opencvc-ku-yi-zhi/"/>
-    <id>https://songdongjing.github.io/2024/05/18/opencvc-ku-yi-zhi/</id>
-    <published>2024-05-18T02:18:31.000Z</published>
-    <updated>2024-06-11T05:13:47.581Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;原因&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#原因&quot;&gt;&lt;/a&gt; 原因&lt;/h2&gt;
-&lt;p&gt;由于嵌入式设备进行图像处理需要主打高性能的C&lt;ins&gt;语言进行编程，所以需要移植opencvC&lt;/ins&gt;库。&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="https://songdongjing.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
   </entry>
   
