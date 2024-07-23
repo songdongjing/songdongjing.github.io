@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-21T14:03:21.242Z</updated>
+  <updated>2024-07-23T14:41:05.699Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入理解计算机系统</title>
+    <link href="https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/"/>
+    <id>https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/</id>
+    <published>2024-07-23T06:03:55.000Z</published>
+    <updated>2024-07-23T14:41:05.699Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1系统架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1系统架构&quot;&gt;&lt;/a&gt; 1.系统架构&lt;/h1&gt;
+&lt;h1 id=&quot;2信息的表示与处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
   
   <entry>
     <title>深入理解transformer</title>
@@ -473,30 +497,6 @@
     
     
     <category term="工具使用" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>智能空战实验说明</title>
-    <link href="https://songdongjing.github.io/2024/05/27/zhi-neng-kong-zhan-shi-yan-shuo-ming/"/>
-    <id>https://songdongjing.github.io/2024/05/27/zhi-neng-kong-zhan-shi-yan-shuo-ming/</id>
-    <published>2024-05-27T02:25:16.000Z</published>
-    <updated>2024-06-24T12:02:01.089Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;智能空战&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#智能空战&quot;&gt;&lt;/a&gt; 智能空战&lt;/h1&gt;
-&lt;h2 id=&quot;1训练架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1训练架构&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
     
   </entry>
   
