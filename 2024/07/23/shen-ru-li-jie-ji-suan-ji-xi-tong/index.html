@@ -490,21 +490,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-23
+                    2024-07-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    4.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    16 分
                 </div>
                 
 
@@ -715,6 +715,172 @@ IEEE浮点标准用<span class="katex"><span class="katex-mathml"><math xmlns="h
 <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span>表示<code>阶码</code>，对浮点数加权。<br>
 <img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-23-22-39-18.png" alt="标准浮点格式"></li>
 </ul>
+<h1 id="3程序的机器级表示"><a class="markdownIt-Anchor" href="#3程序的机器级表示"></a> 3.程序的机器级表示</h1>
+<p>这一节主要是窥视C语言提供的抽象层下面的东西，来了解机器级编程。</p>
+<h2 id="31历史观点"><a class="markdownIt-Anchor" href="#31历史观点"></a> 3.1历史观点</h2>
+<p>主要是intel和AMD在处理器上的发展，产生了如今X86-64架构处理器。</p>
+<h2 id="32程序编码"><a class="markdownIt-Anchor" href="#32程序编码"></a> 3.2程序编码</h2>
+<p>为了了解一段c语言程序和机器代码之间的关系，从linux上默认编译器GCC C编译器出发</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">linux<span class="token operator">&gt;</span> gcc <span class="token parameter variable">-Og</span> <span class="token parameter variable">-o</span> p p1.c p2.c<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这段指令就是用GCC C编译器将两个c文件p1.c,p2.c编译生成机器代码p。<br>
+-Og是生成机器代码的优化等级，如果优化等级过高会导致机器代码和原始代码之间的关系难以理解。<br>
+-o p表示生成可执行文件p<br>
+gcc命令调用了一整套程序<br>
+①C预处理：插入#include指定的文件，扩展用#define声明的宏<br>
+②编译器:产生两个源文件的<code>汇编代码</code>，名字分别位p1.s,p2.s。<br>
+③汇编器：将汇编代码转化位<code>二进制目标代码</code>p1.o,p2.o</p>
+<blockquote>
+<p>目标代码是机器代码的一种形式，包含所有指令的二进制表示，但是还没有填入全局值的地址(因为代码还没有合并)</p>
+</blockquote>
+<p>④链接器将两个目标代码文件和实现库函数代码合并，生成可执行代码文件p</p>
+<blockquote>
+<p>可执行文件是机器代码的第二种形式，是处理器执行的代码格式。</p>
+</blockquote>
+<ul>
+<li>机器级编码<br>
+指令集架构(ISA)定义机器级程序的格式和行为，比如x86-64将程序的行为描述成每条指令顺序执行。</li>
+</ul>
+<h2 id="33数据格式"><a class="markdownIt-Anchor" href="#33数据格式"></a> 3.3数据格式</h2>
+<p>由于x86-64由16位一步步扩展过来，所以将数据分为了<code>字节</code>，<code>字</code>，<code>双字</code>,<code>四字</code>,分别对应汇编代码b,w,l,q</p>
+<h2 id="34访问信息"><a class="markdownIt-Anchor" href="#34访问信息"></a> 3.4访问信息</h2>
+<p>处理器通过内置的寄存器来访问内存中的数据。x86-64包含16个64位的<code>通用目的寄存器</code>用来存储整数数据和指针。</p>
+<h2 id="35算术和逻辑操作"><a class="markdownIt-Anchor" href="#35算术和逻辑操作"></a> 3.5算术和逻辑操作</h2>
+<p>操作主要分为：加载有效地址<code>leap</code>、一元操作<code>INC,DEC等</code>、二元操作<code>ADD,SUB等</code>和移位<code>SAL等</code>。各种运算指令都是通过这4个基本操作或者其组合。</p>
+<h2 id="36控制"><a class="markdownIt-Anchor" href="#36控制"></a> 3.6控制</h2>
+<p>对于一些要跳转的代码比如条件语句、循环等汇编这边采用<code>jump</code>控制指令</p>
+<h2 id="37过程"><a class="markdownIt-Anchor" href="#37过程"></a> 3.7过程</h2>
+<p><code>过程</code>是一种抽象，也就是c代码中可以被调用的函数等。<br>
+要提供对过程Q的机器级支持需要满足多个机制<br>
+①传递控制：进入过程时，程序计数器(PC)设置为Q代码的起始地址，返回时调用Q的后面的地址<br>
+②传递数据：能够为Q提供参数，Q也能返回一个值<br>
+③分配和释放内存：Q为局部变量分配空间，返回时释放空间</p>
+<h3 id="371运行时栈"><a class="markdownIt-Anchor" href="#371运行时栈"></a> 3.7.1运行时栈</h3>
+<blockquote>
+<p>栈向低地址生长</p>
+</blockquote>
+<p>调用x86-64过程时会在栈上分配空间，该空间叫做过程的<code>栈帧</code>。</p>
+<h2 id="38数组分配和访问"><a class="markdownIt-Anchor" href="#38数组分配和访问"></a> 3.8数组分配和访问</h2>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">T A[N]
+T *p=A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果数据类型T的大小为L，那么会分配<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>⋅</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">L \cdot N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>的连续区域。<br>
+如果p的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">x_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>,那么p+i的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub><mo>+</mo><mi>L</mi><mo>⋅</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">x_p+L \cdot i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">T A[N][M]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>对于嵌套的数组，很显然需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>⋅</mo><mi>N</mi><mo>⋅</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L \cdot N \cdot M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>的连续空间，将其看成5行3列的二维数组，在内存中按照<code>行优先</code>的顺序排列，，即A[0][0]然后A[0][1]。</p>
+<h2 id="39异质数据结构"><a class="markdownIt-Anchor" href="#39异质数据结构"></a> 3.9异质数据结构</h2>
+<p>对于多种类型对象的组合比如<code>struct</code>(将多个对象集合到一个单位),<code>union</code>(用多种不用的类型来引用一个对象)</p>
+<h3 id="391结构体"><a class="markdownIt-Anchor" href="#391结构体"></a> 3.9.1结构体</h3>
+<p>结构体所有组成部分都存放在内存的连续区域内，指向结构体的指针就是结构体第一个字节的地址。<br>
+比如下面的结构声明</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">struct rec{
+    int i;
+    int j;
+    int a[2];
+    int *p;
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其内存中分配的空间如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-14-14-09.png" alt="深入理解计算机系统-2024-07-24-14-14-09"></p>
+<h3 id="392联合"><a class="markdownIt-Anchor" href="#392联合"></a> 3.9.2联合</h3>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">struct S3{
+    char c;
+    int i[2];
+    double v;
+}
+union U3{
+    char c;
+    int i[2];
+    double v;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译时其字段偏移量如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-14-18-45.png" alt="深入理解计算机系统-2024-07-24-14-18-45"><br>
+可见一个联合的总大小等于它最大字段的大小。<br>
+其应用情况为：针对一个数据结构中的两个不同字段的使用是互斥的，那么就将这两个字段声明为联合的一部分，从而减少分配空间的总量。<br>
+比如要实现一个二叉树的数据结构，只有叶子节点有数据，只有内部节点有指向两个孩子的指针，实现方式如下：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef enum{N_LEAF,N_INTERNAL} nodetype_t;
+
+struct node_t{
+    nodetype_t type;
+    union node_u{
+        struct{
+            union node_u *left;
+            union node_u *right;
+        }internal;
+        double data[2];
+    }info;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了确定一个给定节点的类型，所以引入了枚举类型。</p>
+<h2 id="310在机器级程序中将控制与数据结合起来"><a class="markdownIt-Anchor" href="#310在机器级程序中将控制与数据结合起来"></a> 3.10在机器级程序中将控制与数据结合起来</h2>
+<p>指针是联系控制和数据重要的概念。</p>
+<h3 id="3101理解指针"><a class="markdownIt-Anchor" href="#3101理解指针"></a> 3.10.1理解指针</h3>
+<p>①每个指针都对应一个类型<br>
+②每个指针都有一个值 NULL表示这个指针没有指向任何位置<br>
+③指针用<code>&amp;</code>运算符创建<br>
+④<code>*</code>操作符用于间接引用指针 采用内存引用来实现，要么存储到一个指定的地址，要么从指定的地址读取。<br>
+⑤数组与指针紧密联系 类型强转，只改变类型，不改变值。</p>
+<blockquote>
+<p>如果p是一个<code>char *</code>类型的指针,其值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<code>(int *)p+4*7</code>计算为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mn>28</mn></mrow><annotation encoding="application/x-tex">x_0+28</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">8</span></span></span></span>,而<code>(int *)(p+7)</code>计算为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">x_0+7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span></p>
+</blockquote>
+<p>⑥指针可以指向函数 函数指针的值是该函数机器代码表示中第一条指令的地址。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int fun(int x,int *p);//函数定义
+//指针声明
+int (*fp)(int,int *);
+fp=fun;
+//指针调用
+int y=1;
+int result=fp(3,&amp;y);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="311浮点代码"><a class="markdownIt-Anchor" href="#311浮点代码"></a> 3.11浮点代码</h2>
+<p>用寄存器</p>
+<h2 id="312小结"><a class="markdownIt-Anchor" href="#312小结"></a> 3.12小结</h2>
+<p>关于其他编程语言的机器级实现：</p>
+<ul>
+<li>C++和C非常相似，都是通过将源代码翻译为机器级的汇编代码，最后产生目标代码实现</li>
+<li>Java的目标代码是一种特殊的二进制表示，称为<code>Java字节码</code>,但是这种目标代码是虚拟机的机器级程序，用软件解释器处理字节代码，模拟虚拟机的行为。其优点是相同的代码可以在许多不同的机器上执行。</li>
+<li>另一种是<code>即时编译</code>的方法,动态地将字节代码作为程序地低级表示。当代码要执行多次时，这种方法执行更快。</li>
+</ul>
+<h1 id="4处理器体系结构"><a class="markdownIt-Anchor" href="#4处理器体系结构"></a> 4.处理器体系结构</h1>
+<p>上一节都是在x86-64指令集架构(ISA)下，不同的处理器有不同的ISA,一个程序编译在一种机器上运行就不能在另一种机器上运行。本章主要研究一个硬件系统执行Yx86-64ISA指令的方式。</p>
+<h2 id="41y86-64指令集体系结构"><a class="markdownIt-Anchor" href="#41y86-64指令集体系结构"></a> 4.1Y86-64指令集体系结构</h2>
+<p>定义一个指令集架构包括定义各种状态单元、指令集和它们的编码、一组编程规范和异常事件处理。</p>
+<h3 id="411程序员可见的状态"><a class="markdownIt-Anchor" href="#411程序员可见的状态"></a> 4.1.1程序员可见的状态</h3>
+<p>15个64位程序寄存器，3个1位条件码，程序计数器，程序状态码<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-10-22.png" alt="深入理解计算机系统-2024-07-24-15-10-22"></p>
+<h3 id="412y86-64指令"><a class="markdownIt-Anchor" href="#412y86-64指令"></a> 4.1.2Y86-64指令</h3>
+<p>也就是指令集<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-13-11.png" alt="深入理解计算机系统-2024-07-24-15-13-11"></p>
+<h3 id="413指令编码"><a class="markdownIt-Anchor" href="#413指令编码"></a> 4.1.3指令编码</h3>
+<p>涉及汇编到机器代码的转换<br>
+每条指令需要1~10个字节不等，第一个字节表明指令的类型，高4位时代码部分，低4位时功能部分。<br>
+如下图，第一个数表示代码，第二个数表示功能。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-15-39.png" alt="第一个字节的实例"></p>
+<blockquote>
+<p>x86-64被称为复杂指令集(CISC),其指令数量很多,在大型机占据了通知地位<br>
+精简指令集(RISC)通常少于100个，在嵌入式处理器市场表现出色。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-21-56.png" alt="深入理解计算机系统-2024-07-24-15-21-56"></p>
+</blockquote>
+<h2 id="42逻辑设计和硬件控制语言hcl"><a class="markdownIt-Anchor" href="#42逻辑设计和硬件控制语言hcl"></a> 4.2逻辑设计和硬件控制语言HCL</h2>
+<p>硬件设计是指令集的硬件载体。</p>
+<h2 id="43y86-64的顺序实现"><a class="markdownIt-Anchor" href="#43y86-64的顺序实现"></a> 4.3Y86-64的顺序实现</h2>
+<p>先描述一个称为SEQ的处理器，在每个时钟周期上，SEQ执行处理完一条完整指令所需的所有步骤。</p>
+<h3 id="431将处理组织成阶段"><a class="markdownIt-Anchor" href="#431将处理组织成阶段"></a> 4.3.1将处理组织成阶段</h3>
+<p>①取指 从PC指向的内存地址中读取指令字节<br>
+②译码 从寄存器中读入最多两个操作数<br>
+③执行 算术/逻辑单元(ALU)执行指令指明的操作。<br>
+④访存 将数据写入内存<br>
+⑤写回 将结果写入寄存器<br>
+⑥更新PC 将PC设置成下一条指令的地址</p>
+<h3 id="432seq硬件结构"><a class="markdownIt-Anchor" href="#432seq硬件结构"></a> 4.3.2SEQ硬件结构</h3>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-33-06.png" alt="SEQ的抽象结构"><br>
+更详细的硬件结构如下：白色方框表示时钟寄存器，浅蓝色方框表示硬件单元，控制逻辑块用灰色圆角矩形表示，线路的名字在白色圆圈中说明，宽度位字长的数据连接用中等粗度的线表示，宽度为字节或更窄的数据连接用细线表示，单个位的连接用虚线表示。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-33-55.png" alt="更详细的硬件结构"></p>
+<h3 id="433seq的时序"><a class="markdownIt-Anchor" href="#433seq的时序"></a> 4.3.3SEQ的时序</h3>
+<h3 id="434seq阶段的实现"><a class="markdownIt-Anchor" href="#434seq阶段的实现"></a> 4.3.4SEQ阶段的实现</h3>
+<p>关于SEQ各部分的硬件实现，可以用HCL写出来的那种。</p>
+<h2 id="44流水线的通用原理"><a class="markdownIt-Anchor" href="#44流水线的通用原理"></a> 4.4流水线的通用原理</h2>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-48-19.png" alt="三阶段流水线的计算硬件"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-48-50.png" alt="三阶段流水线的时序"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-49-53.png" alt="带反馈的流水线"></p>
+<h2 id="45y86-64的流水线实现"><a class="markdownIt-Anchor" href="#45y86-64的流水线实现"></a> 4.5Y86-64的流水线实现</h2>
+<p>手搓CPU时再看吧</p>
+<h1 id="5优化程序性能"><a class="markdownIt-Anchor" href="#5优化程序性能"></a> 5优化程序性能</h1>
 
                 
             </div>
@@ -1137,7 +1303,7 @@ IEEE浮点标准用<span class="katex"><span class="katex-mathml"><math xmlns="h
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">34.5k</span>
+                        class="white-color">36.8k</span>
             
             
             
