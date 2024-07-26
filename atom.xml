@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-25T11:53:30.053Z</updated>
+  <updated>2024-07-26T15:01:11.731Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>git操作总结</title>
+    <link href="https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/"/>
+    <id>https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/</id>
+    <published>2024-07-26T14:04:12.000Z</published>
+    <updated>2024-07-26T15:01:11.731Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;git提交代码的总体流程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#git提交代码的总体流程&quot;&gt;&lt;/a&gt; git提交代码的总体流程&lt;/h2&gt;
+&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="git" scheme="https://songdongjing.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入理解计算机系统</title>
     <link href="https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/"/>
     <id>https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/</id>
     <published>2024-07-23T06:03:55.000Z</published>
-    <updated>2024-07-25T11:53:30.053Z</updated>
+    <updated>2024-07-26T08:01:57.495Z</updated>
     
     
       
@@ -474,29 +498,6 @@
     
     
     <category term="latex" scheme="https://songdongjing.github.io/tags/latex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mysql安装与远程连接</title>
-    <link href="https://songdongjing.github.io/2024/05/27/mysql-an-zhuang-yu-yuan-cheng-lian-jie/"/>
-    <id>https://songdongjing.github.io/2024/05/27/mysql-an-zhuang-yu-yuan-cheng-lian-jie/</id>
-    <published>2024-05-27T11:21:02.000Z</published>
-    <updated>2024-06-24T02:31:11.275Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1动机&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="工具使用" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   

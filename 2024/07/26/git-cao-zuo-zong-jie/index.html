@@ -4,10 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="嵌入式应用开发理论和实践, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 文件io操作
- 理论基础
-首先看一下整个文件系统架构图，静态文件都是存储在磁盘中，磁盘分为inode区和数据区，数据区根据最小存储单元设置扇区和操作系统最小读取单元设置块。inode区通过指针指向该文件数据的块地址。操作系统中进程控制块(">
+    <meta name="keywords" content="git操作总结, 血肉苦痛，机械飞升">
+    <meta name="description" content=" git提交代码的总体流程
+git init #初始化该文件夹为git仓库
+git add . #将本文件夹下的所有文件暂存
+git commit -m &#34;&#34; #将代码更改保存到本地版本库中
+git remote add origin ht">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>嵌入式应用开发理论和实践 | 血肉苦痛，机械飞升</title>
+    <title>git操作总结 | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -437,12 +439,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">嵌入式应用开发理论和实践</h1>
+                    <h1 class="description center-align post-title">git操作总结</h1>
                 </div>
             </div>
         </div>
@@ -466,8 +468,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                <span class="chip bg-color">嵌入式</span>
+                            <a href="/tags/git/">
+                                <span class="chip bg-color">git</span>
                             </a>
                         
                     </div>
@@ -482,28 +484,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-04-25
+                    2024-07-26
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-07-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    179
+                    726
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -523,10 +525,60 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="文件io操作"><a class="markdownIt-Anchor" href="#文件io操作"></a> 文件io操作</h1>
-<h2 id="理论基础"><a class="markdownIt-Anchor" href="#理论基础"></a> 理论基础</h2>
-<p>首先看一下整个文件系统架构图，静态文件都是存储在磁盘中，磁盘分为inode区和数据区，数据区根据最小存储单元设置扇区和操作系统最小读取单元设置块。inode区通过指针指向该文件数据的块地址。操作系统中进程控制块(PCB)通过open()系统调用函数返回一个文件描述符fd,文件描述符指向文件表，表中存储文件的各种状态信息，其中的inode指针指向inode区中文件对应的inode节点，再用inode节点指向的地址修改磁盘中的数据</p>
-<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/img/image-20240425175607563.png" alt="文件io操作架构图"></p>
+                <h2 id="git提交代码的总体流程"><a class="markdownIt-Anchor" href="#git提交代码的总体流程"></a> git提交代码的总体流程</h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> init <span class="token comment">#初始化该文件夹为git仓库</span>
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span> <span class="token comment">#将本文件夹下的所有文件暂存</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">""</span> <span class="token comment">#将代码更改保存到本地版本库中</span>
+<span class="token function">git</span> remote <span class="token function">add</span> origin https://github.com/xxx/xxx.git <span class="token comment">#将本地仓库与远程仓库关联</span>
+<span class="token function">git</span> push <span class="token parameter variable">-u</span> origin master <span class="token comment">#将本地代码推送到远程仓库</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h3>
+<h4 id="1本地分支与远程库分支不匹配"><a class="markdownIt-Anchor" href="#1本地分支与远程库分支不匹配"></a> 1.本地分支与远程库分支不匹配</h4>
+<p>在vscode中初始化文件夹默认是保存在master分支的，而github默认是在main分支，如果直接进行推送会出现下列错误</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fetal: src refspec master does not match any<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>解决方法:</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch <span class="token parameter variable">-l</span>  <span class="token comment">#列出目前所在分支</span>
+<span class="token function">git</span> checkout main <span class="token comment">#如果main分支存在就直接切换到main分支</span>
+<span class="token function">git</span> branch <span class="token parameter variable">-m</span> master main  <span class="token comment">#将master分支重命名为main</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>再进行推送就成功了。</p>
+<h4 id="2无法连接到服务器"><a class="markdownIt-Anchor" href="#2无法连接到服务器"></a> 2.无法连接到服务器</h4>
+<p>再vscode推送代码时出现下面错误</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fatal: unable to access <span class="token string">'https://github.com/xxx/xxx.git/'</span><span class="token builtin class-name">:</span> Failed to connect to <span class="token number">127.0</span>.0.1 port <span class="token number">1080</span> after <span class="token number">2016</span> ms: Couldn't connect to server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>是代理的问题</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config <span class="token parameter variable">--global</span> <span class="token parameter variable">--get</span> http.proxy  <span class="token comment">#查看http协议代理</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> <span class="token parameter variable">--get</span> https.proxy <span class="token comment">#查看https协议代理</span>
+
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> <span class="token parameter variable">--unset</span> http.proxy  <span class="token comment">#取消代理</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> <span class="token parameter variable">--unset</span> https.proxy
+
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> http.proxy http://127.0.0.1:7890   <span class="token comment">#设置http协议代理</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> http.proxy socks5://127.0.0.1:7891 <span class="token comment">#设置socks5协议代理</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中127.0.0.1表示本地回环，然后在翻墙软件上查询相应的发送端口，比如我的http端口为7890，socks5端口为7891<br>
+windows系统可以直接搜索代理可以在设置中找到相应的代理端口。<br>
+linux系统可以输入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">env</span><span class="token operator">|</span><span class="token function">grep</span> <span class="token parameter variable">-I</span> proxy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看目前开启的代理服务器。<br>
+在修改之后发现出现了同样的问题，而且错误中显示的端口号依旧是1080，说明配置没有生效。<br>
+在文件中查找.gitconfig，可以得到所有的配置信息,可以看到多了下面的语句</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">[http "https://github.com"]
+	proxy = socks5://127.0.0.1:1080<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>将其改为对应的端口。</p>
+<h4 id="3远程库拒绝推送"><a class="markdownIt-Anchor" href="#3远程库拒绝推送"></a> 3.远程库拒绝推送</h4>
+<p>报错如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">!</span> <span class="token punctuation">[</span>rejected<span class="token punctuation">]</span>        main -<span class="token operator">&gt;</span> main <span class="token punctuation">(</span>non-fast-forward<span class="token punctuation">)</span>
+error: failed to push some refs to <span class="token string">'https://github.com/xxx/xxx.git'</span>
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use <span class="token string">'git pull'</span> before pushing again.
+hint: See the <span class="token string">'Note about fast-forwards'</span> <span class="token keyword">in</span> <span class="token string">'git push --help'</span> <span class="token keyword">for</span> details.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>解决办法<br>
+是由于远程库中有本地库没有的东西，所以需要先拉取代码再推送<br>
+直接用<code>git pull origin main </code>拉取代码,这句命令的意思是将远程库<code>main</code>分支拉取到本地分支(<code>origin</code>)中，但是会报错<code>There is no tracking information for the current branch.Please specify which branch you want to merge with.</code>。因为本地库和远程库中的文件没有关联，所以需要添加说明<code>git pull origin main --allow-unrelated-histories</code></li>
+</ul>
 
                 
             </div>
@@ -553,7 +605,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/04/25/qian-ru-shi-ying-yong-kai-fa-li-lun-he-shi-jian/">https://songdongjing.github.io/2024/04/25/qian-ru-shi-ying-yong-kai-fa-li-lun-he-shi-jian/</a>
+                    <a href="https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/">https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -591,8 +643,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                                    <span class="chip bg-color">嵌入式</span>
+                                <a href="/tags/git/">
+                                    <span class="chip bg-color">git</span>
                                 </a>
                             
                         </div>
@@ -671,17 +723,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/04/26/mx6ull-shi-yong-shi-jian/">
+                <a href="/2024/07/26/git-cao-zuo-zong-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="MX6ULL使用实践">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="git操作总结">
                         
-                        <span class="card-title">MX6ULL使用实践</span>
+                        <span class="card-title">git操作总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -691,9 +744,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -702,11 +755,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
                     </a>
                     
                 </div>
@@ -720,13 +774,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/04/24/shen-ru-li-jie-linux-xi-tong/">
+                <a href="/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="深入理解linux系统">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="深入理解计算机系统">
                         
-                        <span class="card-title">深入理解linux系统</span>
+                        <span class="card-title">深入理解计算机系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -737,7 +791,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-23
                             </span>
                         <span class="publish-author">
                             
@@ -750,8 +804,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                        <span class="chip bg-color">嵌入式</span>
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">基础知识</span>
                     </a>
                     
                 </div>

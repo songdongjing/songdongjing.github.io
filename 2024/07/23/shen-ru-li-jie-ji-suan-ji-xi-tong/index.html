@@ -490,21 +490,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-25
+                    2024-07-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.9k
+                    8.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    29 分
+                    32 分
                 </div>
                 
 
@@ -1058,7 +1058,31 @@ int execve(const char *filename, const char *argv[],const char *envp[]);<span ar
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span> <span class="token operator">|</span> <span class="token function">sort</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-50-27.png" alt="前台和后台进程组"><br>
 Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP信号到前台前台进程组所有进程中。<br>
-<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-53-06.png" alt="信号处理程序可以被其他信号处理程序中断"></p>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-53-06.png" alt="信号处理程序可以被其他信号处理程序中断"><br>
+<code>隐式阻塞机制</code>就是内核默认阻塞任何当前处理程序正在处理信号类型的待处理信号。比如捕获信号s，S程序正在处理时，发送过来的另一个信号s不会被接收。<br>
+<code>显式阻塞机制</code>就是可以使用sigprocmask函数和它的辅助函数明确地阻塞和接触阻塞选定地信号。</p>
+<h3 id="85非本地跳转"><a class="markdownIt-Anchor" href="#85非本地跳转"></a> 8.5非本地跳转</h3>
+<p>C语言提供了一种用户级异常控制流形式称为<code>非本地跳转</code>，将控制直接从一个函数转移到另一个正在执行的函数，不需要经过正常的调用-返回序列，用setjmp,longjmp函数来提供。</p>
+<h2 id="9虚拟内存"><a class="markdownIt-Anchor" href="#9虚拟内存"></a> 9虚拟内存</h2>
+<p>为了有效管理内存避免出错，现代系统提供了对主存的抽象概念叫做<code>虚拟内存(VM)</code>,它为每个进程提供了一个大的、一致的和私有的地址空间.</p>
+<ul>
+<li>①将主存看成一个存储在磁盘上的地址空间的高速缓存,在主存中只保存活动区域, 并根据需要在磁盘和主存之间来回传送数据.</li>
+<li>②为每个进程提供了一致的地址空间</li>
+<li>③保护每个进程的地址空间不被其他进程破坏<br>
+早期PC使用<code>物理寻址</code>,现在dsp,mcu和一些超级计算机仍然使用这种方式,现在处理器使用的是<code>虚拟寻址</code>,CPU生成一个虚拟地址访问主存,虚拟地址送到内存前转换成物理地址,该过程叫做<code>地址翻译</code>,相应的CPU上的硬件叫做<code>内存管理单元(MMU)</code><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-03-09.png" alt="物理寻址和虚拟寻址"><br>
+物理地址空间是一个非负整数地址的有序集合,<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>M</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{0,1,2,....M-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span></span>,如果整数连续叫做<code>线性地址空间</code>.CPU从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">N=2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span>个地址的物理地址空间中生成虚拟地址,称为虚拟地址空间<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{0,1,2,...,N-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span></span>.<br>
+虚拟内存被组织为一个存放在磁盘上的N个连续的字节大小的单元组成的数组.但是磁盘上的数据被分割成块,这些块与主存进行数据交互,并不完全连续.所以VM系统将虚拟内存也分割为<code>虚拟页(VP)</code>大小固定的块来处理问题,每个虚拟页的大小为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><msup><mn>2</mn><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">P=2^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span>字节,物理内存分割为<code>物理页(PP)/页帧</code>大小也为P字节.<br>
+虚拟页分为三种:①未分配的:不占用磁盘空间;②缓存的:已缓存在物理内存中的已分配页③未缓存在物理内存中的已分配页.<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-28-37.png" alt="VM系统使用主存作为缓存"><br>
+在物理内存中存放着叫做<code>页表</code>的数据结构,页表将虚拟页映射到物理页.<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-47-04.png" alt="页表"><br>
+DRAM缓存不命中称为<code>缺页</code>,比如CPU引用VP3中的一个字,但是VP3并未缓存在DRAM中,从而触发缺页异常.<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-52-17.png" alt="VM缺页"><br>
+缺页处理程序选择VP4作为<code>牺牲页</code>,用VP3的副本取代它<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-55-09.png" alt="缺页之后选择牺牲页"><br>
+磁盘与内存之间的传送页的活动叫做<code>页面调度</code></li>
+</ul>
 
                 
             </div>
@@ -1203,18 +1227,17 @@ Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/">
+                <a href="/2024/07/26/git-cao-zuo-zong-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="深入理解计算机系统">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="git操作总结">
                         
-                        <span class="card-title">深入理解计算机系统</span>
+                        <span class="card-title">git操作总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1224,9 +1247,9 @@ Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP�
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-26
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1235,12 +1258,11 @@ Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP�
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">基础知识</span>
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
                     </a>
                     
                 </div>
@@ -1481,7 +1503,7 @@ Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40.5k</span>
+                        class="white-color">42k</span>
             
             
             
