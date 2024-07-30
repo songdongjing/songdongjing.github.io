@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-30T10:26:41.743Z</updated>
+  <updated>2024-07-30T10:36:39.982Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://songdongjing.github.io/2024/07/30/shen-ru-li-jie-linux-she-bei-qu-dong-cheng-xu/"/>
     <id>https://songdongjing.github.io/2024/07/30/shen-ru-li-jie-linux-she-bei-qu-dong-cheng-xu/</id>
     <published>2024-07-30T05:48:07.000Z</published>
-    <updated>2024-07-30T10:26:41.743Z</updated>
+    <updated>2024-07-30T10:36:39.982Z</updated>
     
     
       
@@ -35,7 +35,7 @@
     
     
     
-    <category term="嵌入式" scheme="https://songdongjing.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -429,7 +429,7 @@
     <link href="https://songdongjing.github.io/2024/06/03/zhi-neng-kong-zhan-fang-fa-si-lu/"/>
     <id>https://songdongjing.github.io/2024/06/03/zhi-neng-kong-zhan-fang-fa-si-lu/</id>
     <published>2024-06-02T23:15:55.000Z</published>
-    <updated>2024-06-11T05:13:47.583Z</updated>
+    <updated>2024-07-30T10:37:23.923Z</updated>
     
     
       
@@ -448,7 +448,7 @@
     
     
     
-    <category term="强化学习" scheme="https://songdongjing.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
     
   </entry>
   
@@ -457,7 +457,7 @@
     <link href="https://songdongjing.github.io/2024/05/31/mpc-yu-qiang-hua-xue-xi/"/>
     <id>https://songdongjing.github.io/2024/05/31/mpc-yu-qiang-hua-xue-xi/</id>
     <published>2024-05-31T04:03:05.000Z</published>
-    <updated>2024-06-11T05:13:47.577Z</updated>
+    <updated>2024-07-30T10:38:09.434Z</updated>
     
     
       
@@ -472,7 +472,7 @@
     
     
     
-    <category term="强化学习" scheme="https://songdongjing.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
     
   </entry>
   
