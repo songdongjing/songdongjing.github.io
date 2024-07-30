@@ -490,7 +490,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-07-29
+                    2024-07-30
                 </div>
                 
 
@@ -1197,8 +1197,13 @@ I/O包之间的关系如下图，Unix IO在操作系统内核中实现，RIO和I
 <blockquote>
 <p>V(s)可以理解为释放资源，当释放资源时，资源数+1。</p>
 </blockquote>
-<h3 id="123线程同步"><a class="markdownIt-Anchor" href="#123线程同步"></a> 12.3线程同步</h3>
-<p><code>互斥锁</code>是一种同步机制，用于保护临界区，防止多个线程同时访问共享资源。互斥锁的状态只有两种，<code>锁定</code>和<code>非锁定</code>。当一个线程试图获取一个已经被锁定的互斥锁时，该线程将被阻塞，直到互斥锁被解锁。互斥锁通常用于保护对共享数据的访问，以防止多个线程同时修改数据而导致数据不一致。</p>
+<p>保护共享变量的信号量叫做<code>二元信号量</code>,因为他的值总是0或者1。<br>
+以提供互斥为目的的二元信号量称为<code>互斥锁</code>。执行P操作为<code>加锁</code>,执行V操作为<code>解锁</code>。<br>
+加了锁还没解锁的线程称为<code>占用</code>这个互斥锁,被用于一组可用资源的计数器的信号量被称为<code>计数信号量</code>。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-20-02-37.png" alt="使用信号量来互斥"></p>
+<p><code>竞争</code>就是一个线程必须在另一个线程到达y点前到达它的控制流中的x点。<br>
+<code>死锁</code>就是一个一组线程被阻塞了，等待一个永远不会为真的条件。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-30-13-40-08.png" alt="会死锁的程序进度图"></p>
 
                 
             </div>
