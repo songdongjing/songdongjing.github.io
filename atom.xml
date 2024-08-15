@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-07-30T10:36:39.982Z</updated>
+  <updated>2024-08-15T04:05:52.464Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重温Navigation组件</title>
+    <link href="https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/"/>
+    <id>https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/</id>
+    <published>2024-08-01T01:41:31.000Z</published>
+    <updated>2024-08-15T04:05:52.464Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;准备面试了，把以前做的无人驾驶小车项目整理一下。&lt;/p&gt;
+&lt;h2 id=&quot;方案&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="机器人" scheme="https://songdongjing.github.io/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>深入理解linux设备驱动程序</title>
@@ -352,6 +377,31 @@
   </entry>
   
   <entry>
+    <title>技术随笔</title>
+    <link href="https://songdongjing.github.io/2024/06/15/ji-zhu-sui-bi/"/>
+    <id>https://songdongjing.github.io/2024/06/15/ji-zhu-sui-bi/</id>
+    <published>2024-06-15T12:38:37.000Z</published>
+    <updated>2024-08-15T15:51:53.700Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;雷达信号处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#雷达信号处理&quot;&gt;&lt;/a&gt; 雷达信号处理&lt;/h2&gt;
+&lt;p&gt;理论不如实践，将项目中的图整理一下放上去来直观理解理论&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    
+    <category term="技术理论" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E6%9C%AF%E7%90%86%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>浅浅理解大模型</title>
     <link href="https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/"/>
     <id>https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/</id>
@@ -449,54 +499,6 @@
     
     
     <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MPC与强化学习</title>
-    <link href="https://songdongjing.github.io/2024/05/31/mpc-yu-qiang-hua-xue-xi/"/>
-    <id>https://songdongjing.github.io/2024/05/31/mpc-yu-qiang-hua-xue-xi/</id>
-    <published>2024-05-31T04:03:05.000Z</published>
-    <updated>2024-07-30T10:38:09.434Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1动机&quot;&gt;&lt;/a&gt; 1.动机&lt;/h2&gt;
-&lt;p&gt;由于实验室中的某些做传统算法的使用了mpc作为他们的策略生成方式，网上有人把mpc算法也划分到了model-based</summary>
-        
-      
-    
-    
-    
-    
-    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用ngrok实现内网穿透+ssh连接</title>
-    <link href="https://songdongjing.github.io/2024/05/30/yong-ngrok-shi-xian-nei-wang-chuan-tou-ssh-lian-jie/"/>
-    <id>https://songdongjing.github.io/2024/05/30/yong-ngrok-shi-xian-nei-wang-chuan-tou-ssh-lian-jie/</id>
-    <published>2024-05-30T11:34:00.000Z</published>
-    <updated>2024-06-11T05:13:47.585Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在组会的时候由于服务器不能带走，导致笔记本电脑无法连接到服务器来获取上面的资源，所以想在组会上通过建立ssh连接来访问资源，但是由于在外面连的校园网，服务器连的教研室的网，所以需要进行内网穿透。&lt;/p&gt;
-&lt;h2 id=&quot;内网穿透&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="技巧" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E5%B7%A7/"/>
     
   </entry>
   
