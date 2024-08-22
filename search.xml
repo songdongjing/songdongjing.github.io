@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>虚拟机使用宿主机的VPN</title>
+      <link href="/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/"/>
+      <url>/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1虚拟机和宿主机配置"><a class="markdownIt-Anchor" href="#1虚拟机和宿主机配置"></a> 1.虚拟机和宿主机配置</h2><p>虚拟机网络选择桥接模式<br>clash配置为允许局域网连接</p><h2 id="2虚拟机中代理配置为手动"><a class="markdownIt-Anchor" href="#2虚拟机中代理配置为手动"></a> 2.虚拟机中代理配置为手动</h2><p>红笔去除的部分填写宿主机的IP地址。<br><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9A%84VPN-2024-08-22-13-20-50.png" alt="代理配置"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ubuntu使用clash</title>
       <link href="/2024/08/22/ubuntu-shi-yong-clash/"/>
       <url>/2024/08/22/ubuntu-shi-yong-clash/</url>

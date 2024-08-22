@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-08-22T04:58:11.017Z</updated>
+  <updated>2024-08-22T05:21:14.653Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>虚拟机使用宿主机的VPN</title>
+    <link href="https://songdongjing.github.io/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/"/>
+    <id>https://songdongjing.github.io/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/</id>
+    <published>2024-08-22T05:18:14.000Z</published>
+    <updated>2024-08-22T05:21:14.653Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1虚拟机和宿主机配置&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1虚拟机和宿主机配置&quot;&gt;&lt;/a&gt; 1.虚拟机和宿主机配置&lt;/h2&gt;
+&lt;p&gt;虚拟机网络选择桥接模式&lt;br&gt;
+clash配置为允许局域网连接&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>ubuntu使用clash</title>
@@ -470,30 +496,6 @@
     
     
     <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode刷题记录(1)手写STL库</title>
-    <link href="https://songdongjing.github.io/2024/06/10/leetcode-shua-ti-ji-lu-1/"/>
-    <id>https://songdongjing.github.io/2024/06/10/leetcode-shua-ti-ji-lu-1/</id>
-    <published>2024-06-10T05:07:29.000Z</published>
-    <updated>2024-06-11T05:13:47.580Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day1&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#day1&quot;&gt;&lt;/a&gt; day1&lt;/h1&gt;
-&lt;h2 id=&quot;手写vector&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#手写vector&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="leetcode" scheme="https://songdongjing.github.io/tags/leetcode/"/>
     
   </entry>
   
