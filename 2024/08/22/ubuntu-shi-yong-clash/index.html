@@ -4,13 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="6/25周报, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 多进程胜率计算程序
-上次实验发现运行一个仿真器需要一半(14cpu core)的cpu核心参与运算。
+    <meta name="keywords" content="ubuntu使用clash, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 1.下载
+Github 上的 clash 官方仓库已经删库跑路。
+最新版地址下载符合自己系统需求的安装包
 
-这次换用两个进程去运行仿真器，发现刚好占用所有的cpu核心(28cpu core)
+有两个amd64安装包，下面那个不可用。
 
-">
+ 2.安装
+gzip -d clash_2.0.24_linux_amd64.tar.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +24,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>6/25周报 | 血肉苦痛，机械飞升</title>
+    <title>ubuntu使用clash | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -440,12 +442,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">6/25周报</h1>
+                    <h1 class="description center-align post-title">ubuntu使用clash</h1>
                 </div>
             </div>
         </div>
@@ -469,8 +471,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
-                                <span class="chip bg-color">毕业进展</span>
+                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                <span class="chip bg-color">工具</span>
                             </a>
                         
                     </div>
@@ -485,21 +487,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-06-24
+                    2024-08-22
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-24
+                    2024-08-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    64
+                    278
                 </div>
                 
 
@@ -526,11 +528,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="多进程胜率计算程序"><a class="markdownIt-Anchor" href="#多进程胜率计算程序"></a> 多进程胜率计算程序</h2>
-<p>上次实验发现运行一个仿真器需要一半(14cpu core)的cpu核心参与运算。<br>
-<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/6-25%E5%91%A8%E6%8A%A5-2024-06-24-18-11-49.jpg" alt="6-25周报-2024-06-24-18-11-49"><br>
-这次换用两个进程去运行仿真器，发现刚好占用所有的cpu核心(28cpu core)<br>
-<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/6-25%E5%91%A8%E6%8A%A5-2024-06-24-18-13-43.jpg" alt="6-25周报-2024-06-24-18-13-43"></p>
+                <h2 id="1下载"><a class="markdownIt-Anchor" href="#1下载"></a> 1.下载</h2>
+<p>Github 上的 clash 官方仓库已经删库跑路。<br>
+<a target="_blank" rel="noopener" href="https://github.com/doreamon-design/clash/releases">最新版地址</a>下载符合自己系统需求的安装包</p>
+<blockquote>
+<p>有两个amd64安装包，下面那个不可用。</p>
+</blockquote>
+<h2 id="2安装"><a class="markdownIt-Anchor" href="#2安装"></a> 2.安装</h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">gzip</span> <span class="token parameter variable">-d</span> clash_2.0.24_linux_amd64.tar.gz <span class="token comment"># 在安装包所在路径解压安装包</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> filename.tar   <span class="token comment">#还得再解压一次生成clash文件</span>
+<span class="token function">sudo</span> <span class="token function">mv</span> clash /usr/local/bin <span class="token comment"># 移动文件位置让其称为基本命令</span>
+clash <span class="token parameter variable">-v</span> <span class="token comment"># 查看是否成功安装</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3配置文件"><a class="markdownIt-Anchor" href="#3配置文件"></a> 3.配置文件</h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">clash <span class="token comment"># 启动 Clash，生成 ~/.config/clash/config.yaml 文件</span>
+<span class="token builtin class-name">cd</span> ~/.config/clash/ <span class="token comment"># 进入目录配置文件</span>
+<span class="token function">wget</span> <span class="token parameter variable">-O</span> config.yaml 订阅地址 <span class="token comment"># 把订阅地址的配置文件导入本地配置文件</span>
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">"export http_proxy=http://127.0.0.1:7890<span class="token entity" title="\n">\n</span>export https_proxy=http://127.0.0.1:7890"</span> <span class="token operator">&gt;&gt;</span> ~/.bashrc <span class="token comment"># 配置环境变量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动后可以在<a target="_blank" rel="noopener" href="http://clash.razord.top/#/settings">UI界面</a>进行管理</p>
+<h2 id="4修改系统代理"><a class="markdownIt-Anchor" href="#4修改系统代理"></a> 4.修改系统代理</h2>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/ubuntu%E4%BD%BF%E7%94%A8clash-2024-08-22-12-55-55.png" alt="系统代理配置"></p>
+<h2 id="5设置开机启动"><a class="markdownIt-Anchor" href="#5设置开机启动"></a> 5.设置开机启动</h2>
+<p>配置<code>~/.bashrc</code>在文件末尾添加如下内容:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Check if Clash is already running</span>
+<span class="token keyword">if</span> <span class="token operator">!</span> pgrep <span class="token parameter variable">-x</span> <span class="token string">"clash"</span> <span class="token operator">&gt;</span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+    /usr/local/bin/clash
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>该脚本将在开机时自动执行命令<code>/usr/local/bin/clash</code></p>
+</blockquote>
 
                 
             </div>
@@ -557,7 +582,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/06/24/6-25-zhou-bao/">https://songdongjing.github.io/2024/06/24/6-25-zhou-bao/</a>
+                    <a href="https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/">https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -595,8 +620,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/">
-                                    <span class="chip bg-color">毕业进展</span>
+                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                    <span class="chip bg-color">工具</span>
                                 </a>
                             
                         </div>
@@ -675,17 +700,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/06/24/ssh-mian-mi-ma-deng-lu/">
+                <a href="/2024/08/22/ubuntu-shi-yong-clash/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="ssh免密码登录">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="ubuntu使用clash">
                         
-                        <span class="card-title">ssh免密码登录</span>
+                        <span class="card-title">ubuntu使用clash</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -695,9 +721,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -706,11 +732,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%8A%80%E5%B7%A7/">
-                        <span class="chip bg-color">技巧</span>
+                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">工具</span>
                     </a>
                     
                 </div>
@@ -724,13 +751,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/06/24/hexo-kuang-jia-jie-xi/">
+                <a href="/2024/08/20/suan-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="hexo框架解析">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="算法">
                         
-                        <span class="card-title">hexo框架解析</span>
+                        <span class="card-title">算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -741,7 +768,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-20
                             </span>
                         <span class="publish-author">
                             
@@ -754,8 +781,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">基础知识</span>
                     </a>
                     
                 </div>

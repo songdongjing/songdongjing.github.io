@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-08-20T02:48:38.436Z</updated>
+  <updated>2024-08-22T04:58:11.017Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -17,15 +17,50 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ubuntu使用clash</title>
+    <link href="https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/"/>
+    <id>https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/</id>
+    <published>2024-08-22T04:48:35.000Z</published>
+    <updated>2024-08-22T04:58:11.017Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1下载&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1下载&quot;&gt;&lt;/a&gt; 1.下载&lt;/h2&gt;
+&lt;p&gt;Github 上的 clash 官方仓库已经删库跑路。&lt;br&gt;
+&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>算法</title>
     <link href="https://songdongjing.github.io/2024/08/20/suan-fa/"/>
     <id>https://songdongjing.github.io/2024/08/20/suan-fa/</id>
     <published>2024-08-20T02:48:38.000Z</published>
-    <updated>2024-08-20T02:48:38.436Z</updated>
+    <updated>2024-08-22T04:48:46.954Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;第一章-算法在计算中的作用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#第一章-算法在计算中的作用&quot;&gt;&lt;/a&gt; 第一章</summary>
+        
+      
     
     
     
     
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
@@ -459,31 +494,6 @@
     
     
     <category term="leetcode" scheme="https://songdongjing.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>latex深入拓展</title>
-    <link href="https://songdongjing.github.io/2024/06/06/latex-shen-ru-tuo-zhan/"/>
-    <id>https://songdongjing.github.io/2024/06/06/latex-shen-ru-tuo-zhan/</id>
-    <published>2024-06-06T08:30:11.000Z</published>
-    <updated>2024-06-11T05:13:47.579Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1原因&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1原因&quot;&gt;&lt;/a&gt; 1.原因&lt;/h2&gt;
-&lt;p&gt;在用latex写作用参考文献时出现了错误，所以深入分析了一下latex的文件内容，顺便写一下latex相关的知识总结&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="latex" scheme="https://songdongjing.github.io/tags/latex/"/>
     
   </entry>
   
