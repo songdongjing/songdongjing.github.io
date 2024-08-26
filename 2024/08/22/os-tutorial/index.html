@@ -4,14 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅浅理解大模型, 血肉苦痛，机械飞升">
-    <meta name="description" content=" 大模型训练架构
-openai官网发布的技术架构
-民间讲解
-奖励模型讲解
- 奖励模型
-在做强化学习研究时，对于奖励函数的设置是一个玄学问题，总是浪费各种时间在调参上，于是在想能不能把奖励模型也用神经网络训练出来呢？
-网上闲逛的时候看到了op">
+    <meta name="keywords" content="os_tutorial, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 1.准备环境
+后面的很多工具都只能在linux上运行，所以需要一台运行linux的PC或者虚拟机。
+
+nasm:用于将汇编文件(asm)编译成二进制文件(bin) nasm -f bin xxx.asm -o xxx.bin
+qemu:用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +21,7 @@ openai官网发布的技术架构
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅浅理解大模型 | 血肉苦痛，机械飞升</title>
+    <title>os_tutorial | 血肉苦痛，机械飞升</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -441,12 +439,12 @@ openai官网发布的技术架构
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅浅理解大模型</h1>
+                    <h1 class="description center-align post-title">os_tutorial</h1>
                 </div>
             </div>
         </div>
@@ -470,8 +468,8 @@ openai官网发布的技术架构
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/AI/">
-                                <span class="chip bg-color">AI</span>
+                            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                                <span class="chip bg-color">基础知识</span>
                             </a>
                         
                     </div>
@@ -486,28 +484,28 @@ openai官网发布的技术架构
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-08-22
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-11
+                    2024-08-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    473
+                    795
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -527,24 +525,105 @@ openai官网发布的技术架构
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="大模型训练架构"><a class="markdownIt-Anchor" href="#大模型训练架构"></a> 大模型训练架构</h1>
-<p><a target="_blank" rel="noopener" href="https://openai.com/index/chatgpt/" title="openai官网发布的技术架构">openai官网发布的技术架构</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.nolibox.com/creator_articles/principle_of_ChatGPT.html" title="民间讲解">民间讲解</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gzroy/article/details/132630418" title="奖励模型讲解">奖励模型讲解</a></p>
-<h2 id="奖励模型"><a class="markdownIt-Anchor" href="#奖励模型"></a> 奖励模型</h2>
-<p>在做强化学习研究时，对于奖励函数的设置是一个玄学问题，总是浪费各种时间在调参上，于是在想能不能把奖励模型也用神经网络训练出来呢？<br>
-网上闲逛的时候看到了openai开发的chatgpt的算法架构中提到了RLHF的概念，然后仔细查看发现其中提到训练一个奖励模型。感觉很有意思所以仔细调研了一下。</p>
-<h3 id="奖励模型原理"><a class="markdownIt-Anchor" href="#奖励模型原理"></a> 奖励模型原理</h3>
-<p>其宗旨通过监督学习训练一个神经网络对GPT生成的文本进行评分，其类似于RL中的critic网络。但是其标签通过人类进行标记。</p>
-<p>GPT生成多个回答，奖励模型对每个回答得出一个评分，人类对所有回答进行排序（因为人类对于回答的评分标准不同，但是排序通常能统一选出最优秀的回答）。通过计算每个回答之间的质量差值</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mi>σ</mi><mrow><mo fence="true">(</mo><msub><mi>r</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>a</mi></msub><mo fence="true">)</mo></mrow><mo>−</mo><msub><mi>r</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>b</mi></msub><mo fence="true">)</mo></mrow><mo fence="true">)</mo></mrow><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log \left(\sigma\left(r_\theta\left(x, y_a\right)-r_\theta\left(x, y_b\right)\right)\right)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span></p>
-<p>其中表示对于问题<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>,回答<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">a</span></span></span></span>与回答<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span>之间的评分差值。显然根据人类排序，这个差值应该是越大越准确，假设有k个回答，总的loss值为</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">loss</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mi>k</mi><mn>2</mn></mfrac><mo fence="true">)</mo></mrow></mfrac><msub><mi>E</mi><mrow><mrow><mo fence="true">(</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>a</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>b</mi></msub><mo fence="true">)</mo></mrow><mo>∼</mo><mi>D</mi></mrow></msub><mrow><mo fence="true">[</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><msub><mi>r</mi><mrow><mi>θ</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>a</mi></msub><mo fence="true">)</mo></mrow></mrow></msub><mo>−</mo><msub><mi>r</mi><mrow><mi>θ</mi><mrow><mo fence="true">(</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>b</mi></msub><mo fence="true">)</mo></mrow></mrow></msub><mo fence="true">)</mo></mrow><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{loss}(\theta)=-\frac{1}{\binom{k}{2}} E_{\left(x, y_a, y_b\right) \sim D}\left[\log \left(r_{\theta\left(x, y_a\right)}-r_{\theta\left(x, y_b\right)}\right)\right]
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mord mathrm">l</span><span class="mord mathrm">o</span><span class="mord mathrm">s</span><span class="mord mathrm">s</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.491558em;vertical-align:-1.170118em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.179892em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9301079999999999em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.170118em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mathnormal mtight">x</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span><span class="mrel mtight">∼</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mathnormal mtight">x</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mathnormal mtight">x</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span></span></span></span></span></p>
-<p>对loss进行取反，那么神经网络的目标函数就是让这个loss最小化，让差值最大化。<br>
-<img src="%E6%9C%AA%E5%91%BD%E5%90%8D%E7%BB%98%E5%9B%BE.drawio.png" alt="alt text"></p>
+                <h2 id="1准备环境"><a class="markdownIt-Anchor" href="#1准备环境"></a> 1.准备环境</h2>
+<p>后面的很多工具都只能在linux上运行，所以需要一台运行linux的PC或者虚拟机。</p>
+<ul>
+<li>nasm:用于将汇编文件(asm)编译成二进制文件(bin) <code>nasm -f bin xxx.asm -o xxx.bin</code></li>
+<li>qemu:用于将二进制文件运行在一个虚拟机中 <code>qemu-system-x86-64 xxx.bin</code></li>
+</ul>
+<h2 id="1引导扇区"><a class="markdownIt-Anchor" href="#1引导扇区"></a> 1.引导扇区</h2>
+<p>该部分主要是为了:<strong>创建一个文件 ，让BIOS 将文件识别为一个可引导的磁盘</strong><br>
+计算机上电启动后，首先运行主板 BIOS 程序，BIOS 把加载操作系统的任务交给引导扇区。 因此，引导扇区必须放在一个已知的标准位置，这个位置就是磁盘的第一个扇区(cylinder 0, head 0, sector 0) 该扇区一共占用 512 字节。</p>
+<p>为了确保 “磁盘是可引导的” BIOS 会检查扇区的第 511 和 512 字节是不是 0xaa55.</p>
+<p>最简单的引导扇区如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">e9 fd ff 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+<span class="token punctuation">[</span> <span class="token number">29</span> <span class="token function">more</span> lines with sixteen zero-bytes each <span class="token punctuation">]</span>
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 <span class="token number">55</span> aa<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用汇编代码实现如下</p>
+<pre class="line-numbers language-x86asm" data-language="x86asm"><code class="language-x86asm">; 循环
+loop:
+    jmp loop 
 
+; 用于填充引导扇区剩余的空间，使引导扇区大小为512字节
+times 510-($-$$) db 0
+; 写入0xaa55让BOIS识别为可引导的磁盘
+dw 0xaa55 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/os-tutorial-2024-08-22-15-11-00.png" alt="运行结果"></p>
+<h2 id="2引导打印"><a class="markdownIt-Anchor" href="#2引导打印"></a> 2.引导打印</h2>
+<p>通过中断<code>int</code>可以让引导程序输出一些文本</p>
+<pre class="line-numbers language-x86asm" data-language="x86asm"><code class="language-x86asm">mov ah, 0x0e ; tty mode
+mov al, 'H' 
+int 0x10 ;视频中断，将al的数据输出到屏幕上
+mov al, 'e'
+int 0x10
+mov al, 'l'
+int 0x10
+int 0x10 ; 'l' is still on al, remember?
+mov al, 'o'
+int 0x10
+
+jmp $ ; jump to current address = infinite loop
+
+; padding and magic number
+times 510 - ($-$$) db 0
+dw 0xaa55 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3引导内存"><a class="markdownIt-Anchor" href="#3引导内存"></a> 3.引导内存</h2>
+<p>BIOS 会把引导程序放置在内存地址 0x7C00 处，然后把系统控制权交给这里的程序。所以对于用地址去取值首先需要进行地址偏移。</p>
+<p>比如下面这段程序，将<code>the_secret</code>地址处的值输出到屏幕上需要在前面加个全局地址偏移<code>[org 0x7c00]</code></p>
+<pre class="line-numbers language-x86asm" data-language="x86asm"><code class="language-x86asm">[org 0x7c00]
+mov al, [the_secret]
+int 0x10
+
+the_secret:
+    db "X"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="4引导栈"><a class="markdownIt-Anchor" href="#4引导栈"></a> 4.引导栈</h2>
+<p><code>bp</code>存储栈的基地址，<code>sp</code>存储栈顶地址，栈从<code>bp</code>开始向下生长</p>
+<pre class="line-numbers language-x86asm" data-language="x86asm"><code class="language-x86asm">mov bp, 0x8000 ; 找一个远离0x7c00的地址作为栈的基地址
+mov sp, bp ; 栈为空
+
+push 'A'
+push 'B'
+push 'C'
+pop bx ;将栈中的数据弹到bl中
+pop bx
+pop bx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="5引导段"><a class="markdownIt-Anchor" href="#5引导段"></a> 5.引导段</h2>
+<p>段寄存器:代码段<code>cs</code>,数据段<code>ds</code>,栈<code>ss</code>,其他<code>es</code>。<br>
+有了段寄存器后要计算绝对地址就需要与段地址相加。</p>
+<h2 id="6引导扇区"><a class="markdownIt-Anchor" href="#6引导扇区"></a> 6.引导扇区</h2>
+<pre class="line-numbers language-x86asm" data-language="x86asm"><code class="language-x86asm">[org 0x7c00]
+    mov bp, 0x8000 ; 设置栈
+    mov sp, bp
+
+    mov bx, 0x9000 ; es:bx = 0x0000:0x9000 = 0x09000
+    mov dh, 2 ; read 2 sectors
+    ;调用磁盘读取函数
+    call disk_load
+
+    mov dx, [0x9000] ; retrieve the first loaded word, 0xdada
+    call print_hex
+
+    call print_nl
+
+    mov dx, [0x9000 + 512] ; first word from second loaded sector, 0xface
+    call print_hex
+
+    jmp $
+
+%include "../05-bootsector-functions-strings/boot_sect_print.asm"
+%include "../05-bootsector-functions-strings/boot_sect_print_hex.asm"
+%include "boot_sect_disk.asm"
+
+; Magic number
+times 510 - ($-$$) db 0
+dw 0xaa55
+
+; boot sector = sector 1 of cyl 0 of head 0 of hdd 0
+; from now on = sector 2 ...
+times 256 dw 0xdada ; sector 2 = 512 bytes
+times 256 dw 0xface ; sector 3 = 512 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -570,7 +649,7 @@ openai官网发布的技术架构
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/">https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/</a>
+                    <a href="https://songdongjing.github.io/2024/08/22/os-tutorial/">https://songdongjing.github.io/2024/08/22/os-tutorial/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -608,8 +687,8 @@ openai官网发布的技术架构
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/AI/">
-                                    <span class="chip bg-color">AI</span>
+                                <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                                    <span class="chip bg-color">基础知识</span>
                                 </a>
                             
                         </div>
@@ -688,17 +767,18 @@ openai官网发布的技术架构
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/06/15/ji-zhu-sui-bi/">
+                <a href="/2024/08/22/os-tutorial/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="技术随笔">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="os_tutorial">
                         
-                        <span class="card-title">技术随笔</span>
+                        <span class="card-title">os_tutorial</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -708,9 +788,9 @@ openai官网发布的技术架构
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -719,11 +799,12 @@ openai官网发布的技术架构
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%8A%80%E6%9C%AF%E7%90%86%E8%AE%BA/">
-                        <span class="chip bg-color">技术理论</span>
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">基础知识</span>
                     </a>
                     
                 </div>
@@ -737,13 +818,13 @@ openai官网发布的技术架构
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/06/10/leetcode-shua-ti-ji-lu-1/">
+                <a href="/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="leetcode刷题记录(1)手写STL库">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="虚拟机使用宿主机的VPN">
                         
-                        <span class="card-title">leetcode刷题记录(1)手写STL库</span>
+                        <span class="card-title">虚拟机使用宿主机的VPN</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -754,7 +835,7 @@ openai官网发布的技术架构
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-22
                             </span>
                         <span class="publish-author">
                             
@@ -767,8 +848,8 @@ openai官网发布的技术架构
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">工具</span>
                     </a>
                     
                 </div>

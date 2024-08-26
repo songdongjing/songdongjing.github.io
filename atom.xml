@@ -6,7 +6,7 @@
   <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
   
   <link href="https://songdongjing.github.io/"/>
-  <updated>2024-08-22T05:21:14.653Z</updated>
+  <updated>2024-08-22T07:35:52.941Z</updated>
   <id>https://songdongjing.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>os_tutorial</title>
+    <link href="https://songdongjing.github.io/2024/08/22/os-tutorial/"/>
+    <id>https://songdongjing.github.io/2024/08/22/os-tutorial/</id>
+    <published>2024-08-22T07:00:18.000Z</published>
+    <updated>2024-08-22T07:35:52.941Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1准备环境&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1准备环境&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
   
   <entry>
     <title>虚拟机使用宿主机的VPN</title>
@@ -47,7 +70,7 @@ clash配置为允许局域网连接&lt;/p&gt;
     <link href="https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/"/>
     <id>https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/</id>
     <published>2024-08-22T04:48:35.000Z</published>
-    <updated>2024-08-22T04:58:11.017Z</updated>
+    <updated>2024-08-22T07:35:52.941Z</updated>
     
     
       
@@ -72,7 +95,7 @@ clash配置为允许局域网连接&lt;/p&gt;
     <link href="https://songdongjing.github.io/2024/08/20/suan-fa/"/>
     <id>https://songdongjing.github.io/2024/08/20/suan-fa/</id>
     <published>2024-08-20T02:48:38.000Z</published>
-    <updated>2024-08-22T04:48:46.954Z</updated>
+    <updated>2024-08-23T09:41:21.598Z</updated>
     
     
       
@@ -95,7 +118,7 @@ clash配置为允许局域网连接&lt;/p&gt;
     <link href="https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/"/>
     <id>https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/</id>
     <published>2024-08-01T01:41:31.000Z</published>
-    <updated>2024-08-15T04:05:52.464Z</updated>
+    <updated>2024-08-26T11:15:56.185Z</updated>
     
     
       
@@ -104,7 +127,7 @@ clash配置为允许局域网连接&lt;/p&gt;
         
     <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
 &lt;p&gt;准备面试了，把以前做的无人驾驶小车项目整理一下。&lt;/p&gt;
-&lt;h2 id=&quot;方案&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+&lt;h2 id=&quot;小车底盘代码解析&quot;&gt;&lt;a</summary>
         
       
     
@@ -472,30 +495,6 @@ clash配置为允许局域网连接&lt;/p&gt;
     
     
     <category term="技术理论" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E6%9C%AF%E7%90%86%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅浅理解大模型</title>
-    <link href="https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/"/>
-    <id>https://songdongjing.github.io/2024/06/11/qian-qian-li-jie-da-mo-xing/</id>
-    <published>2024-06-11T02:20:37.000Z</published>
-    <updated>2024-06-11T05:13:47.584Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;大模型训练架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#大模型训练架构&quot;&gt;&lt;/a&gt; 大模型训练架构&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://openai.com/index/chatgpt/&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
     
   </entry>
   

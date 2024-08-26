@@ -7,13 +7,9 @@
     <meta name="keywords" content="重温Navigation组件, 血肉苦痛，机械飞升">
     <meta name="description" content=" 动机
 准备面试了，把以前做的无人驾驶小车项目整理一下。
- 方案
- SLAM
-机器人通过自身传感器数据处理进行位置估计，同时通过不断移动完成对整个未知环境的地图构建。
-主要有3个关键技术
-
-传感器感知(位置估计)
-视觉/激光里程计：通过前后">
+ 小车底盘代码解析
+小车采用的autolabor pro 1的底盘，官方提供了相应的ROS驱动代码，这里讲解一下他的运行逻辑。
+bootst是一个C拓展库，其中boost::asio">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -495,21 +491,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-08-15
+                    2024-08-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    157
+                    489
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -531,16 +527,37 @@
             <div id="articleContent">
                 <h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2>
 <p>准备面试了，把以前做的无人驾驶小车项目整理一下。</p>
-<h2 id="方案"><a class="markdownIt-Anchor" href="#方案"></a> 方案</h2>
-<h3 id="slam"><a class="markdownIt-Anchor" href="#slam"></a> SLAM</h3>
-<p>机器人通过<code>自身传感器数据处理</code>进行<code>位置估计</code>，同时通过不断移动完成对整个未知环境的<code>地图构建</code>。<br>
-主要有3个关键技术</p>
-<ul>
-<li>传感器感知(位置估计)</li>
-<li>视觉/激光里程计：通过前后数据之间对比得出机器人位置的变化。</li>
-<li>回环检测: 判断机器人是否到达之前到过的位置。用于解决位置估计误差问题，建图时可以纠正地图误差。<br>
-<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E9%87%8D%E6%B8%A9Navigation%E7%BB%84%E4%BB%B6-2024-08-01-09-51-38.png" alt="经典SLAM结构"></li>
-</ul>
+<h2 id="小车底盘代码解析"><a class="markdownIt-Anchor" href="#小车底盘代码解析"></a> 小车底盘代码解析</h2>
+<p>小车采用的autolabor pro 1的底盘，官方提供了相应的ROS驱动代码，这里讲解一下他的运行逻辑。</p>
+<p><code>bootst</code>是一个C<ins>拓展库，其中<code>boost::asio::serial_port</code>类是一个用于处理串行通信的C</ins>类。<br>
+<code>boost::asio::io_service</code> 用于实现异步I/O操作，允许应用程序在等待I/O操作时同时执行其他任务，充分利用多核处理器。</p>
+<p>小车与NUC通信采用串口通信。</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">//串口通信代码
+
+typedef boost::shared_ptr&lt;boost::asio::serial_port&gt; serial_port_ptr;//首先定义了一个指针指向通信的端口
+serial_port_ptr port_;
+
+boost::asio::io_service io_service_;
+port_ = serial_port_ptr(new boost::asio::serial_port(io_service_));//port_指向串口设备
+port_-&gt;open(port_name_, ec_);//打开串口设备 port_name_通过ROS参数设置得到
+port_-&gt;set_option(boost::asio::serial_port_base::baud_rate(baud_rate_));
+port_-&gt;set_option(boost::asio::serial_port_base::character_size(8));
+port_-&gt;set_option(boost::asio::serial_port_base::stop_bits(boost::asio::serial_port_base::stop_bits::one));
+port_-&gt;set_option(boost::asio::serial_port_base::parity(boost::asio::serial_port_base::parity::none));
+port_-&gt;set_option(boost::asio::serial_port_base::flow_control(boost::asio::serial_port_base::flow_control::none));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出化串口后开始进行ROS订阅和发布</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">//发布者对象实例化，话题和最大保存的消息数(队列)
+    odom_pub_ = node.advertise&lt;nav_msgs::Odometry&gt;("wheel_odom", 10);//发布里程计信息
+    battery_pub_ = node.advertise&lt;std_msgs::Int32&gt;("remaining_battery", 1);//发布剩余电量信息
+    current_pub_ = node.advertise&lt;std_msgs::Float32&gt;("current", 1);//发布电流
+    voltage_pub_ = node.advertise&lt;std_msgs::Float32&gt;("voltage",1);//发布电压
+    ros::Subscriber cmd_sub = node.subscribe&lt;geometry_msgs::Twist&gt;("/cmd_vel", 10, &amp;ChassisDriver::twist_callback, this);//订阅控制量，回调函数处理
+    ros::Timer send_speed_timer = node.createTimer(ros::Duration(1.0/control_rate_), &amp;ChassisDriver::send_speed_callback, this);//定期调用来查询剩余电量
+    ros::Timer ask_battery_remainder_timer = node.createTimer(ros::Duration(1.0/sensor_rate_), &amp;ChassisDriver::ask_battery_remainder_callback, this);
+    ros::Timer ask_current_timer = node.createTimer(ros::Duration(1.0/sensor_rate_), &amp;ChassisDriver::ask_current_callback, this);
+    ros::Timer ask_voltage_timer = node.createTimer(ros::Duration(1.0/sensor_rate_), &amp;ChassisDriver::ask_voltage_callback, this);
+    boost::thread parse_thread(boost::bind(&amp;ChassisDriver::parse_msg, this));//创建新线程来解析消息
+    ros::spin();//启动ROS主循环。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -961,7 +978,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">48.7k</span>
+                        class="white-color">49.8k</span>
             
             
             
