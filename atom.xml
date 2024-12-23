@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>血肉苦痛，机械飞升</title>
+  
+  <subtitle>加入光荣的进化吧</subtitle>
+  <link href="https://songdongjing.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://songdongjing.github.io/"/>
+  <updated>2024-12-22T17:49:24.250Z</updated>
+  <id>https://songdongjing.github.io/</id>
+  
+  <author>
+    <name>sdj</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>连接内网服务器教程</title>
+    <link href="https://songdongjing.github.io/2024/12/23/lian-jie-nei-wang-fu-wu-qi-jiao-cheng/"/>
+    <id>https://songdongjing.github.io/2024/12/23/lian-jie-nei-wang-fu-wu-qi-jiao-cheng/</id>
+    <published>2024-12-22T16:51:40.000Z</published>
+    <updated>2024-12-22T17:49:24.250Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;参考资料&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/made_in_china_too/article/details/95373985&quot;&gt;csdn&lt;/a&gt;&lt;br&gt;
+&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="内网穿透" scheme="https://songdongjing.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cuda学习</title>
+    <link href="https://songdongjing.github.io/2024/12/11/cuda-xue-xi/"/>
+    <id>https://songdongjing.github.io/2024/12/11/cuda-xue-xi/</id>
+    <published>2024-12-11T02:58:37.000Z</published>
+    <updated>2024-12-23T16:09:25.183Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;参考&lt;a href=&quot;https://face2ai.com/program-blog/#GPU%E7%BC%96%E7%A8%8B%EF%BC%88CUDA%EF%BC%89&quot;&gt;谭升的博客&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;并行计算和计算机架构&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="并行计算" scheme="https://songdongjing.github.io/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LSTM理论与实践</title>
+    <link href="https://songdongjing.github.io/2024/11/26/lstm-li-lun-yu-shi-jian/"/>
+    <id>https://songdongjing.github.io/2024/11/26/lstm-li-lun-yu-shi-jian/</id>
+    <published>2024-11-26T13:41:52.000Z</published>
+    <updated>2024-11-28T15:46:13.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lstm理论与实践&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#lstm理论与实践&quot;&gt;&lt;/a&gt; LSTM理论与实践&lt;/h1&gt;
+&lt;h2 id=&quot;1lstm原理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://songdongjing.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="LSTM" scheme="https://songdongjing.github.io/tags/LSTM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>os_tutorial</title>
+    <link href="https://songdongjing.github.io/2024/08/22/os-tutorial/"/>
+    <id>https://songdongjing.github.io/2024/08/22/os-tutorial/</id>
+    <published>2024-08-22T07:00:18.000Z</published>
+    <updated>2024-11-26T13:39:03.505Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1准备环境&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1准备环境&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚拟机使用宿主机的VPN</title>
+    <link href="https://songdongjing.github.io/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/"/>
+    <id>https://songdongjing.github.io/2024/08/22/xu-ni-ji-shi-yong-su-zhu-ji-de-vpn/</id>
+    <published>2024-08-22T05:18:14.000Z</published>
+    <updated>2024-11-26T13:39:03.511Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1虚拟机和宿主机配置&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1虚拟机和宿主机配置&quot;&gt;&lt;/a&gt; 1.虚拟机和宿主机配置&lt;/h2&gt;
+&lt;p&gt;虚拟机网络选择桥接模式&lt;br&gt;
+clash配置为允许局域网连接&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu使用clash</title>
+    <link href="https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/"/>
+    <id>https://songdongjing.github.io/2024/08/22/ubuntu-shi-yong-clash/</id>
+    <published>2024-08-22T04:48:35.000Z</published>
+    <updated>2024-11-26T13:39:03.506Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1下载&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1下载&quot;&gt;&lt;/a&gt; 1.下载&lt;/h2&gt;
+&lt;p&gt;Github 上的 clash 官方仓库已经删库跑路。&lt;br&gt;
+&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法</title>
+    <link href="https://songdongjing.github.io/2024/08/20/suan-fa/"/>
+    <id>https://songdongjing.github.io/2024/08/20/suan-fa/</id>
+    <published>2024-08-20T02:48:38.000Z</published>
+    <updated>2024-11-26T13:39:03.509Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;第一章-算法在计算中的作用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#第一章-算法在计算中的作用&quot;&gt;&lt;/a&gt; 第一章</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>重温Navigation组件</title>
+    <link href="https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/"/>
+    <id>https://songdongjing.github.io/2024/08/01/chong-wen-navigation-zu-jian/</id>
+    <published>2024-08-01T01:41:31.000Z</published>
+    <updated>2024-11-26T13:39:03.512Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;准备面试了，把以前做的无人驾驶小车项目整理一下。&lt;/p&gt;
+&lt;h2 id=&quot;小车底盘代码解析&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="机器人" scheme="https://songdongjing.github.io/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解linux设备驱动程序</title>
+    <link href="https://songdongjing.github.io/2024/07/30/shen-ru-li-jie-linux-she-bei-qu-dong-cheng-xu/"/>
+    <id>https://songdongjing.github.io/2024/07/30/shen-ru-li-jie-linux-she-bei-qu-dong-cheng-xu/</id>
+    <published>2024-07-30T05:48:07.000Z</published>
+    <updated>2024-11-26T13:39:03.496Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-设备驱动程序简介&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-设备驱动程序简介&quot;&gt;&lt;/a&gt; 1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git操作总结</title>
+    <link href="https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/"/>
+    <id>https://songdongjing.github.io/2024/07/26/git-cao-zuo-zong-jie/</id>
+    <published>2024-07-26T14:04:12.000Z</published>
+    <updated>2024-11-26T13:39:03.468Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;git提交代码的总体流程&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#git提交代码的总体流程&quot;&gt;&lt;/a&gt; git提交代码的总体流程&lt;/h2&gt;
+&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解计算机系统</title>
+    <link href="https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/"/>
+    <id>https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/</id>
+    <published>2024-07-23T06:03:55.000Z</published>
+    <updated>2024-11-26T13:39:03.500Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1系统架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1系统架构&quot;&gt;&lt;/a&gt; 1.系统架构&lt;/h2&gt;
+&lt;h2 id=&quot;2信息的表示与处理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="基础知识" scheme="https://songdongjing.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解transformer</title>
+    <link href="https://songdongjing.github.io/2024/07/21/shen-ru-li-jie-transformer/"/>
+    <id>https://songdongjing.github.io/2024/07/21/shen-ru-li-jie-transformer/</id>
+    <published>2024-07-21T07:36:10.000Z</published>
+    <updated>2024-11-26T13:39:03.498Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1动机&quot;&gt;&lt;/a&gt; 1.动机&lt;/h2&gt;
+&lt;h2 id=&quot;2transformer算法讲解&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wsl</title>
+    <link href="https://songdongjing.github.io/2024/07/20/wsl/"/>
+    <id>https://songdongjing.github.io/2024/07/20/wsl/</id>
+    <published>2024-07-20T15:13:27.000Z</published>
+    <updated>2024-11-26T13:39:03.494Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;由于vscode突然连接不上wsl了，尝试了很多办法都无法解决，于是决定重装wsl，记录一下重装过程。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://songdongjing.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>端到端自动驾驶系统探究</title>
+    <link href="https://songdongjing.github.io/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/"/>
+    <id>https://songdongjing.github.io/2024/07/12/duan-dao-duan-zi-dong-jia-shi-xi-tong-tan-jiu/</id>
+    <published>2024-07-12T07:17:57.000Z</published>
+    <updated>2024-11-26T13:39:03.503Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AI" scheme="https://songdongjing.github.io/tags/AI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python外部库深入探究-jsbsim库为例</title>
+    <link href="https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/"/>
+    <id>https://songdongjing.github.io/2024/07/10/python-wai-bu-ku-shen-ru-tan-jiu-jsbsim-ku-wei-li/</id>
+    <published>2024-07-10T07:51:27.000Z</published>
+    <updated>2024-11-26T13:39:03.492Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt; 动机&lt;/h2&gt;
+&lt;p&gt;由于jsbsim中的某些函数总是打印出一些烦人的文本，同时为了方便改写多进程代码，需要去了解该外部库的底层原理。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="https://songdongjing.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>空战几何学</title>
+    <link href="https://songdongjing.github.io/2024/07/08/kong-zhan-ji-he-xue/"/>
+    <id>https://songdongjing.github.io/2024/07/08/kong-zhan-ji-he-xue/</id>
+    <published>2024-07-08T03:33:16.000Z</published>
+    <updated>2024-11-26T13:39:03.502Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#动机&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于科研绘图</title>
+    <link href="https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/"/>
+    <id>https://songdongjing.github.io/2024/07/07/guan-yu-ke-yan-hui-tu/</id>
+    <published>2024-07-07T01:46:25.000Z</published>
+    <updated>2024-11-26T13:39:03.495Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;理论知识&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#理论知识&quot;&gt;&lt;/a&gt; 理论知识&lt;/h2&gt;
+&lt;h3 id=&quot;1-图像分类&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-图像分类&quot;&gt;&lt;/a&gt; 1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="技巧" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh免密码登录</title>
+    <link href="https://songdongjing.github.io/2024/06/24/ssh-mian-mi-ma-deng-lu/"/>
+    <id>https://songdongjing.github.io/2024/06/24/ssh-mian-mi-ma-deng-lu/</id>
+    <published>2024-06-24T11:49:17.000Z</published>
+    <updated>2024-11-26T13:39:03.456Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;ssh连接通常需要输入用户的密码，但是可以通过生成RSA加密算法完成面密码登录。&lt;/p&gt;
+&lt;h2 id=&quot;方法&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#方法&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="技巧" scheme="https://songdongjing.github.io/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6/25周报</title>
+    <link href="https://songdongjing.github.io/2024/06/24/6-25-zhou-bao/"/>
+    <id>https://songdongjing.github.io/2024/06/24/6-25-zhou-bao/</id>
+    <published>2024-06-24T10:07:39.000Z</published>
+    <updated>2024-11-26T13:39:03.440Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;多进程胜率计算程序&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#多进程胜率计算程序&quot;&gt;&lt;/a&gt; 多进程胜率计算程序&lt;/h2&gt;
+&lt;p&gt;上次实验发现运行一个仿真器需要一半(14cpu core)的cpu核心参与运算。&lt;br&gt;
+&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="毕业进展" scheme="https://songdongjing.github.io/tags/%E6%AF%95%E4%B8%9A%E8%BF%9B%E5%B1%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo框架解析</title>
+    <link href="https://songdongjing.github.io/2024/06/24/hexo-kuang-jia-jie-xi/"/>
+    <id>https://songdongjing.github.io/2024/06/24/hexo-kuang-jia-jie-xi/</id>
+    <published>2024-06-24T02:49:37.000Z</published>
+    <updated>2024-11-26T13:39:03.443Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;文档结构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#文档结构&quot;&gt;&lt;/a&gt; 文档结构&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;hexo文档结构&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    
+    <category term="前端" scheme="https://songdongjing.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,1894 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="深入理解计算机系统, 血肉苦痛，机械飞升">
+    <meta name="description" content=" 1.系统架构
+ 2.信息的表示与处理
+现代计算机存储和处理的信息都以二值信号表示(位)，把位组合在一起，再加上某种解释(编码)。
+三种最重要的编码:无符号编码(unsigned)针对大于等于0的数，补码编码(signed)针对有符号整数，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>深入理解计算机系统 | 血肉苦痛，机械飞升</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="/js/prism/prism.css">
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="血肉苦痛，机械飞升" type="application/atom+xml">
+</head>
+
+<body class="line-numbers">
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">血肉苦痛，机械飞升</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/my_tools" class="waves-effect waves-light">
+      
+      <i class="fas fa-toolbox" style="zoom: 0.6;"></i>
+      
+      <span>My_tools</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/slides" class="waves-effect waves-light">
+      
+      <i class="fas fa-film" style="zoom: 0.6;"></i>
+      
+      <span>Slides</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>Medias</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Movies</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">血肉苦痛，机械飞升</div>
+        <div class="logo-desc">
+            
+            记录日常工作
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/my_tools" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-toolbox"></i>
+			
+			My_tools
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/slides" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-film"></i>
+			
+			Slides
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			Medias
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Movies</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/songdongjing/" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/songdongjing/" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">深入理解计算机系统</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                                <span class="chip bg-color">基础知识</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-07-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-11-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    11.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    42 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1系统架构"><a class="markdownIt-Anchor" href="#1系统架构"></a> 1.系统架构</h2>
+<h2 id="2信息的表示与处理"><a class="markdownIt-Anchor" href="#2信息的表示与处理"></a> 2.信息的表示与处理</h2>
+<p>现代计算机存储和处理的信息都以二值信号表示(<code>位</code>)，把位组合在一起，再加上某种解释(<code>编码</code>)。<br>
+三种最重要的编码:<code>无符号编码(unsigned)</code>针对大于等于0的数，<code>补码编码(signed)</code>针对有符号整数，<code>浮点数编码(floating point)</code>表示实数,通过有限位对数字编码会造成 <code>溢出</code></p>
+<h3 id="21信息存储"><a class="markdownIt-Anchor" href="#21信息存储"></a> 2.1信息存储</h3>
+<p>大多数计算机使用8位的块作为<code>最小可寻址内存单元</code>(<code>字节</code>),将内存视为一个非常大的<code>字节数组</code>(<code>虚拟内存</code>),内存中每个字节都由唯一的数字标识(<code>地址</code>),所有地址集合(<code>虚拟地址空间</code>)</p>
+<blockquote>
+<p>所以虚拟地址空间就是展示给机器级程序的概念性映像。</p>
+</blockquote>
+<h4 id="211十六进制表示法"><a class="markdownIt-Anchor" href="#211十六进制表示法"></a> 2.1.1十六进制表示法</h4>
+<p>一个字节的值域用十六进制表示则为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><msub><mn>0</mn><mn>16</mn></msub><mo>∼</mo><mi>F</mi><msub><mi>F</mi><mn>16</mn></msub></mrow><annotation encoding="application/x-tex">00_{16} \sim FF_{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord">0</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>很简洁地描述了一个字节，c语言用0x表示16进制。</p>
+<h4 id="212字数据大小"><a class="markdownIt-Anchor" href="#212字数据大小"></a> 2.1.2字数据大小</h4>
+<p>每台计算机的指针数据都有个标称大小，代表着虚拟地址空间地最大大小(<code>字长</code>)，如果字长为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>位，该虚拟地址的范围为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>∼</mo><msup><mn>2</mn><mi>w</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 2^w-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.747722em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</p>
+<blockquote>
+<p>目前大多数计算机都从32位转为64位字长，32位字长虚拟地址为4GB不满足目前普遍16GB以上的内存容量。</p>
+</blockquote>
+<p>C语言基本数据类型在32/64位系统下的典型字节大小如下表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型(有符号 / 无符号)</th>
+<th style="text-align:center">32位</th>
+<th style="text-align:center">64位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">char / unsigned char</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">short / unsigned short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">int  / unsigned</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">long / unsigned long</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">int32_t / uint32_t</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">int64_t / uint64_t</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">char *</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="213寻址和字节顺序"><a class="markdownIt-Anchor" href="#213寻址和字节顺序"></a> 2.1.3寻址和字节顺序</h4>
+<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列，其地址为所用字节的最小地址。</p>
+<p>假设一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>位的整数其位表示为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi>x</mi><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mtext>最高有效位</mtext><mo stretchy="false">)</mo><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="false">(</mo><mtext>最低有效位</mtext><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[x_{w-1}(最高有效位),...,x_0(最低有效位)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">高</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">效</span><span class="mord cjk_fallback">位</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">低</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">效</span><span class="mord cjk_fallback">位</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span>,将其表示为字节后相应有<code>最高有效字节</code>，<code>最低有效字节</code>。机器有下列两种存储数的方式：</p>
+<ul>
+<li>大端法：最高有效字节存储在最低地址上</li>
+<li>小端法：最低有效字节存储在最低地址上</li>
+</ul>
+<blockquote>
+<p>大多数Intel兼容机都只用小端模式。小端模式最广泛。(linux,windows,ios都使用小端模式)<br>
+大小端主要是在网络编程、反汇编和强制类型转换时会有用。</p>
+</blockquote>
+<h4 id="214表示字符串"><a class="markdownIt-Anchor" href="#214表示字符串"></a> 2.1.4表示字符串</h4>
+<p>每个字符都用某个编码标准表示，然后组成一个字符数组，以null(其值为0)作为结束(<code>字符串</code>)</p>
+<blockquote>
+<p>ASCII编码采用8位表示字符，主要使用于英文文档<br>
+Unicode编码采用32位表示字符，能够表示所有的符号，但是占用内存过大<br>
+作为替代UTF-8使用可变长度编码，用更小的内存表示Unicode中任何字符，更加广泛。</p>
+</blockquote>
+<h4 id="215表示代码"><a class="markdownIt-Anchor" href="#215表示代码"></a> 2.1.5表示代码</h4>
+<p>不同的机器类型使用不同的且不兼容的指令和编码方式，不同的操作系统也有不同的编码规则。</p>
+<h4 id="216布尔代数"><a class="markdownIt-Anchor" href="#216布尔代数"></a> 2.1.6布尔代数</h4>
+<p>基于二进制运算已经演化出数学知识体系(<code>布尔代数</code>)，用于研究逻辑推理的基本规则。</p>
+<ul>
+<li>4个布尔运算：~,&amp;,|,^(异或)</li>
+</ul>
+<h4 id="217c语言中的位级运算"><a class="markdownIt-Anchor" href="#217c语言中的位级运算"></a> 2.1.7C语言中的位级运算</h4>
+<p>如上一节。<br>
+常见用法就是在一个字中选出一个位集合(<code>掩码</code>)</p>
+<h4 id="218c语言中的逻辑运算"><a class="markdownIt-Anchor" href="#218c语言中的逻辑运算"></a> 2.1.8C语言中的逻辑运算</h4>
+<p><code>||,&amp;&amp;,!</code></p>
+<ul>
+<li>逻辑运算认为非0表示TRUE,0表示FALSE</li>
+<li>如果第一个参数求值能确定表达式结果，第二个参数不再求值。</li>
+</ul>
+<h4 id="219c语言中的移位运算"><a class="markdownIt-Anchor" href="#219c语言中的移位运算"></a> 2.1.9C语言中的移位运算</h4>
+<p><code>&lt;&lt;,&gt;&gt;</code><br>
+在左端补0然后右移(<code>逻辑右移</code>)，在左端补最高有效位然后右移(<code>算术右移</code>)</p>
+<blockquote>
+<p>几乎所有的编译器都对有符号数使用算术右移，无符号数逻辑左移。</p>
+</blockquote>
+<h3 id="22整数表示"><a class="markdownIt-Anchor" href="#22整数表示"></a> 2.2整数表示</h3>
+<p>用位对整数编码有两种方式：一种只能表示非负数，第二种表示所有整数，</p>
+<h4 id="211整型数据类型"><a class="markdownIt-Anchor" href="#211整型数据类型"></a> 2.1.1整型数据类型</h4>
+<p>表示有限范围的整数。</p>
+<h4 id="212无符号数的编码"><a class="markdownIt-Anchor" href="#212无符号数的编码"></a> 2.1.2无符号数的编码</h4>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mn>2</mn><msub><mi>U</mi><mi>w</mi></msub><mo stretchy="false">(</mo><mover accent="true"><mi>x</mi><mo>⃗</mo></mover><mo stretchy="false">)</mo><mo>≐</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>x</mi><mi>i</mi></msub><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">B 2 U_w(\vec{x}) \doteq \sum_{i=0}^{w-1} x_i 2^i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">2</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≐</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0787820000000004em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8011130000000004em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>x</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span></span></span></span>表示位向量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>表示该整数的位数。<br>
+该函数为双射。</p>
+<h4 id="213补码的编码"><a class="markdownIt-Anchor" href="#213补码的编码"></a> 2.1.3补码的编码</h4>
+<p>将字的最高位解释为负权。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mn>2</mn><msub><mi>T</mi><mi>w</mi></msub><mo stretchy="false">(</mo><mover accent="true"><mi>x</mi><mo>⃗</mo></mover><mo stretchy="false">)</mo><mo>≐</mo><mo>−</mo><msub><mi>x</mi><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>w</mi><mo>−</mo><mn>2</mn></mrow></munderover><msub><mi>x</mi><mi>i</mi></msub><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">B 2 T_w(\vec{x}) \doteq-x_{w-1} 2^{w-1}+\sum_{i=0}^{w-2} x_i 2^i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">2</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≐</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.072439em;vertical-align:-0.208331em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.864108em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:3.0787820000000004em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8011130000000004em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>该函数也是双射</p>
+<h4 id="214有符号数和无符号数之间的转换"><a class="markdownIt-Anchor" href="#214有符号数和无符号数之间的转换"></a> 2.1.4有符号数和无符号数之间的转换</h4>
+<p>数值可能会变但是位模式不变</p>
+<h4 id="215c语言中的有符号数和无符号数"><a class="markdownIt-Anchor" href="#215c语言中的有符号数和无符号数"></a> 2.1.5C语言中的有符号数和无符号数</h4>
+<p>无符号数后面加u，运算中如何混合，都会转换为无符号数。</p>
+<h4 id="216扩展一个数的位表示"><a class="markdownIt-Anchor" href="#216扩展一个数的位表示"></a> 2.1.6扩展一个数的位表示</h4>
+<p>无符号数转更大(比如uint32_t转uint64_t)通过<code>0扩展</code><br>
+补码数转更大(比如short转int)通过<code>符号扩展</code></p>
+<h4 id="217截断数字"><a class="markdownIt-Anchor" href="#217截断数字"></a> 2.1.7截断数字</h4>
+<p>大变小</p>
+<h3 id="23整数运算"><a class="markdownIt-Anchor" href="#23整数运算"></a> 2.3整数运算</h3>
+<h4 id="231无符号加法"><a class="markdownIt-Anchor" href="#231无符号加法"></a> 2.3.1无符号加法</h4>
+<p>定义运算符<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>+</mo><mi>w</mi><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">+_w^u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.911392em;vertical-align:-0.247em;"></span><span class="mord"><span class="mbin">+</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>为无符号加法，截断<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>位。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><msubsup><mo>+</mo><mi>w</mi><mi>u</mi></msubsup><mi>y</mi><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>&lt;</mo><msup><mn>2</mn><mi>w</mi></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>&nbsp;正常&nbsp;</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>−</mo><msup><mn>2</mn><mi>w</mi></msup><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msup><mn>2</mn><mi>w</mi></msup><mo>⩽</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>w</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>&nbsp;溢出&nbsp;</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">x+_w^u y=\left\{\begin{array}{lll}
+x+y, &amp; x+y&lt;2^w &amp; \text { 正常 } \\
+x+y-2^w, &amp; 2^w \leqslant x+y&lt;2^{w+1} &amp; \text { 溢出 }
+\end{array}\right.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9613919999999999em;vertical-align:-0.247em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"><span class="mbin">+</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel amsrm">⩽</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">正常</span><span class="mord">&nbsp;</span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">溢出</span><span class="mord">&nbsp;</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h4 id="232补码加法"><a class="markdownIt-Anchor" href="#232补码加法"></a> 2.3.2补码加法</h4>
+<p>定义<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>+</mo><mi>w</mi><mi mathvariant="normal">t</mi></msubsup></mrow><annotation encoding="application/x-tex">+_w^{\mathrm{t}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040556em;vertical-align:-0.247em;"></span><span class="mord"><span class="mbin">+</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7935559999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">t</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>为补码加法，截断<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>位。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><msubsup><mo>+</mo><mi>w</mi><mi mathvariant="normal">t</mi></msubsup><mi>y</mi><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>−</mo><msup><mn>2</mn><mi>w</mi></msup><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msup><mn>2</mn><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>⩽</mo><mi>x</mi><mo>+</mo><mi>y</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>&nbsp;正溢出&nbsp;</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><msup><mn>2</mn><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>⩽</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>&nbsp;正常&nbsp;</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>+</mo><msup><mn>2</mn><mi>w</mi></msup><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>&lt;</mo><mo>−</mo><msup><mn>2</mn><mrow><mi>w</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>&nbsp;负溢出&nbsp;</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">x+_w^{\mathrm{t}} y=\left\{\begin{array}{lll}
+x+y-2^w, &amp; 2^{w-1} \leqslant x+y &amp; \text { 正溢出 } \\
+x+y, &amp; -2^{w-1} \leqslant x+y&lt;2^{w-1} &amp; \text { 正常 } \\
+x+y+2^w, &amp; x+y&lt;-2^{w-1} &amp; \text { 负溢出 }
+\end{array}\right.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0905559999999999em;vertical-align:-0.247em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"><span class="mbin">+</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8435559999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">t</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.60004em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05002em;"><span style="top:-2.49999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.20499em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.15001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.00501em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.30002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel amsrm">⩽</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel amsrm">⩽</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">正溢出</span><span class="mord">&nbsp;</span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">正常</span><span class="mord">&nbsp;</span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">&nbsp;</span><span class="mord cjk_fallback">负溢出</span><span class="mord">&nbsp;</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h4 id="233补码的非"><a class="markdownIt-Anchor" href="#233补码的非"></a> 2.3.3补码的非</h4>
+<h4 id="234无符号乘法"><a class="markdownIt-Anchor" href="#234无符号乘法"></a> 2.3.4无符号乘法</h4>
+<h4 id="235补码乘法"><a class="markdownIt-Anchor" href="#235补码乘法"></a> 2.3.5补码乘法</h4>
+<h4 id="236乘以常数"><a class="markdownIt-Anchor" href="#236乘以常数"></a> 2.3.6乘以常数</h4>
+<h4 id="237除以2的幂"><a class="markdownIt-Anchor" href="#237除以2的幂"></a> 2.3.7除以2的幂</h4>
+<p>以上用到再补充</p>
+<h3 id="24浮点数"><a class="markdownIt-Anchor" href="#24浮点数"></a> 2.4浮点数</h3>
+<p>浮点数表示对形如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>x</mi><mo>×</mo><msup><mn>2</mn><mi>y</mi></msup></mrow><annotation encoding="application/x-tex">V=x \times 2^y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span></span></span></span></span></span></span></span>的有理数编码。</p>
+<h4 id="241二进制小数"><a class="markdownIt-Anchor" href="#241二进制小数"></a> 2.4.1二进制小数</h4>
+<p>小数可以表示如下，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">d</span></span></span></span>为小数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为小数的表示位。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mo>−</mo><mi>n</mi></mrow><mi>m</mi></munderover><mn>1</mn><msup><mn>0</mn><mi>i</mi></msup><mo>×</mo><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d=\sum_{i=-n}^m 10^i \times d_i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.9873970000000005em;vertical-align:-1.336em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.8723309999999997em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.336em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<h4 id="242-ieee浮点表示"><a class="markdownIt-Anchor" href="#242-ieee浮点表示"></a> 2.4.2 IEEE浮点表示</h4>
+<p>如果非常大的数字，比如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>×</mo><msup><mn>2</mn><mn>100</mn></msup></mrow><annotation encoding="application/x-tex">5 \times 2^{100}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span>上面的方法很难表示。改用直接表示科学计数法更加简单。</p>
+<p>IEEE浮点标准用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>s</mi></msup><mo>×</mo><mi>M</mi><mo>×</mo><msup><mn>2</mn><mi>E</mi></msup></mrow><annotation encoding="application/x-tex">V=(-1)^s \times M \times 2^E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span></span></span></span>形式表示</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span>表示符号，决定正负</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>表示<code>尾数</code>,是一个二进制小数</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span>表示<code>阶码</code>，对浮点数加权。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-23-22-39-18.png" alt="标准浮点格式"></li>
+</ul>
+<h2 id="3程序的机器级表示"><a class="markdownIt-Anchor" href="#3程序的机器级表示"></a> 3.程序的机器级表示</h2>
+<p>这一节主要是窥视C语言提供的抽象层下面的东西，来了解机器级编程。</p>
+<h3 id="31历史观点"><a class="markdownIt-Anchor" href="#31历史观点"></a> 3.1历史观点</h3>
+<p>主要是intel和AMD在处理器上的发展，产生了如今X86-64架构处理器。</p>
+<h3 id="32程序编码"><a class="markdownIt-Anchor" href="#32程序编码"></a> 3.2程序编码</h3>
+<p>为了了解一段c语言程序和机器代码之间的关系，从linux上默认编译器GCC C编译器出发</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">linux<span class="token operator">&gt;</span> gcc <span class="token parameter variable">-Og</span> <span class="token parameter variable">-o</span> p p1.c p2.c<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这段指令就是用GCC C编译器将两个c文件p1.c,p2.c编译生成机器代码p。<br>
+-Og是生成机器代码的优化等级，如果优化等级过高会导致机器代码和原始代码之间的关系难以理解。<br>
+-o p表示生成可执行文件p<br>
+gcc命令调用了一整套程序<br>
+①C预处理：插入#include指定的文件，扩展用#define声明的宏<br>
+②编译器:产生两个源文件的<code>汇编代码</code>，名字分别位p1.s,p2.s。<br>
+③汇编器：将汇编代码转化位<code>二进制目标代码</code>p1.o,p2.o</p>
+<blockquote>
+<p>目标代码是机器代码的一种形式，包含所有指令的二进制表示，但是还没有填入全局值的地址(因为代码还没有合并)</p>
+</blockquote>
+<p>④链接器将两个目标代码文件和实现库函数代码合并，生成可执行代码文件p</p>
+<blockquote>
+<p>可执行文件是机器代码的第二种形式，是处理器执行的代码格式。</p>
+</blockquote>
+<ul>
+<li>机器级编码<br>
+指令集架构(ISA)定义机器级程序的格式和行为，比如x86-64将程序的行为描述成每条指令顺序执行。</li>
+</ul>
+<h3 id="33数据格式"><a class="markdownIt-Anchor" href="#33数据格式"></a> 3.3数据格式</h3>
+<p>由于x86-64由16位一步步扩展过来，所以将数据分为了<code>字节</code>，<code>字</code>，<code>双字</code>,<code>四字</code>,分别对应汇编代码b,w,l,q</p>
+<h3 id="34访问信息"><a class="markdownIt-Anchor" href="#34访问信息"></a> 3.4访问信息</h3>
+<p>处理器通过内置的寄存器来访问内存中的数据。x86-64包含16个64位的<code>通用目的寄存器</code>用来存储整数数据和指针。</p>
+<h3 id="35算术和逻辑操作"><a class="markdownIt-Anchor" href="#35算术和逻辑操作"></a> 3.5算术和逻辑操作</h3>
+<p>操作主要分为：加载有效地址<code>leap</code>、一元操作<code>INC,DEC等</code>、二元操作<code>ADD,SUB等</code>和移位<code>SAL等</code>。各种运算指令都是通过这4个基本操作或者其组合。</p>
+<h3 id="36控制"><a class="markdownIt-Anchor" href="#36控制"></a> 3.6控制</h3>
+<p>对于一些要跳转的代码比如条件语句、循环等汇编这边采用<code>jump</code>控制指令</p>
+<h3 id="37过程"><a class="markdownIt-Anchor" href="#37过程"></a> 3.7过程</h3>
+<p><code>过程</code>是一种抽象，也就是c代码中可以被调用的函数等。<br>
+要提供对过程Q的机器级支持需要满足多个机制<br>
+①传递控制：进入过程时，程序计数器(PC)设置为Q代码的起始地址，返回时调用Q的后面的地址<br>
+②传递数据：能够为Q提供参数，Q也能返回一个值<br>
+③分配和释放内存：Q为局部变量分配空间，返回时释放空间</p>
+<h4 id="371运行时栈"><a class="markdownIt-Anchor" href="#371运行时栈"></a> 3.7.1运行时栈</h4>
+<blockquote>
+<p>栈向低地址生长</p>
+</blockquote>
+<p>调用x86-64过程时会在栈上分配空间，该空间叫做过程的<code>栈帧</code>。</p>
+<h3 id="38数组分配和访问"><a class="markdownIt-Anchor" href="#38数组分配和访问"></a> 3.8数组分配和访问</h3>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">T A[N]
+T *p=A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果数据类型T的大小为L，那么会分配<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>⋅</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">L \cdot N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>的连续区域。<br>
+如果p的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">x_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>,那么p+i的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub><mo>+</mo><mi>L</mi><mo>⋅</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">x_p+L \cdot i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">T A[N][M]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>对于嵌套的数组，很显然需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>⋅</mo><mi>N</mi><mo>⋅</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L \cdot N \cdot M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>的连续空间，将其看成5行3列的二维数组，在内存中按照<code>行优先</code>的顺序排列，，即A[0][0]然后A[0][1]。</p>
+<h3 id="39异质数据结构"><a class="markdownIt-Anchor" href="#39异质数据结构"></a> 3.9异质数据结构</h3>
+<p>对于多种类型对象的组合比如<code>struct</code>(将多个对象集合到一个单位),<code>union</code>(用多种不用的类型来引用一个对象)</p>
+<h4 id="391结构体"><a class="markdownIt-Anchor" href="#391结构体"></a> 3.9.1结构体</h4>
+<p>结构体所有组成部分都存放在内存的连续区域内，指向结构体的指针就是结构体第一个字节的地址。<br>
+比如下面的结构声明</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">struct rec{
+    int i;
+    int j;
+    int a[2];
+    int *p;
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其内存中分配的空间如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-14-14-09.png" alt="深入理解计算机系统-2024-07-24-14-14-09"></p>
+<h4 id="392联合"><a class="markdownIt-Anchor" href="#392联合"></a> 3.9.2联合</h4>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">struct S3{
+    char c;
+    int i[2];
+    double v;
+}
+union U3{
+    char c;
+    int i[2];
+    double v;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译时其字段偏移量如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-14-18-45.png" alt="深入理解计算机系统-2024-07-24-14-18-45"><br>
+可见一个联合的总大小等于它最大字段的大小。<br>
+其应用情况为：针对一个数据结构中的两个不同字段的使用是互斥的，那么就将这两个字段声明为联合的一部分，从而减少分配空间的总量。<br>
+比如要实现一个二叉树的数据结构，只有叶子节点有数据，只有内部节点有指向两个孩子的指针，实现方式如下：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef enum{N_LEAF,N_INTERNAL} nodetype_t;
+
+struct node_t{
+    nodetype_t type;
+    union node_u{
+        struct{
+            union node_u *left;
+            union node_u *right;
+        }internal;
+        double data[2];
+    }info;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了确定一个给定节点的类型，所以引入了枚举类型。</p>
+<h3 id="310在机器级程序中将控制与数据结合起来"><a class="markdownIt-Anchor" href="#310在机器级程序中将控制与数据结合起来"></a> 3.10在机器级程序中将控制与数据结合起来</h3>
+<p>指针是联系控制和数据重要的概念。</p>
+<h4 id="3101理解指针"><a class="markdownIt-Anchor" href="#3101理解指针"></a> 3.10.1理解指针</h4>
+<p>①每个指针都对应一个类型<br>
+②每个指针都有一个值 NULL表示这个指针没有指向任何位置<br>
+③指针用<code>&amp;</code>运算符创建<br>
+④<code>*</code>操作符用于间接引用指针 采用内存引用来实现，要么存储到一个指定的地址，要么从指定的地址读取。<br>
+⑤数组与指针紧密联系 类型强转，只改变类型，不改变值。</p>
+<blockquote>
+<p>如果p是一个<code>char *</code>类型的指针,其值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<code>(int *)p+4*7</code>计算为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mn>28</mn></mrow><annotation encoding="application/x-tex">x_0+28</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">8</span></span></span></span>,而<code>(int *)(p+7)</code>计算为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">x_0+7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span></p>
+</blockquote>
+<p>⑥指针可以指向函数 函数指针的值是该函数机器代码表示中第一条指令的地址。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int fun(int x,int *p);//函数定义
+//指针声明
+int (*fp)(int,int *);
+fp=fun;
+//指针调用
+int y=1;
+int result=fp(3,&amp;y);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="311浮点代码"><a class="markdownIt-Anchor" href="#311浮点代码"></a> 3.11浮点代码</h3>
+<p>用寄存器</p>
+<h3 id="312小结"><a class="markdownIt-Anchor" href="#312小结"></a> 3.12小结</h3>
+<p>关于其他编程语言的机器级实现：</p>
+<ul>
+<li>C++和C非常相似，都是通过将源代码翻译为机器级的汇编代码，最后产生目标代码实现</li>
+<li>Java的目标代码是一种特殊的二进制表示，称为<code>Java字节码</code>,但是这种目标代码是虚拟机的机器级程序，用软件解释器处理字节代码，模拟虚拟机的行为。其优点是相同的代码可以在许多不同的机器上执行。</li>
+<li>另一种是<code>即时编译</code>的方法,动态地将字节代码作为程序地低级表示。当代码要执行多次时，这种方法执行更快。</li>
+</ul>
+<h2 id="4处理器体系结构"><a class="markdownIt-Anchor" href="#4处理器体系结构"></a> 4.处理器体系结构</h2>
+<p>上一节都是在x86-64指令集架构(ISA)下，不同的处理器有不同的ISA,一个程序编译在一种机器上运行就不能在另一种机器上运行。本章主要研究一个硬件系统执行Yx86-64ISA指令的方式。</p>
+<h3 id="41y86-64指令集体系结构"><a class="markdownIt-Anchor" href="#41y86-64指令集体系结构"></a> 4.1Y86-64指令集体系结构</h3>
+<p>定义一个指令集架构包括定义各种状态单元、指令集和它们的编码、一组编程规范和异常事件处理。</p>
+<h4 id="411程序员可见的状态"><a class="markdownIt-Anchor" href="#411程序员可见的状态"></a> 4.1.1程序员可见的状态</h4>
+<p>15个64位程序寄存器，3个1位条件码，程序计数器，程序状态码<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-10-22.png" alt="深入理解计算机系统-2024-07-24-15-10-22"></p>
+<h4 id="412y86-64指令"><a class="markdownIt-Anchor" href="#412y86-64指令"></a> 4.1.2Y86-64指令</h4>
+<p>也就是指令集<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-13-11.png" alt="深入理解计算机系统-2024-07-24-15-13-11"></p>
+<h4 id="413指令编码"><a class="markdownIt-Anchor" href="#413指令编码"></a> 4.1.3指令编码</h4>
+<p>涉及汇编到机器代码的转换<br>
+每条指令需要1~10个字节不等，第一个字节表明指令的类型，高4位时代码部分，低4位时功能部分。<br>
+如下图，第一个数表示代码，第二个数表示功能。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-15-39.png" alt="第一个字节的实例"></p>
+<blockquote>
+<p>x86-64被称为复杂指令集(CISC),其指令数量很多,在大型机占据了通知地位<br>
+精简指令集(RISC)通常少于100个，在嵌入式处理器市场表现出色。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-21-56.png" alt="深入理解计算机系统-2024-07-24-15-21-56"></p>
+</blockquote>
+<h3 id="42逻辑设计和硬件控制语言hcl"><a class="markdownIt-Anchor" href="#42逻辑设计和硬件控制语言hcl"></a> 4.2逻辑设计和硬件控制语言HCL</h3>
+<p>硬件设计是指令集的硬件载体。</p>
+<h3 id="43y86-64的顺序实现"><a class="markdownIt-Anchor" href="#43y86-64的顺序实现"></a> 4.3Y86-64的顺序实现</h3>
+<p>先描述一个称为SEQ的处理器，在每个时钟周期上，SEQ执行处理完一条完整指令所需的所有步骤。</p>
+<h4 id="431将处理组织成阶段"><a class="markdownIt-Anchor" href="#431将处理组织成阶段"></a> 4.3.1将处理组织成阶段</h4>
+<p>①取指 从PC指向的内存地址中读取指令字节<br>
+②译码 从寄存器中读入最多两个操作数<br>
+③执行 算术/逻辑单元(ALU)执行指令指明的操作。<br>
+④访存 将数据写入内存<br>
+⑤写回 将结果写入寄存器<br>
+⑥更新PC 将PC设置成下一条指令的地址</p>
+<h4 id="432seq硬件结构"><a class="markdownIt-Anchor" href="#432seq硬件结构"></a> 4.3.2SEQ硬件结构</h4>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-33-06.png" alt="SEQ的抽象结构"><br>
+更详细的硬件结构如下：白色方框表示时钟寄存器，浅蓝色方框表示硬件单元，控制逻辑块用灰色圆角矩形表示，线路的名字在白色圆圈中说明，宽度位字长的数据连接用中等粗度的线表示，宽度为字节或更窄的数据连接用细线表示，单个位的连接用虚线表示。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-33-55.png" alt="更详细的硬件结构"></p>
+<h4 id="433seq的时序"><a class="markdownIt-Anchor" href="#433seq的时序"></a> 4.3.3SEQ的时序</h4>
+<h4 id="434seq阶段的实现"><a class="markdownIt-Anchor" href="#434seq阶段的实现"></a> 4.3.4SEQ阶段的实现</h4>
+<p>关于SEQ各部分的硬件实现，可以用HCL写出来的那种。</p>
+<h3 id="44流水线的通用原理"><a class="markdownIt-Anchor" href="#44流水线的通用原理"></a> 4.4流水线的通用原理</h3>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-48-19.png" alt="三阶段流水线的计算硬件"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-48-50.png" alt="三阶段流水线的时序"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-15-49-53.png" alt="带反馈的流水线"></p>
+<h3 id="45y86-64的流水线实现"><a class="markdownIt-Anchor" href="#45y86-64的流水线实现"></a> 4.5Y86-64的流水线实现</h3>
+<p>手搓CPU时再看吧</p>
+<h2 id="5优化程序性能"><a class="markdownIt-Anchor" href="#5优化程序性能"></a> 5优化程序性能</h2>
+<p>编写高效程序需要</p>
+<ul>
+<li>选择一组适当的算法和数据结构；</li>
+<li>编写出编译器能够有效优化以转换成高效可执行代码的源代码。</li>
+</ul>
+<p>对于第二点就需要去理解编译器的能力和局限性。<br>
+程序员需要一个目标机器的模型，利用处理器提供的指令集并行能力，同时执行多跳指令。</p>
+<h3 id="51优化编译器的能力和局限性"><a class="markdownIt-Anchor" href="#51优化编译器的能力和局限性"></a> 5.1优化编译器的能力和局限性</h3>
+<p>大多数编译器会假设最糟糕的情况，并保持所有的函数调用不变。<br>
+比如：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void twiddle1(long *xp,long *yp){
+    *xp+=*yp;
+    *yp+=*xp;
+}
+void twiddle2(long *xp,long *yp){
+    *xp += 2* *yp;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>显然在大多数情况下两个过程有相同的行为，且第二个过程性能高于第一种，但是如果xp和yp指向同一个位置时，两个过程就无法等价。</p>
+<h3 id="52表示程序性能"><a class="markdownIt-Anchor" href="#52表示程序性能"></a> 5.2表示程序性能</h3>
+<p>引入程序性能的度量标准：<code>每元素的周期数(CPE)</code>，通常用时钟周期来表示，比如一个4GHz的处理器时钟周期为0.25ns。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-21-56-31.png" alt="深入理解计算机系统-2024-07-24-21-56-31"><br>
+上面的程序是实现长度为n的向量的前置和的功能，第二个函数进行了一部分循环展开。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-24-21-57-23.png" alt="深入理解计算机系统-2024-07-24-21-57-23"><br>
+两个函数的运行时间分别近似于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>368</mn><mo>+</mo><mn>9</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">368+9n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">6</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord mathnormal">n</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>368</mn><mo>+</mo><mn>6</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">368+6n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">6</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord mathnormal">n</span></span></span></span>，前面的常数是代码计时和初始化过程、准备循环以及完成过程的开销为368个周期，后面的线性因子可以称为CPE，显然CPE越小程序性能越好。</p>
+<h3 id="53一些加快性能的方法"><a class="markdownIt-Anchor" href="#53一些加快性能的方法"></a> 5.3一些加快性能的方法</h3>
+<p>1.消除循环<br>
+2.减少过程调用<br>
+3.消除不必要的内存引用<br>
+4.现代处理器的指令集并行<br>
+5.循环展开<br>
+6.提高并行性</p>
+<h2 id="6存储器层次结构"><a class="markdownIt-Anchor" href="#6存储器层次结构"></a> 6.存储器层次结构</h2>
+<p>在前面的部分都是把存储器作为一个线性字节数组。<br>
+实际上存储器系统分为<code>CPU寄存器</code>,靠近cpu的小的快速的<code>高速缓存存储器(cache)</code>,<code>主存储器</code>，<code>磁盘</code><br>
+指令执行阶段在cpu寄存器中0个周期内就能访问到,cache中需要4~75个周期，主存中需要上百的周期，磁盘中需要几千万个周期。</p>
+<h3 id="61存储技术"><a class="markdownIt-Anchor" href="#61存储技术"></a> 6.1存储技术</h3>
+<h4 id="611ram和rom"><a class="markdownIt-Anchor" href="#611ram和rom"></a> 6.1.1RAM和ROM</h4>
+<p><code>随机存取存储器</code>分为静态和动态的。静态的(<code>SRAM</code>)更快更贵(几兆)，用于cache或者CPU芯片上。动态的(<code>DRAM</code>)容量做得更大(几千兆)，用于作为主存以及图形系统的帧缓冲区。<br>
+SRAM只要有电就会永远保持它的值<br>
+DRAM容易漏电，需要随时刷新。</p>
+<blockquote>
+<p>DRAM封装在内存模块中。(比如目前流行的DDR(Double Data-Rate Synchronous)系列，和显存VRAM)</p>
+</blockquote>
+<p><code>非易失性存储器</code>的代表<code>闪存(flash)</code>基于<code>EEPROM</code>,其主要产品由<code>固态硬盘(SSD)</code>,存储的程序被称为<code>固件(firmware)</code>。<br>
+<code>总线</code>的作用是将数据流在CPU和DRAM主存之间传递。是一组并行的导线，能携带地址、数据和控制信号。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-36-35.png" alt="CPU,总线和主存"></p>
+<h4 id="612磁盘"><a class="markdownIt-Anchor" href="#612磁盘"></a> 6.1.2磁盘</h4>
+<p>以前的磁盘通常叫做机械硬盘和光盘(用磁性材料)，现在基于FLASH技术的SSD发展起来，都统一叫磁盘。<br>
+下面这张图就是计算机组成的精华<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-44-31.png" alt="磁盘的位置"></p>
+<h4 id="613总结"><a class="markdownIt-Anchor" href="#613总结"></a> 6.1.3总结</h4>
+<p>速率比较:SRAM&gt;DRAM&gt;磁盘</p>
+<h3 id="62局部性"><a class="markdownIt-Anchor" href="#62局部性"></a> 6.2局部性</h3>
+<p>局部性指的是倾向于引用邻近于其他最近引用过的数据项的数据项。比如在硬件层引入cache来保存这些数据。</p>
+<h3 id="63存储器层次结构"><a class="markdownIt-Anchor" href="#63存储器层次结构"></a> 6.3存储器层次结构</h3>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-52-20.png" alt="存储器层次结构"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-53-12.png" alt="缓存的使用"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-54-00.png" alt="Intel Core i7Cache层次结构"></p>
+<h2 id="7链接"><a class="markdownIt-Anchor" href="#7链接"></a> 7链接</h2>
+<p><code>链接</code>就是把代码和数据组合成可以在内存中<code>加载</code>执行的单一文件的过程。</p>
+<h3 id="71编译器驱动程序"><a class="markdownIt-Anchor" href="#71编译器驱动程序"></a> 7.1编译器驱动程序</h3>
+<p><code>编译器驱动程序</code>由编译系统提供，让用户可以调用<code>语言预处理(cpp)</code>、<code>编译器(cc1)</code>、<code>汇编器(as)</code>和<code>链接器(ld)</code>。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-Og</span> <span class="token parameter variable">-o</span> prog main.c sum.c <span class="token comment">#调用所有</span>
+
+<span class="token comment">#下面是分解步骤</span>
+cpp main.c /tmp/main.i <span class="token comment">#C预处理器将main.c翻译成ASCII码中间文件main.i</span>
+cc1 /tmp/main.i <span class="token parameter variable">-Og</span> <span class="token parameter variable">-o</span> /tmp/main.s <span class="token comment">#C编译器将main.i翻译成ASCII汇编文件main.s</span>
+as /tmp/main.s <span class="token parameter variable">-o</span> /tmp/main.o /tmp/main.s <span class="token comment">#汇编器将main.s翻译成可重定位目标文件main.o</span>
+ld <span class="token parameter variable">-o</span>  prog /tmp/main.o  /tmp/sum.o <span class="token comment">#链接器将main.o和sum.o以及一些必要的系统目标文件组合起来创建一个可执行目标文件prog</span>
+
+<span class="token comment">#执行 </span>
+./prog <span class="token comment">#加载器将prog中的代码和数据复制到内存中，然后将控制转移到这个程序的开头。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-11-59-11.png" alt="静态链接"></p>
+<h3 id="72各名词和文件解释"><a class="markdownIt-Anchor" href="#72各名词和文件解释"></a> 7.2各名词和文件解释</h3>
+<p><code>静态链接器(ld)</code>以一组<code>可重定位目标文件</code>和<code>命令行参数</code>作为输入，生成一个完全链接的、可以加载和运行的<code>可执行目标文件</code>作为输出。ld有两个任务：①<code>符号解析</code>②<code>重定位</code><br>
+针对这个定义中的各个名词如下做出解释</p>
+<h4 id="721目标文件"><a class="markdownIt-Anchor" href="#721目标文件"></a> 7.2.1目标文件</h4>
+<p>目标文件都是二进制代码和数据，但是具有不同的作用。<br>
+定义中存在2种目标文件：<code>可重定位目标文件</code>和<code>可执行目标文件</code>。还存在第3种目标文件：共享目标文件。</p>
+<h5 id="7211可重定位目标文件"><a class="markdownIt-Anchor" href="#7211可重定位目标文件"></a> 7.2.1.1可重定位目标文件</h5>
+<p>顾名思义，可重定位目标文件是一个可以与其他可重定位目标文件合并起来的文件。<br>
+ELF头描述生成该文件的系统的字的大小和字节顺序。剩下的部分帮助ld语法分析和解释目标文件的信息。<br>
+信息主要有ELF头的大小，目标文件的类型，机器类型，节点头部表的文件偏移等。</p>
+<ul>
+<li>.text:已编译程序的机器代码</li>
+<li>.rodata:只读数据</li>
+<li>.data:已初始化的全局和静态C变量</li>
+<li>.bss:未初始化的全局和静态C变量</li>
+<li>.symtab:一个符号表，它包含了程序中定义和引用的函数和全局变量的信息</li>
+<li>.rel.text:一个重定位表，它包含了.text部分中的位置，这些位置需要在链接时被修改</li>
+<li>.rel.data:一个重定位表，它包含了.data部分中的位置，这些位置需要在链接时被修改</li>
+<li>.debug:一个调试符号表 (-g选项才有)</li>
+<li>.line:原始C源程序中的行号与.text节中的机器指令之间的映射。(-g选项才有)</li>
+<li>.strtab:一个字符串表，它包含了程序中引用的所有字符串<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-13-32-07.png" alt="典型的ELF可重定位目标文件"></li>
+</ul>
+<h5 id="7212可执行目标文件"><a class="markdownIt-Anchor" href="#7212可执行目标文件"></a> 7.2.1.2可执行目标文件</h5>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-13-44-52.png" alt="典型的ELF可执行目标文件"><br>
+Linux程序都有一个运行时内存映像：<code>代码段</code>总是从地址0x400000开始，后面是<code>数据段</code>，<code>堆</code>在数据段之后通过调用malloc库往上增长，堆后面的区域是为<code>共享模块</code>(后面介绍的动态链接)保留的。<code>用户栈</code>总是从最大的合法用户地址(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup><mn>8</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^48-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>)开始的，向较小内存地址增长。从地址<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup><mn>8</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^48-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>开始时为<code>内核</code>(操作系统驻留内存的部分)中的代码和数据保留的。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-13-47-15.png" alt="Linuxx86-64运行时内存映像"><br>
+加载器运行时，加载器跳转到程序的入口点，也就是_start函数的地址。</p>
+<blockquote>
+<p>_start函数是在系统目标文件ctrl.o中定义的，_start函数调用系统启动函数__libc_start_main，该函数定义在libc.so中。它初始化执行环境，调用用户层的main函数，处理main函数中的返回值，并且在需要的时候把控制返回给内核。</p>
+</blockquote>
+<h3 id="73动态链接共享库"><a class="markdownIt-Anchor" href="#73动态链接共享库"></a> 7.3动态链接共享库</h3>
+<p>前面介绍了静态链接通过可重定位目标文件组合，但是几乎每个C程序会层层调用其他的标准库函数，如果全都使用静态链接生成的可执行文件非常巨大，造成内存资源的浪费。共享库是在运行或加载时进入内存的，冰河一个内存中的程序链接起来，用.so后缀表示，windows中用DLL表示。<br>
+一个库只有一个.so文件，所有引用该库的可执行目标文件共享这个文件。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-14-03-17.png" alt="动态链接共享库"></p>
+<h2 id="8异常控制流"><a class="markdownIt-Anchor" href="#8异常控制流"></a> 8异常控制流</h2>
+<p>程序计数器假设一个值的序列<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">a_0,a_1,...a_{n-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">a_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是某个相应指令<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">I_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的地址。从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">a_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">a_{k+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>的过渡称为<code>控制转移</code>。控制转移的序列叫做cpu的<code>控制流</code>。<br>
+程序跳转、调用和返回这些指令叫做<code>平滑流的突变</code>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">I_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">I_{k+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>是不连续的)。</p>
+<p>系统对系统状态的变化做出反应，通过使控制流发生突变来对这些情况做出反应，对于这种突变叫做<code>异常控制流(ECF)</code>。</p>
+<ul>
+<li>比如硬件层：硬件检测到的<code>事件</code>会触发控制突然转移到<code>异常处理程序</code>；</li>
+<li>在操作系统层：内核通过上下文切换将控制从一个用户进程转移到另一个用户进程；</li>
+<li>在应用层：一个进程可以发送<code>信号</code>到另一个进程，而接收者会将控制转移到它的一个<code>信号处理程序</code>。</li>
+</ul>
+<h3 id="81异常"><a class="markdownIt-Anchor" href="#81异常"></a> 8.1异常</h3>
+<p><code>异常</code>用来相应cpu<code>状态</code>中的某些变化。是异常控制流的一种形式，一部分由硬件实现，一部分由操作系统实现。<br>
+比如，cpu正在处理当前指令<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mrow><mi>c</mi><mi>u</mi><mi>r</mi><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">I_{curr}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时<code>状态</code>发生了一个重要的变化，该状态变化称为<code>事件(event)</code>。比如虚拟内存缺页，算术溢出、一个系统定时器产生信号等。<br>
+检测到事件发生时，通过<code>异常表</code>进行一个<code>过程调用</code>到<code>异常处理子程序</code>中进行处理。完成处理后会根据类型返回异常发生时的指令或者下一条指令或者直接终止程序。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-18-16-00.png" alt="异常"><br>
+在系统启动时，操作系统分配和初始化一张异常表，每个异常都分配唯一的非负整数<code>异常号</code>,一些是cpu设计者分配，一些事操作系统内核分配。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-18-21-38.png" alt="异常表"><br>
+异常处理程序运行在内核模式。<br>
+类别有：中断(interrupt)，陷阱(trap),故障(fault)和终止(abort)<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-18-25-03.png" alt="异常类别"></p>
+<h3 id="82进程"><a class="markdownIt-Anchor" href="#82进程"></a> 8.2进程</h3>
+<p>异常是<code>进程</code>概念的基本构造块,<code>进程</code>是计算机科学中最成功的概念之一。<br>
+进程就是一个执行中的程序的实例。进程的<code>上下文</code>就是程序运行所需的状态组成，包括内存中的代码和数据。<br>
+<code>逻辑控制流</code>就是单个进程的程序计数器的PC值序列。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-18-32-33.png" alt="逻辑控制流"><br>
+<code>并发流</code>就是一个逻辑流的执行在时间上与另一个流重叠，这两个逻辑流<code>并发地运行</code><br>
+多个流并发地执行称为<code>并发</code>，一个进程和其他进程轮流运行叫做<code>多任务</code>,一个进程执行它地控制流的一部分的每一时间段叫做<code>时间片</code>，多任务也叫做<code>时间分片</code></p>
+<p><code>并行流</code>是<code>并发流</code>的一个真子集，意思是两个流并发地运行在不同处理器核或者计算机上。<br>
+每个进程都有<code>私有地址空间</code>,为了限制应用可以执行地指令以及可以访问地地址空间范围，cpu通过<code>控制寄存器</code>的一个<code>模式位</code>来区分<code>用户模式</code>(用户进程运行)和<code>内核模式</code>(操作系统运行)。</p>
+<p><code>应用程序</code>进程从用户模式变为内核模式的唯一方法是通过<code>中断</code>、<code>故障</code>或者<code>陷入系统调用</code>。<br>
+<code>Linux</code>通过/proc文件系统允许用户模式进程访问内核数据结构的内容，/proc文件系统将许多内核数据结构输出位一个用户程序可以读的文本文件层次结构，比如用/proc文件系统找出一般的系统属性，cpu类型/proc/cpuinfo，某个特殊进程使用的内存段/proc/<process-id>/maps。Linux后续引入的/sys文件系统也可以输出系统总线核设备的额外低层信息。<br>
+操作系统内核使用一种称为<code>上下文切换</code>的高层形式的异常控制流来实现多任务，内核为每个进程维持一个<code>上下文</code>,内核抢占当前进程重新开始之前被抢占了的进程,该决策叫做<code>调度</code>，内核中的<code>调度器</code>进行处理。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-18-59-10.png" alt="进程上下文切换"></process-id></p>
+<h3 id="83进程控制"><a class="markdownIt-Anchor" href="#83进程控制"></a> 8.3进程控制</h3>
+<p>Unix提供了大量从C程序中操作进程的系统调用，比如获取进程id，创建新进程，终止进程，回收子进程，让进程休眠，加载并运行新的程序等。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+pid_t getpid(void);
+pid_t getppid(void);
+
+pid_t fork(void);
+
+#include&lt;stdlib.h&gt;
+void exit(int status);
+
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+pid_t waitpid(pid_t pid, int *statusp, int options);
+
+#include &lt;unistd.h&gt;
+unsigned int sleep(unsigned int secs);
+int pause(void)
+
+int execve(const char *filename, const char *argv[],const char *envp[]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="84信号"><a class="markdownIt-Anchor" href="#84信号"></a> 8.4信号</h3>
+<p><code>Linux信号</code>更高层次的异常,允许进程和内核中断其他进程。<code>信号</code>通知系统中发生了某种类型的事件，比如Ctrl+C会给前台进程组中的每个进程发送一个SIGINT信号。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-32-42.png" alt="Linux信号"><br>
+信号有很多术语：</p>
+<ul>
+<li><code>发送信号</code>表示内核通过更新目的进程上下文中的某个状态，发送一个信号给目的进程。</li>
+<li><code>接收信号</code>表示目的进程被内核强迫以某种方式对信号的发送做出反应。</li>
+<li><code>待处理信号</code>表示发出而没有被接收的信号。<br>
+<code>进程组</code>由一个正整数进程组ID(pgid)来标识，每个进程都只属于一个进程组，子进程和它的父进程同属于一个进程组。</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/bin/kill <span class="token parameter variable">-9</span> <span class="token number">15213</span>  <span class="token comment">#发送信号9(SIGKILL)给进程15213 </span>
+/bin/kill <span class="token parameter variable">-9</span> <span class="token parameter variable">-15213</span>  <span class="token comment">#发送信号9(SIGKILL)给进程组15213的所有进程 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><code>作业</code>表示shell中对一条命令行求值而创建的进程比如下面的命令表示由运行ls程序的进程和运行sort程序的进程组成的前台作业，这两个进程通过unix管道连接。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span> <span class="token operator">|</span> <span class="token function">sort</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-50-27.png" alt="前台和后台进程组"><br>
+Ctrl+C发送SIGINT信号到前台进程组所有进程中，Ctrl+Z发送SIGTSTP信号到前台前台进程组所有进程中。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-25-19-53-06.png" alt="信号处理程序可以被其他信号处理程序中断"><br>
+<code>隐式阻塞机制</code>就是内核默认阻塞任何当前处理程序正在处理信号类型的待处理信号。比如捕获信号s，S程序正在处理时，发送过来的另一个信号s不会被接收。<br>
+<code>显式阻塞机制</code>就是可以使用sigprocmask函数和它的辅助函数明确地阻塞和接触阻塞选定地信号。</p>
+<h3 id="85非本地跳转"><a class="markdownIt-Anchor" href="#85非本地跳转"></a> 8.5非本地跳转</h3>
+<p>C语言提供了一种用户级异常控制流形式称为<code>非本地跳转</code>，将控制直接从一个函数转移到另一个正在执行的函数，不需要经过正常的调用-返回序列，用setjmp,longjmp函数来提供。</p>
+<h2 id="9虚拟内存"><a class="markdownIt-Anchor" href="#9虚拟内存"></a> 9虚拟内存</h2>
+<p>为了有效管理内存避免出错，现代系统提供了对主存的抽象概念叫做<code>虚拟内存(VM)</code>,它为每个进程提供了一个大的、一致的和私有的地址空间.</p>
+<ul>
+<li>①将主存看成一个存储在磁盘上的地址空间的高速缓存,在主存中只保存活动区域, 并根据需要在磁盘和主存之间来回传送数据.</li>
+<li>②为每个进程提供了一致的地址空间</li>
+<li>③保护每个进程的地址空间不被其他进程破坏<br>
+早期PC使用<code>物理寻址</code>,现在dsp,mcu和一些超级计算机仍然使用这种方式,现在处理器使用的是<code>虚拟寻址</code>,CPU生成一个虚拟地址访问主存,虚拟地址送到内存前转换成物理地址,该过程叫做<code>地址翻译</code>,相应的CPU上的硬件叫做<code>内存管理单元(MMU)</code><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-03-09.png" alt="物理寻址和虚拟寻址"><br>
+物理地址空间是一个非负整数地址的有序集合,<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>M</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{0,1,2,....M-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span></span>,如果整数连续叫做<code>线性地址空间</code>.CPU从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">N=2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span>个地址的物理地址空间中生成虚拟地址,称为虚拟地址空间<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">{0,1,2,...,N-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span></span>.</li>
+</ul>
+<p>虚拟内存被组织为一个存放在磁盘上的N个连续的字节大小的单元组成的数组.但是磁盘上的数据被分割成块,这些块与主存进行数据交互,并不完全连续.所以VM系统将虚拟内存也分割为<code>虚拟页(VP)</code>大小固定的块来处理问题,每个虚拟页的大小为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><msup><mn>2</mn><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">P=2^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span>字节,物理内存分割为<code>物理页(PP)/页帧</code>大小也为P字节.<br>
+虚拟页分为三种:①未分配的:不占用磁盘空间;②缓存的:已缓存在物理内存中的已分配页③未缓存在物理内存中的已分配页.<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-28-37.png" alt="VM系统使用主存作为缓存"><br>
+在物理内存中存放着叫做<code>页表</code>的数据结构,页表将虚拟页映射到物理页,页表条目(PTE)中的有效位表明该虚拟页是否被缓存在DRAM中。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-47-04.png" alt="页表"><br>
+DRAM缓存不命中称为<code>缺页</code>,比如CPU引用VP3中的一个字,但是VP3并未缓存在DRAM中,从而触发缺页异常.<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-52-17.png" alt="VM缺页"><br>
+缺页处理程序选择VP4作为<code>牺牲页</code>,用VP3的副本取代它<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-26-12-55-09.png" alt="缺页之后选择牺牲页"><br>
+磁盘与内存之间的传送页的活动叫做<code>页面调度</code><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-12-46-20.png" alt="页面命中"><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-12-46-39.png" alt="缺页"></p>
+<p>对于32位地址空间、4KB的页面和4字节的PTE，也总是需要4MB(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup><mn>0</mn></mrow><annotation encoding="application/x-tex">2^20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">0</span></span></span></span>个页面的PTE)的页表驻留在内存中，如果地址空间为64位，那么问题会更加严重(超过1EB的页表)。<br>
+<code>多级页表</code>用于解决这个问题，如下图，一级页表中的每个PTE负责虚拟地址空间的一个一个4MB的<code>片(chunk)</code>,每个<code>片</code>都由1024个连续的页面组成。只有一级页表和经常使用的二级页表总是存放在内存中，典型的程序虚拟地址空间大部分都是未分配的，所以其二级页表根本不会存在。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-14-06-12.png" alt="两级页表"><br>
+k级页表将虚拟地址划分为k个VPN(虚拟页号)和1个VPO(虚拟页偏移)。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-14-09-25.png" alt="k级页表"></p>
+<h3 id="91intel-corei7内存系统研究"><a class="markdownIt-Anchor" href="#91intel-corei7内存系统研究"></a> 9.1Intel Corei7内存系统研究</h3>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-14-24-23.png" alt="Core i7地址翻译"><br>
+知道地址翻译后就够填补内核虚拟内存的细节了。其包含内核代码和数据结构，和被映射所有进程共享的物理页面，还有包含与该进程相关的数据结构。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-14-26-46.png" alt="一个Linux进程的虚拟内存"></p>
+<ul>
+<li>task_struct为进程的任务结构，包含内核运行该进程所需要的所有信息(PID等)</li>
+<li>mm_struct描述了虚拟内存的当前状态，比如<code>pgd</code>指向第一级页表(页全局目录)的基址和<code>mmap</code>指向一个vm_area_struct(区域结构)的链表</li>
+<li>vm_area_struct描述了当前虚拟地址空间的一个区域。</li>
+<li>vm_start:指向这个区域的起始处。</li>
+<li>vm_end ：指向这个区域的结束处。</li>
+<li>vm_prot:描述这个区域内包含的所有页的读写许可权限。</li>
+<li>vm_flags: 描述这个区域内的页面是与其他进程共享的，还是这个进程私有的(还描述了其他一些信息)。</li>
+<li>vm_next:指向链表中下一个区域结构。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-27-14-30-13.png" alt="内核数据结构"></li>
+</ul>
+<h3 id="92内存映射"><a class="markdownIt-Anchor" href="#92内存映射"></a> 9.2内存映射</h3>
+<p><code>内存映射</code>就是将一个虚拟内存区域与一个磁盘上的对象(object)关联起来，以初始化这个虚拟内存区域的内容。</p>
+<p>存在两种类型对象：</p>
+<ul>
+<li><code>linux文件系统中的普通文件</code>:一个区域可以映射到一个普通磁盘文件的连续部分，例如一个可执行目标文件。文件区(section)被分成页大小的片，每一片包含一个虚拟页面的初始内容。因为按需进行页面调度，所以这些虚拟页面没有实际交换进入物理内存，直到CPU第一次引用到页面。(也就是把磁盘中的一个连续地址区域作为<code>文件区</code>,每个区根据虚拟页大小切分为很多片)</li>
+<li><code>匿名文件</code>：一个区域也可以映射到一个匿名文件，匿名文件是由内核创建的，包含的全是二进制零。</li>
+</ul>
+<p>一旦一个虚拟页面被初始化了，他就在内核维护的专门的<code>交换文件</code>之间换来换去，交换文件也叫做<code>交换空间</code>。</p>
+<h4 id="921共享对象"><a class="markdownIt-Anchor" href="#921共享对象"></a> 9.2.1共享对象</h4>
+<p><code>共享对象</code>就是将一个对象映射到虚拟内存的一个区域。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-09-41-20.png" alt="共享对象"><br>
+<code>写时复制</code>就是针对<code>私有对象</code>的映射方法，当进程试图写私有区域中的某个页面，就会在物理内存中创建这个页面的一个副本，在这个副本上进行写操作。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-09-41-41.png" alt="私有对象写时复制"><br>
+所以当使用fork函数时，内核为新进程在虚拟内存中创建当前进程的原样副本，通过<code>写时复制</code>记录修改。<br>
+用户可以通过<code>mmap</code>函数完成<code>内存映射</code></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">mmap</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>start<span class="token punctuation">,</span><span class="token class-name">size_t</span> length<span class="token punctuation">,</span><span class="token keyword">int</span> prot<span class="token punctuation">,</span><span class="token keyword">int</span> flags<span class="token punctuation">,</span> <span class="token keyword">int</span> fd<span class="token punctuation">,</span><span class="token class-name">off_t</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-10-03-45.png" alt="mmap参数可视化解释"></p>
+<h4 id="922动态内存分配"><a class="markdownIt-Anchor" href="#922动态内存分配"></a> 9.2.2动态内存分配</h4>
+<p><code>动态内存分配器</code>具有更好的可移植性,其维护着虚拟内存的<code>堆</code>区域,分配器将堆视为一组不同大小的<code>块</code>的集合，每个块就是一个连续的<code>虚拟内存片</code>,有两种状态:<code>已分配</code>和<code>未分配</code>。</p>
+<p>分配器分为<code>显式分配器</code>(malloc©,new,delete(C++))和<code>隐式分配器</code>(<code>垃圾收集器</code>，自动释放未使用的<code>已分配块</code>)。</p>
+<h4 id="923碎片"><a class="markdownIt-Anchor" href="#923碎片"></a> 9.2.3碎片</h4>
+<p><code>碎片</code>表示不满足分配请求的未使用内存。分为<code>内部碎片</code>和<code>外部碎片</code>。<code>内部碎片</code>是已分配块比有效载荷大时发生(分配的内存大于需要的内存);<code>外部碎片</code>就是空闲内存合计起来足够满足一个分配请求</p>
+<h4 id="924隐式空闲链表"><a class="markdownIt-Anchor" href="#924隐式空闲链表"></a> 9.2.4隐式空闲链表</h4>
+<p><img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-10-17-51.png" alt="简单堆块的格式"><br>
+将下图所示的结构称为<code>隐式空闲链表</code>,即将堆组织成一个连续的已分配块和空闲块的序列，阴影部分为已分配块，没有阴影的部分时空闲块。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-10-18-47.png" alt="隐式空闲链表组织堆"></p>
+<h2 id="10-系统级io"><a class="markdownIt-Anchor" href="#10-系统级io"></a> 10 系统级I/O</h2>
+<p><code>输入/输出</code>是主存和外部设备之间复制数据的过程。</p>
+<h3 id="101unixio"><a class="markdownIt-Anchor" href="#101unixio"></a> 10.1UnixI/O</h3>
+<p>一个linux文件就是一个m个字节的序列:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>B</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>B</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">B_0,B_1,B_2,...,B_{m-1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>所有的I/O设备都被模型化为文件，而所有的输入和输出都被当做对相应的文件的读和写来执行。该方式允许Linux内核引出一个简单、低级的接口，称为<code>Unix I/O</code>。</p>
+<h3 id="102文件"><a class="markdownIt-Anchor" href="#102文件"></a> 10.2文件</h3>
+<p>每个Linux文件都有一个<code>类型</code>来表明它在系统中的角色。文件类型有：</p>
+<ul>
+<li>普通文件：分为<code>文本文件(只含有ASCII或者Unicode字符的普通文件)</code>和<code>二进制文件(所有其他文件)</code></li>
+<li>目录：包含一组<code>链接</code>，每个<code>链接</code>都将一个文件名映射到一个文件,<code>.</code>是到该目录自身的链接，<code>..</code>是父目录的链接。</li>
+<li>套接字：与另一个进程进行跨网络通信的文件</li>
+<li>命名管道，符号链接，字符和块设备</li>
+</ul>
+<h3 id="103文件操作"><a class="markdownIt-Anchor" href="#103文件操作"></a> 10.3文件操作</h3>
+<ul>
+<li>打开和关闭文件： open将文件名转换为一个文件描述符，close关闭已打开的文件。</li>
+<li>读和写文件：read和write函数将数据从文件复制到内存，或者从内存复制到文件。</li>
+<li>读取<code>文件元数据(文件的信息)</code>：stat和fstat函数读取文件信息。</li>
+<li>读取目录内容：readdir函数读取目录内容。</li>
+</ul>
+<h3 id="104共享文件"><a class="markdownIt-Anchor" href="#104共享文件"></a> 10.4共享文件</h3>
+<p>内核用三个相关的数据结构来表示打开的文件：<code>描述符</code>，<code>文件表</code>，<code>v-node表</code><br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-11-12-29.png" alt="典型的打开文件的内核数据结构"><br>
+打开同一个文件两次。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-11-14-10.png" alt="文件共享"></p>
+<h3 id="104io重定向"><a class="markdownIt-Anchor" href="#104io重定向"></a> 10.4I/O重定向</h3>
+<p><code>I/O重定向</code>允许将磁盘文件和标准输入输出联系起来，例如<code>ls &gt; foo.txt</code>，让shell加载执行ls程序，同时将标准输出<code>重定向</code>到磁盘文件<code>·</code>foo.txt`。<br>
+其原理采用dup2函数完成，如下图，使用dup2(4,1)将fd4指向fd1指向的文件，<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-11-20-35.png" alt="调用dup2(4,1)重定向标准输出之后的内核数据结构"></p>
+<h3 id="105标准io"><a class="markdownIt-Anchor" href="#105标准io"></a> 10.5标准I/O</h3>
+<p><code>UnixI/O</code>的较高级别替代就是<code>标准I/O</code>,<code>libc库</code>中提供了fopen,fclose,fread,fwrite,fgets,fputs,scanf,printf。<br>
+标准I/O库将一个打开的文件模型化为一个<code>流</code>。一个流就是一个指向FILE类型结构的指针。每个ANSI C程序开始时都有三个打开的流stdin,stdout和stderr。</p>
+<p>类型为FILE的流时对<code>文件描述符</code>和<code>流缓冲区</code>的抽象,<code>流缓冲区</code>是为了使开销较高的Linux I/O系统调用的数量尽可能得小(例如getc函数的作用是返回文件的下一个字符，先调用一次read函数把大量的字符放入缓冲区中，后面的getc函数就不再调用read函数，而是直接读缓冲区的值)<br>
+I/O包之间的关系如下图，Unix IO在操作系统内核中实现，RIO和IO都是封装Unix IO实现的，RIO 函数是专为《深入理解计算机系统》这本书开发的read和write的健壮的包装函数<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-11-34-21.png" alt="Unix IO,标准IO，RIO之间的关系"></p>
+<h2 id="11-网络编程"><a class="markdownIt-Anchor" href="#11-网络编程"></a> 11 网络编程</h2>
+<h3 id="111-客户端-服务器模型"><a class="markdownIt-Anchor" href="#111-客户端-服务器模型"></a> 11.1 客户端-服务器模型</h3>
+<p>每个网络应用都是基于<code>客户端-服务器模型</code>的，该模型中的基本操作是<code>事务</code>,流程如下<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-11-39-29.png" alt="一个客户端-服务器事务"><br>
+客户端和服务器都是进程而不是机器。</p>
+<h3 id="112-网络"><a class="markdownIt-Anchor" href="#112-网络"></a> 11.2 网络</h3>
+<p>对主机，网络只是一种I/O设备。</p>
+<h3 id="113-套接字接口"><a class="markdownIt-Anchor" href="#113-套接字接口"></a> 11.3 套接字接口</h3>
+<p><code>套接字接口</code>是一组函数，和Unix I/O函数结合起来，用以创建网络应用,下图是典型的客户端-服务器事务的上下文中的套接字接口概述。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-18-54-01.png" alt="基于套接字接口的网络应用"><br>
+客户端服务器通过socket函数来创建一个套接字描述符，用connect函数来简历和服务器的连接；服务器用bind将服务器<code>套接字地址</code>和<code>套接字描述符</code>联系起来;listen函数告诉内核该进程是服务器，将sockfd从<code>主动套接字</code>转化为一个<code>监听套接字</code>。服务器用accept函数等待客户端的连接请求。</p>
+<h3 id="12-并发编程"><a class="markdownIt-Anchor" href="#12-并发编程"></a> 12 并发编程</h3>
+<p>父子进程间存在共享状态信息，但是不共享<code>用户地址空间</code>。<br>
+独立的地址的地址空间导致了显式的<code>IPC(进程间通信)</code>机制</p>
+<p><code>Posix线程(pthread)</code>是C程序中处理线程的一个标准接口，定义了大约60个函数。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-19-49-19.png" alt="多线程轨迹线"><br>
+<code>信号量</code>用于解决同步不同执行线程问题的方法。信号量s是具有非负整数值的全局变量，用于描述目前可用资源，只能由两种特殊的操作来处理，这两种操作称为P和V:</p>
+<ul>
+<li>P(s): 如果s是非零的，那么P将s 减1,并且立即返回。如果s为零，那么就挂起这个线程，直到s变为非零，而一个V操作会重启这个线程。在重启之后，P操作将s 减1,并将控制返回给调用者。</li>
+</ul>
+<blockquote>
+<p>P(s)可以理解为申请资源，当申请资源时，资源数-1如果变为0，该进程加入等待队列</p>
+</blockquote>
+<ul>
+<li>V(s):V操作将s加1。如果有任何线程阻塞在P操作等待s变成非零，那么V操作会重启这些线程中的一个，然后该线程将s减1, 完成它的P操作。</li>
+</ul>
+<blockquote>
+<p>V(s)可以理解为释放资源，当释放资源时，资源数+1。</p>
+</blockquote>
+<p>保护共享变量的信号量叫做<code>二元信号量</code>,因为他的值总是0或者1。<br>
+以提供互斥为目的的二元信号量称为<code>互斥锁</code>。执行P操作为<code>加锁</code>,执行V操作为<code>解锁</code>。<br>
+加了锁还没解锁的线程称为<code>占用</code>这个互斥锁,被用于一组可用资源的计数器的信号量被称为<code>计数信号量</code>。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-29-20-02-37.png" alt="使用信号量来互斥"></p>
+<p><code>竞争</code>就是一个线程必须在另一个线程到达y点前到达它的控制流中的x点。<br>
+<code>死锁</code>就是一个一组线程被阻塞了，等待一个永远不会为真的条件。<br>
+<img src="http://typora-sdj.oss-cn-chengdu.aliyuncs.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-2024-07-30-13-40-08.png" alt="会死锁的程序进度图"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">sdj</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/">https://songdongjing.github.io/2024/07/23/shen-ru-li-jie-ji-suan-ji-xi-tong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">sdj</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                                    <span class="chip bg-color">基础知识</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/07/26/git-cao-zuo-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="git操作总结">
+                        
+                        <span class="card-title">git操作总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            sdj
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/07/21/shen-ru-li-jie-transformer/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="深入理解transformer">
+                        
+                        <span class="card-title">深入理解transformer</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            sdj
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI/">
+                        <span class="chip bg-color">AI</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <!-- <footer class="page-footer bg-color"> -->
+<footer class="footer">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2024</span>
+            
+            <a href="/about" target="_blank">sdj</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">53k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+    <a href="mailto:songdongjing@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=631550738" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 631550738" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+
+    <script src="/js/prism/prism.js" async></script>
+</footer>
+
+<div class="progress-bar"></div>
+
+  
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
+
